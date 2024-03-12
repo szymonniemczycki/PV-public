@@ -17,7 +17,6 @@ use App\Exception\Throwable;
 
 use App\Model\UsersModel;
 
-
 if (!empty($_POST['name']) && !empty($_POST['pass'])) {
   $postSaveLogin = htmlentities((string) $_POST['name']);
   $postSavePass = htmlentities((string) $_POST['pass']);
