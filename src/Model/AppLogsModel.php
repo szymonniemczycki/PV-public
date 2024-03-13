@@ -52,7 +52,7 @@ class AppLogsModel extends AbstractModel
                 LIMIT $offset, $pageSize
                 ";
             $result = $this->conn->query($sqlQuery);
-            $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);  
+            $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 "error",
