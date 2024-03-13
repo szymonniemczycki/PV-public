@@ -2,3 +2,4 @@ resources/
 config/
 logs/
 uuid.php
+.DS_Store
