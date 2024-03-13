@@ -32,10 +32,10 @@ try {
   echo '<h1>Wystąpił błąd w aplikacji. </h1>';
   echo '<h3>ConfigurationException</h3>';
   dump($e);
-// } catch (StorageException $e) {
-//   echo '<h1>Wystąpił błąd w aplikacji. </h1>';
-//   echo '<h3>StorageException</h3>';
-//   dump($e);
+} catch (StorageException $e) {
+  echo '<h1>Wystąpił błąd w aplikacji. </h1>';
+  echo '<h3>StorageException</h3>';
+  dump($e);
 } catch (NotFoundException $e) {
   echo '<h1>Wystąpił błąd w aplikacji. </h1>';
   echo "<h3>NotFoundException</h3>";

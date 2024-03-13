@@ -49,7 +49,7 @@ class ErrorLogs
         $dataFromFilePag = $this->paginationErrorData($dataFromFile, self::PAGE_SIZE, $filterParams['pageNr']);
         
         $errorData['filters'] = $filterParams;
-        $errorData['data'] = $dataFromFilePag;
+        $errorData['errors'] = $dataFromFilePag;
         
         return $errorData;
     }
