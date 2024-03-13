@@ -15,3 +15,5 @@
         echo password_hash($newPass, PASSWORD_DEFAULT);
     }
 ?>
+
+//end
