@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 session_start();
+
 require_once("src/Utils/debug.php");  
 
 spl_autoload_register(function (string $classNamespace) {
