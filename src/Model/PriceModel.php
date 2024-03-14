@@ -18,7 +18,7 @@ class PriceModel extends AbstractModel
     public function listPrice(string $day): array
     {   
         try {
-            $sqlQuery = "SELECT * FROM prices WHERE day = $day ORDER BY hour ASC";
+            $sqlQuery = "SELECT created, day, DATE_FORMAT(hour, \"%H:%i\") as hour, price FROM prices WHERE day = $day ORDER BY hour ASC";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
                 if (count($isExistAnyData) == 0) {
@@ -41,10 +41,10 @@ class PriceModel extends AbstractModel
     {   
         try {
             foreach($pricesToSave as $data => $days) {
-                foreach($days as $day => $price) {
+                foreach($days as $hour => $price) {
                     $sqlQuery = "
                         INSERT INTO prices (day, hour, price) 
-                        VALUES ($data, $day, $price)
+                        VALUES ($data, $hour*10000, $price)
                         ";
                     $result = $this->conn->exec($sqlQuery);
                     }

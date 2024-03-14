@@ -19,11 +19,9 @@ class AppLogModel extends AbstractModel
     public function saveLogOut(string $type, string $what, string $info): void 
     {
         try {
-            $date = date("Y-m-d");
-            $hour = date("H:i:s");
             $sqlQuery = "
-                INSERT INTO app_logs (type, date, hour, what, info) 
-                VALUES ('$type', '$date', '$hour', '$what', '$info')
+                INSERT INTO app_logs (type, what, info) 
+                VALUES ('$type', '$what', '$info')
                 ";
             $result = $this->conn->query($sqlQuery);
         } catch (Throwable $e) {            
@@ -45,7 +43,7 @@ class AppLogModel extends AbstractModel
             $sqlQuery = "
                 SELECT * FROM app_logs 
                 WHERE log LIKE ('%$params[log]%')
-                AND date LIKE ('%$params[date]%')
+                AND created LIKE ('%$params[date]%')
                 AND (status LIKE ('%$params[phrase]%') OR info LIKE ('%$params[phrase]%'))
                 ORDER BY created $params[sort]
                 LIMIT $offset, $pageSize
@@ -94,7 +92,7 @@ class AppLogModel extends AbstractModel
             $sqlQuery = "
                 SELECT COUNT(log) FROM app_logs
                 WHERE log LIKE ('%$params[log]%')
-                AND date LIKE ('%$params[date]%')
+                AND created LIKE ('%$params[date]%')
                 AND (status LIKE ('%$params[phrase]%') OR info LIKE ('%$params[phrase]%'))
                 ORDER BY created $params[sort]
                 ";

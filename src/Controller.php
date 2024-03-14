@@ -10,10 +10,6 @@ use PDOException;
 use App\Model\AppLogModel;
 use App\Model\PriceModel;
 
-// require_once("src/Model/PriceModel.php");
-// require_once("src/GetPrice.php");
-// require_once("src/View.php");
-// require_once("src/ErrorLogs.php");
 
 class Controller 
 {
@@ -80,9 +76,9 @@ class Controller
                 $this->view->render(
                     $page,
                     [
-                    'date' => $day,
-                    'niceDate' => $niceDate,
-                    'listPrices' => $viewParams
+                        'date' => $day,
+                        'niceDate' => $niceDate,
+                        'listPrices' => $viewParams
                     ]
                 );
 

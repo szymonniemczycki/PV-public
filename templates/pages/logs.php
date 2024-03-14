@@ -37,8 +37,8 @@
             for ($i = 0; $i < count($viewParams[$page]); $i++) {
               ?>
               <tr>
-                <td><?php echo $viewParams[$page][$i]['date']; ?></td>
-                <td><?php echo $viewParams[$page][$i]['hour']; ?></td>
+                <td><?php echo explode(" ", $viewParams[$page][$i]['created'])[0]; ?></td>
+                <td><?php echo explode(" ", $viewParams[$page][$i]['created'])[1]; ?></td>
                 <td><?php echo $viewParams[$page][$i]['log']; ?></td>
                 <td><?php echo $viewParams[$page][$i]['status']; ?></td>
                 <td><?php echo $viewParams[$page][$i]['info']; ?></td>

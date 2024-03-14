@@ -21,12 +21,13 @@
             foreach ($viewParams['listPrices']['prices'] ?? [] as $price) : ?>
               <tr>
                 <td><?php echo $viewParams['niceDate']; ?></td>
-                <td><?php 
-                  if(strlen(htmlentities($price['hour'])) == 1) {
-                    echo "0";
-                  }
-                  echo htmlentities($price['hour']) . ":00";
-                ?></td>
+                <!--<td><?php 
+                  // if(strlen(htmlentities($price['hour'])) == 1) {
+                  //   echo "0";
+                  // }
+                  // echo htmlentities($price['hour']) . ":00";
+                ?></td> -->
+                <td><?php echo htmlentities($price['hour']); ?></td>
                 <td><?php echo htmlentities($price['price']); ?></td>
                 <td><?php echo htmlentities($price['created']); ?></td>
               </tr>

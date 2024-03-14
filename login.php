@@ -25,8 +25,7 @@ if (!empty($_POST['name']) && !empty($_POST['password'])) {
   $usersModel = (new UserModel($configuration['db']));
   $userExist = $usersModel->checkCredential($postSaveLogin, $postSavePass);
   
-  if ((int) $userExist) {
-//  if ((int) $userExist) { bez (int)
+  if ($userExist) {
     $_SESSION['userName'] = $postSaveLogin;
     $usersModel->updateLastLogin($postSaveLogin);
     $usersModel->userLoginLog($postSaveLogin, "successful");

@@ -79,11 +79,11 @@ class AbstractModel
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
         try {
-            $date = date("Y-m-d");
-            $hour = date("H:i:s");
+            //$date = date("Y-m-d");
+            //$hour = date("H:i:s");
             $sqlQuery = "
-                INSERT INTO app_logs (log, date, hour, status, info) 
-                VALUES ('$log', '$date', '$hour', '$status', '$info')
+                INSERT INTO app_logs (log, status, info) 
+                VALUES ('$log', '$status', '$info')
                 ";
             $result = $this->conn->exec($sqlQuery);
             if ($result) {
