@@ -2,7 +2,7 @@
     <input 
         type="text" 
         name="newPass" 
-        placeholder="write pass" 
+        placeholder="write password" 
         value="<?php echo $new = ($_POST['newPass']) ? $_POST['newPass'] : "";?>" 
     /> 
     <br/> 

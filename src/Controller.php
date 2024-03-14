@@ -7,7 +7,7 @@ use Exception;
 use PDO;
 use Throwable;
 use PDOException;
-use App\Model\AppLogsModel;
+use App\Model\AppLogModel;
 use App\Model\PriceModel;
 
 // require_once("src/Model/PriceModel.php");
@@ -20,7 +20,7 @@ class Controller
     private static array $configuration = [];
     private const DEFAULT_ACTION = 'main';
 
-    private AppLogsModel $appLogsModel;
+    private AppLogModel $appLogsModel;
     private PriceModel $priceModel;
     private Request $request;
     private View $view;
@@ -43,7 +43,7 @@ class Controller
             exit('błędna konfiguracja');
         }
         $this->priceModel = new PriceModel(self::$configuration['db']);
-        $this->appLogsModel = new AppLogsModel(self::$configuration['db']);
+        $this->appLogsModel = new AppLogModel(self::$configuration['db']);
         $this->request = $request;
         $this->view = new View();
         $this->errorLogs = new ErrorLogs();
@@ -114,9 +114,9 @@ class Controller
                 $this->view->render(
                     $page,
                     [
-                    'date' => $day,
-                    'niceDate' => $niceDate,
-                    'listPrices' => $viewParams
+                        'date' => $day,
+                        'niceDate' => $niceDate,
+                        'listPrices' => $viewParams
                     ]
                 );
                 break;
@@ -260,14 +260,11 @@ class Controller
                 $viewParams['error'] = "";
             }
         } else {
-            // $this->view->render(
-            //     $page,
-            //     ['niceDate' => $niceDate,]
-            //     );
-            // exit();    
-            return (string) date("Ymd");
-            //return "";
-
+            $this->view->render(
+                $page,
+                ['niceDate' => $niceDate,]
+                );
+            exit();
         }
         return (string) ($day);  
     }

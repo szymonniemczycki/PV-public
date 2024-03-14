@@ -16,16 +16,17 @@ $configuration = require_once("config/config.php");
 use App\Exception\Exception;
 use App\Exception\Throwable;
 
-use App\Model\UsersModel;
+use App\Model\UserModel;
 
-if (!empty($_POST['name']) && !empty($_POST['pass'])) {
+if (!empty($_POST['name']) && !empty($_POST['password'])) {
   $postSaveLogin = htmlentities((string) $_POST['name']);
-  $postSavePass = htmlentities((string) $_POST['pass']);
+  $postSavePass = htmlentities((string) $_POST['password']);
   
-  $usersModel = (new UsersModel($configuration['db']));
+  $usersModel = (new UserModel($configuration['db']));
   $userExist = $usersModel->checkCredential($postSaveLogin, $postSavePass);
   
   if ((int) $userExist) {
+//  if ((int) $userExist) { bez (int)
     $_SESSION['userName'] = $postSaveLogin;
     $usersModel->updateLastLogin($postSaveLogin);
     $usersModel->userLoginLog($postSaveLogin, "successful");
@@ -36,9 +37,10 @@ if (!empty($_POST['name']) && !empty($_POST['pass'])) {
     include("templates/pages/showInfo.php");  
   }
   
-} elseif ((empty($_POST['name']) || empty($_POST['pass'])) && isset($_POST['tried'])) {
-  $usersModel = (new UsersModel($configuration['db']));
+} elseif ((empty($_POST['name']) || empty($_POST['password'])) && isset($_POST['tried'])) {
+  $usersModel = (new UserModel($configuration['db']));
   $usersModel->userLoginLog($_POST['name'], "missing data");
+  //dodać obsługę pass
   $msg = "noHash";
   include("templates/pages/showInfo.php");
 }
@@ -49,17 +51,17 @@ if (!empty($_POST['name']) && !empty($_POST['pass'])) {
 <?php require_once("templates/header.php"); ?>
 
   <body class="body">
-  <div class="login">
-    <?php if (empty($_SESSION['user'])) : ?>
-      <form class="loginForm" action="login.php" method="post">
-        <input type="text" name="name" placeholder="login" /> 
-        <br/> 
-        <input type="password" name="pass" placeholder="password" /> 
-        <br/>  
-        <input type="hidden" name="tried" value="true" />
-        <button class="btnLogin" type="submit">LOG IN</button>
-      </form>
-    <?php endif; ?>
-    </div>
+    <div class="login">
+      <?php if (empty($_SESSION['user'])) { ?>
+        <form class="loginForm" action="login.php" method="post">
+          <input type="text" name="name" placeholder="login" /> 
+          <br/> 
+          <input type="password" name="password" placeholder="password" /> 
+          <br/>  
+          <input type="hidden" name="tried" value="true" />
+          <button class="btnLogin" type="submit">LOG IN</button>
+        </form>
+      <?php } ?>
+      </div>
   </body>
 </html>

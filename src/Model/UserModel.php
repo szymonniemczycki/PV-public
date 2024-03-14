@@ -12,17 +12,17 @@ use PDO;
 use Throwable;
 use App\ErrorLogs;
 
-class UsersModel extends AbstractModel 
+class UserModel extends AbstractModel 
 {
     
     public function checkCredential(string $name, string $pass): bool
     {        
         try {
-            $sqlQuery = "SELECT pass FROM users WHERE name = '$name'";
+            $sqlQuery = "SELECT password FROM users WHERE name = '$name'";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetch(PDO::FETCH_ASSOC);
             if (!empty($isExistAnyData)) {
-                $passVerifed = password_verify($pass, $isExistAnyData['pass']);
+                $passVerifed = password_verify($pass, $isExistAnyData['password']);
                     return (bool) $passVerifed;
                 } else {
                     return false;
@@ -40,7 +40,7 @@ class UsersModel extends AbstractModel
     {
         try {
             $now = date("Y-m-d H:i:s");
-            $sqlQuery = "UPDATE users SET lastLogin = '$now' WHERE name = '$name'";
+            $sqlQuery = "UPDATE users SET last_login = '$now' WHERE name = '$name'";
             $result = $this->conn->query($sqlQuery);
             $userData = $result->fetch(PDO::FETCH_ASSOC);
                 if (!empty($userData)) {
@@ -64,7 +64,7 @@ class UsersModel extends AbstractModel
             echo $name."  ";
             echo $status;
             $sqlQuery = "
-                INSERT INTO loginLog (userForm, status) 
+                INSERT INTO login_log (user_form, status) 
                 VALUES ('$name', '$status')
                 ";
                 $result = $this->conn->exec($sqlQuery);

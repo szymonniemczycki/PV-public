@@ -9,9 +9,9 @@ use PDO;
 use Throwable;
 use PDOException;
 use App\ErrorLogs;
-use App\Model\AppLogsModel;
+use App\Model\AppLogModel;
 
-class AppLogsModel extends AbstractModel 
+class AppLogModel extends AbstractModel 
 {
     private const PAGE_SIZE = 10;
     
@@ -22,7 +22,7 @@ class AppLogsModel extends AbstractModel
             $date = date("Y-m-d");
             $hour = date("H:i:s");
             $sqlQuery = "
-                INSERT INTO appLogs (type, date, hour, what, info) 
+                INSERT INTO app_logs (type, date, hour, what, info) 
                 VALUES ('$type', '$date', '$hour', '$what', '$info')
                 ";
             $result = $this->conn->query($sqlQuery);
@@ -43,7 +43,7 @@ class AppLogsModel extends AbstractModel
         $offset = ($pageNr * $pageSize) - $pageSize;
         try {
             $sqlQuery = "
-                SELECT * FROM appLogs 
+                SELECT * FROM app_logs 
                 WHERE log LIKE ('%$params[log]%')
                 AND date LIKE ('%$params[date]%')
                 AND (status LIKE ('%$params[phrase]%') OR info LIKE ('%$params[phrase]%'))
@@ -66,7 +66,7 @@ class AppLogsModel extends AbstractModel
     public function getUniqueLog(): array
     {
         try {
-            $sqlQuery = "SELECT DISTINCT log FROM appLogs";
+            $sqlQuery = "SELECT DISTINCT log FROM app_logs";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $e) {
@@ -92,7 +92,7 @@ class AppLogsModel extends AbstractModel
     {
         try {
             $sqlQuery = "
-                SELECT COUNT(log) FROM appLogs
+                SELECT COUNT(log) FROM app_logs
                 WHERE log LIKE ('%$params[log]%')
                 AND date LIKE ('%$params[date]%')
                 AND (status LIKE ('%$params[phrase]%') OR info LIKE ('%$params[phrase]%'))

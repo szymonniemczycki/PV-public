@@ -82,7 +82,7 @@ class AbstractModel
             $date = date("Y-m-d");
             $hour = date("H:i:s");
             $sqlQuery = "
-                INSERT INTO appLogs (log, date, hour, status, info) 
+                INSERT INTO app_logs (log, date, hour, status, info) 
                 VALUES ('$log', '$date', '$hour', '$status', '$info')
                 ";
             $result = $this->conn->exec($sqlQuery);

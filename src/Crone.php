@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use App\ErrorLogs;
 use App\Model\PriceModel;
-use App\Model\AppLogsModel;
+use App\Model\AppLogModel;
 use App\GetPrice;
 
 class Crone 
@@ -12,7 +12,7 @@ class Crone
     private const DEFAULT_ACTION = 'main';
 
     private PriceModel $priceModel;
-    private AppLogsModel $appLogsModel;
+    private AppLogModel $appLogsModel;
     private Request $request;
     private GetPrice $getPrice;
     private ErrorLogs $errorLogs;
@@ -31,7 +31,7 @@ class Crone
             exit('błędna konfiguracja');
         }
         $this->priceModel = new PriceModel(self::$configuration['db']);
-        $this->appLogsModel = new AppLogsModel(self::$configuration['db']);
+        $this->appLogsModel = new AppLogModel(self::$configuration['db']);
     }
     
     

@@ -28,7 +28,7 @@
                   echo htmlentities($price['hour']) . ":00";
                 ?></td>
                 <td><?php echo htmlentities($price['price']); ?></td>
-                <td><?php echo htmlentities($price['createdTime']); ?></td>
+                <td><?php echo htmlentities($price['created']); ?></td>
               </tr>
             <?php endforeach; ?>
         </tbody>

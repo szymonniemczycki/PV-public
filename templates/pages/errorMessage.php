@@ -29,7 +29,7 @@
                 default:
                     echo 'Nieznany błąd...';
                     break;
-                }
+            }
         ?>
     </div>
 </section>
