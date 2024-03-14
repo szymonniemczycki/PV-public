@@ -35,11 +35,4 @@ class Request
     }
 
 
-    public function postParams(array $params)
-    {
-        $this->post = $params;
-        return $this->post;
-    }
-
-
 }

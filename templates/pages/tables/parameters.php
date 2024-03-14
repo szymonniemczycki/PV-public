@@ -1,13 +1,15 @@
 <?php
-    foreach ($viewParams['filters'] as $key => $value) {
-        if (!empty($value)) {
-            $selected[$key][$value] =  "selected";
+    if (!empty($viewParams['filters'])) {
+        foreach ($viewParams['filters'] as $key => $value) {
+            if (!empty($value)) {
+                $selected[$key][$value] =  "selected";
+            }
         }
+        $countPage = $viewParams['filters']['pageNr'] ? $viewParams['filters']['pageNr'] : 1;
     }
 ?>
 
 <?php
-    $countPage = $viewParams['filters']['pageNr'] ? $viewParams['filters']['pageNr'] : 1;
 ?>
 
 

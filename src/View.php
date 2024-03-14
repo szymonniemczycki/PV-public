@@ -36,7 +36,6 @@ class View
                     $clearParams[$key] = $param;
                     break;
             }
-
         }
         return $clearParams;
     }

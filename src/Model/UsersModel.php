@@ -29,32 +29,9 @@ class UsersModel extends AbstractModel
                 }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-        }
-    }
-
-
-    public function getUserDetail(string $name, string $data): string
-    {
-        try {
-            $sqlQuery = "SELECT $data FROM users WHERE name = '$name'";
-            $result = $this->conn->query($sqlQuery);
-            $userDetail = $result->fetch(PDO::FETCH_ASSOC);
-                if (!empty($userDetail)) {
-                    return $userDetail[$data];
-                } else {
-                    return "---";
-                }
-        } catch (Throwable $e) {
-            $this->errorLogs->saveErrorLog(
-                "error",
-                $e->getFile() . " <br />line: " . $e->getLine(),
-                $e->getMessage()
-            );
-            exit;
         }
     }
 
@@ -73,7 +50,6 @@ class UsersModel extends AbstractModel
                 }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -94,7 +70,6 @@ class UsersModel extends AbstractModel
                 $result = $this->conn->exec($sqlQuery);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );

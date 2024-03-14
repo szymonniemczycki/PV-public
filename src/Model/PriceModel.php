@@ -28,7 +28,6 @@ class PriceModel extends AbstractModel
                 }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -52,7 +51,6 @@ class PriceModel extends AbstractModel
                 }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -69,7 +67,6 @@ class PriceModel extends AbstractModel
             $result = $this->conn->exec($sqlQuery);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -95,7 +92,6 @@ class PriceModel extends AbstractModel
             }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );

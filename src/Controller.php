@@ -10,10 +10,10 @@ use PDOException;
 use App\Model\AppLogsModel;
 use App\Model\PriceModel;
 
-require_once("src/Model/PriceModel.php");
-require_once("src/GetPrice.php");
-require_once("src/View.php");
-require_once("src/ErrorLogs.php");
+// require_once("src/Model/PriceModel.php");
+// require_once("src/GetPrice.php");
+// require_once("src/View.php");
+// require_once("src/ErrorLogs.php");
 
 class Controller 
 {
@@ -58,24 +58,25 @@ class Controller
             $page = $this->request->getParam('page', self::DEFAULT_ACTION);
         }
         $niceDate = $this->request->postParam('niceDate'); 
-
+        
         switch($page) {
             case "prices" :
-                $day = $this->validDate($page, $niceDate);
-                $viewParams = ($this->priceModel->listPrice($day));
+                $day = $this->validDate($page, $niceDate); 
                 try {
+                    $viewParams = ($this->priceModel->listPrice($day));
                     $niceDate = $this->getDateFormat($day);
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
-                        "error",
                         $e->getFile() . " <br />line: " . $e->getLine(),
                         $e->getMessage()
                     );
                     exit;
                 }
-                if (!empty($this->msg)) {
+
+                if (!empty($this->msg) && !empty($usedForm)) {
                     $this->view->showInfo($this->msg);
                 }
+                
                 $this->view->render(
                     $page,
                     [
@@ -84,6 +85,7 @@ class Controller
                     'listPrices' => $viewParams
                     ]
                 );
+
                 break;
 
             case "import":
@@ -133,7 +135,6 @@ class Controller
                     $this->run();
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
-                        "error",
                         $e->getFile() . " <br />line: " . $e->getLine(),
                         $e->getMessage()
                     );
@@ -166,7 +167,6 @@ class Controller
 
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
-                        "error",
                         $e->getFile() . " <br />line: " . $e->getLine(),
                         $e->getMessage()
                     );
@@ -174,42 +174,42 @@ class Controller
                 }
                 break;
 
-        case "logs":
-            $sortOrder = $this->request->getParam('sort');
-            if (!in_array ($sortOrder, ["asc", "desc"])) {
-                $sortOrder = "desc";
+            case "logs":
+                $sortOrder = $this->request->getParam('sort');
+                if (!in_array ($sortOrder, ["asc", "desc"])) {
+                    $sortOrder = "desc";
+                }
+
+                $params['logTypes'] = $this->appLogsModel->getUniqueLog();            
+                $params['filters']['log'] = $this->request->getParam('log');  
+                $params['filters']['date'] = $this->request->getParam('date');
+                $params['filters']['phrase'] = $this->request->getParam('phrase');
+                $params['filters']['sort'] = $sortOrder;
+                $params['filters']['pageNr'] = $this->request->getParam('pageNr');
+                $params['countPage'] = (int) $this->appLogsModel->getCountPage($params['filters']);
+                
+                $params['filters']['pageNr'] = $this->validatePageNr($params['filters']['pageNr'], $params['countPage']);
+                $params['logs'] = $this->appLogsModel->getListLogs($params['filters']);
+                
+                $this->view->render("logs", $params);
+                break;  
+
+            case "errors":
+                $params['filters']['date'] = $this->request->getParam('date');
+                $params['filters']['phrase'] = $this->request->getParam('phrase');
+                $params['filters']['sort'] = $this->request->getParam('sort');
+                $params['filters']['pageNr'] = $this->request->getParam('pageNr');
+        
+                $this->errorLogs = new ErrorLogs();
+                $errors = $this->errorLogs->getErrors($params['filters']);
+                
+                $this->view->render("errors", $errors);
+                break;
+
+            default:
+                $this->view->render("main", []);
+                break;
             }
-
-            $params['logTypes'] = $this->appLogsModel->getUniqueLog();            
-            $params['filters']['log'] = $this->request->getParam('log');  
-            $params['filters']['date'] = $this->request->getParam('date');
-            $params['filters']['phrase'] = $this->request->getParam('phrase');
-            $params['filters']['sort'] = $sortOrder;
-            $params['filters']['pageNr'] = $this->request->getParam('pageNr');
-            $params['countPage'] = (int) $this->appLogsModel->getCountPage($params['filters']);
-            
-            $params['filters']['pageNr'] = $this->validatePageNr($params['filters']['pageNr'], $params['countPage']);
-            $params['logs'] = $this->appLogsModel->getListLogs($params['filters']);
-            
-            $this->view->render("logs", $params);
-            break;  
-
-        case "errors":
-            $params['filters']['date'] = $this->request->getParam('date');
-            $params['filters']['phrase'] = $this->request->getParam('phrase');
-            $params['filters']['sort'] = $this->request->getParam('sort');
-            $params['filters']['pageNr'] = $this->request->getParam('pageNr');
-    
-            $this->errorLogs = new ErrorLogs();
-            $errors = $this->errorLogs->getErrors($params['filters']);
-            
-            $this->view->render("errors", $errors);
-            break;
-
-        default:
-            $this->view->render("main", []);
-            break;
-        }
     }
 
     private function validatePageNr(?string $pageNr, int $countData): int
@@ -260,48 +260,17 @@ class Controller
                 $viewParams['error'] = "";
             }
         } else {
-            $this->view->render(
-                $page,
-                ['niceDate' => $niceDate,]
-                );
-            exit();        
+            // $this->view->render(
+            //     $page,
+            //     ['niceDate' => $niceDate,]
+            //     );
+            // exit();    
+            return (string) date("Ymd");
+            //return "";
+
         }
         return (string) ($day);  
     }
-
-
-//     private function validDate22($page, $niceDate): string
-//     {
-//         if (!empty($niceDate)) {
-//             $day=str_replace("-","",$niceDate);
-            
-//             // if (empty($day)) {
-//             //     $viewParams['error'] = "emptyForm";
-//             // } else 
-//             if ((int)$day == 0) {
-//                 $viewParams['error'] = "wrongData";
-//             } else if (strlen((string)$day) != 8) {
-//                 $viewParams['error'] = "dateToShort";
-//             } else if (strlen((string)(int)$day) != 8) {
-//                 $viewParams['error'] = "dateToShort";
-//             } else if ((int)$day !=0 ) {
-//                 $viewParams['error'] = "";
-//             }
-//         }
-// dump($viewParams);
-//         if ($viewParams['error'] !== "")
-//         {
-//             $this->view->render(
-//                 $page,
-//                 [
-//                     'niceDate' => $niceDate,
-//                     'listPrices' => $viewParams
-//                     ]
-//             );
-//             exit();        
-//         }
-//         return (string)($day);  
-//     }
 
 
     private function getDateFormat($day): string
