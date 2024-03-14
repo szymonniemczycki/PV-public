@@ -14,10 +14,13 @@ require_once("src/ErrorLogs.php");
 
 class GetPrice 
 {
+    private const PSE_URL = "https://www.pse.pl/getcsv/-/export/csv/PL_CENY_RYN_EN/data/";
+    private const RESOURCES_PATH = "resources/prices/";
+    
     private string $url;
     private int $day; 
     private ErrorLogs $errorLogs;
-
+    
 
     public function __construct($date = NULL) 
     {
@@ -27,7 +30,7 @@ class GetPrice
 
     public function checkIsCsvExist($day): bool
     {
-        if (empty(file_exists("resources/prices/" . $day . ".csv"))) {
+        if (empty(file_exists(self::RESOURCES_PATH . $day . ".csv"))) {
             return false; 
         }
         return true;
@@ -37,8 +40,7 @@ class GetPrice
     public function downloadCSV(int $day): string
     {
         try {
-            $url = "https://www.pse.pl/getcsv/-/export/csv/PL_CENY_RYN_EN/data/" . $day;
-            
+            $url = self::PSE_URL . $day;
             $context = stream_context_create(
                 array(
                     "http" => array(
@@ -47,11 +49,10 @@ class GetPrice
                 )
             );
             $dayData = file_get_contents($url, false, $context);
-            $path = "resources/prices/" . $day . ".csv";
+            $path = self::RESOURCES_PATH . $day . ".csv";
             (bool) file_put_contents($path, $dayData);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -64,7 +65,7 @@ class GetPrice
     //get Prices from CSV:
     public function getPriceFromCSV($day): array
     {
-        $filePath = "resources/prices/" . $day . ".csv";
+        $filePath = self::RESOURCES_PATH . $day . ".csv";
         $filePath = fopen($filePath, "r");
         
         if ($filePath !== false) {            
@@ -93,7 +94,7 @@ class GetPrice
     {
         $isFile = $this->checkIsCsvExist($day);
         if($isFile) {
-            $path = "resources/prices/" . $day . ".csv";
+            $path = self::RESOURCES_PATH . $day . ".csv";
             unlink($path);
             return true;
         } else {

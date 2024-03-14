@@ -28,7 +28,6 @@ class AbstractModel
             $this->createConnection($config); 
         } catch (PDOException $e) {
             $this->errorLogs->saveErrorLog(
-                "error", 
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
             );  
@@ -49,7 +48,6 @@ class AbstractModel
             );
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error", 
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
             );
@@ -70,7 +68,6 @@ class AbstractModel
         } catch (Throwable $e) {
             dump($e);
             $this->errorLogs->saveErrorLog(
-                "error", 
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
             );
@@ -99,7 +96,6 @@ class AbstractModel
             }
         } catch (Throwable $e) {               
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );

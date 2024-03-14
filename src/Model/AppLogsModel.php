@@ -28,12 +28,11 @@ class AppLogsModel extends AbstractModel
             $result = $this->conn->query($sqlQuery);
         } catch (Throwable $e) {            
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
             exit;
-            }
+        }
     }
 
 
@@ -55,7 +54,6 @@ class AppLogsModel extends AbstractModel
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -73,7 +71,6 @@ class AppLogsModel extends AbstractModel
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
@@ -105,7 +102,6 @@ class AppLogsModel extends AbstractModel
             $isExistAnyData = $result->fetch(PDO::FETCH_ASSOC);  
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
-                "error",
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );

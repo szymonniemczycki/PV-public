@@ -8,6 +8,8 @@ require_once("src/View.php");
 
 class ErrorLogs 
 {
+    private const ERROR_PATH = "logs/errors.txt";
+
     private View $view;
     private const PAGE_SIZE = 10;
 
@@ -15,14 +17,14 @@ class ErrorLogs
     public function __construct(string $date = NULL) 
     {
         $this->view = new View();
-        if (empty(file_exists("logs/errors.txt"))) {
-            fopen("logs/errors.txt", 'www') or die("Can't create file");
+        if (empty(file_exists(self::ERROR_PATH))) {
+            fopen(self::ERROR_PATH, 'www') or die("Can't create file");
             $this->view->render("404", []);
         }
     }
 
 
-    public function saveErrorLog(string $log, string $type, string $msg): void
+    public function saveErrorLog(string $type, string $msg): void
     {
         error_log(
             date("Y-m-d") . ";" .
@@ -31,7 +33,7 @@ class ErrorLogs
             $msg .
             "\n",
             3, 
-            "logs/errors.txt"
+            self::ERROR_PATH
             );
         $this->view->render("404", []);
     }
@@ -68,7 +70,7 @@ class ErrorLogs
     private function getErrorData(): array
     {
         $rowFile = [];
-        $handle = fopen("logs/errors.txt", "rb");
+        $handle = fopen(self::ERROR_PATH, "rb");
         while(!feof($handle)) {
             $rowData = fgets($handle);
             if ($rowData) {
