@@ -411,6 +411,7 @@ a.active {
   background-color: #F1F1F1;
 }
 
+form.note-form input.btn-cta-white,
 form.note-form button.btn-cta-white {
   background-color: white;
   color: cadetblue;
@@ -419,6 +420,17 @@ form.note-form button.btn-cta-white {
   padding: 12 40px;
   text-transform: uppercase;
   font-size: 14px;
+}
+
+form.note-form button.btn-cta-green {
+  background-color: cadetblue;
+  color: white;
+  border-style: solid;
+  border-width: 1px;
+  padding: 14 40px;
+  text-transform: uppercase;
+  font-size: 14px;
+  width: 200px;
 }
 
 form.note-form button.btn-cta-white:hover {
@@ -442,6 +454,10 @@ form.note-form button.btn-cta-white:hover {
 .cta {
   display: flex;
   justify-content: space-between;
+}
+
+form input[type="submit"], form input[type="button"] .cta {
+	font-size: 14px;
 }
 
 .filterType select {

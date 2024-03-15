@@ -291,14 +291,14 @@ class Controller
         if(!$this->getPrice->checkIsCsvExist($this->day)) {
             $this->getPrice->downloadCSV($this->day);
         } else {
-            echo "plik " . $this->day . ".csv juz istnieje";
+            echo "file " . $this->day . ".csv already exist";
         }
 
         if($this->priceModel->checkIsDataExist($this->day)) {
             $prices = $this->getPrice->getPriceFromCSV();
             $this->priceModel->savePrice($prices);
         } else {
-            echo "dane na dzień " . $this->day . " juz istnieją w bazie<br /><br />";            
+            echo "data for data " . $this->day . " already exist in database<br /><br />";            
         }
     }
 

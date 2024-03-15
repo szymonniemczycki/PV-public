@@ -1,7 +1,7 @@
 <form class="note-form" action="./?page=prices" method="post" >
   <ul>
     <li>
-      <label>Podaj datę <span class="required">*</span></label>
+      <label>Choose data <span class="required">*</span></label>
       <input 
         type="date" 
         name="niceDate" 
@@ -14,10 +14,10 @@
     
     <li>
       <input type="hidden" name="usedForm" value="1"/>
-      <input type="submit" value="Pokaż ceny" />
+      <input type="submit" value="Show prices" />
       <?php
       if(isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "noDataInDB") {
-        echo "<button class='btn-cta-white' type='submit' name='page' value='forceImport'>Importuj</button>";
+        echo "<button class='btn-cta-white' type='submit' name='page' value='forceImport'>Import</button>";
       }
       ?>
     </li>

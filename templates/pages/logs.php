@@ -17,8 +17,8 @@
         <thead>
           <tr>
             <th>Data</th>
-            <th>Godzina</th>
-            <th>Typ</th>
+            <th>Hour</th>
+            <th>Type</th>
             <th>Status</th>
             <th>Info</th>
           </tr>

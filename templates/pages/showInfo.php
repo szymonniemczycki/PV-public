@@ -3,37 +3,37 @@
         <?php
             switch ($msg) {
                 case 'noDataInDB':
-                    echo 'Brak danych w Bazie Danych!';
+                    echo 'No data in the database!';
                     break;
                 case 'wrongData':
-                    echo 'Niepoprawna data!';
+                    echo 'Wrong data!';
                     break;
                 case 'emptyform':
-                    echo 'Brak danych w formularzu!';
+                    echo 'No data in the form!';
                     break;
                 case 'dateToShort':
-                    echo 'Niepoprawny format daty';
+                    echo 'Incorrect date format!';
                     break;
                 case 'dataExist':
-                    echo 'Dane istnieją juz bazie!';
+                    echo 'Data already exists in the database!';
                     break;
                 case 'dataimportedFromCsv':
-                    echo 'Dane zaimportowane z CSV';
+                    echo 'Data inported from CSV';
                     break;
                 case 'needToImport':
-                    echo 'Trzeba importować';
+                    echo 'Need to import';
                     break;
                 case 'imported':
-                    echo 'Dane poprawnie zaimportowane z pse.pl';
+                    echo 'Data imported from pse.pl';
                     break;
                 case 'wrongHash':
-                    echo 'Niepoprawne dane do logowania!';
+                    echo 'Incorrect login data!';
                     break;
                 case 'noHash':
-                    echo 'Podaj dane do logowania!';
+                    echo 'Enter login data!';
                     break;
                 default:
-                    echo 'Nieznany błąd...';
+                    echo 'Unknown error...';
                     break;
             }
         ?>

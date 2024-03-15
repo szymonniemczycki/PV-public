@@ -1,7 +1,7 @@
 <form class="note-form" action="./?page=import" method="post" >
   <ul>
     <li>
-      <label>Podaj datę <span class="required">*</span></label>
+      <label>Choose data <span class="required">*</span></label>
       <input 
         type="date" 
         name="niceDate" 
@@ -13,10 +13,14 @@
     </li>
     
     <li>
-      <input type="submit" value="importuj ceny" />
+      <!-- <input type="submit" value="import prices" /> -->
       <?php
         if(isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "dataExist") {
-          echo "<button class='btn-cta-white' type='submit' name='page' value='forceDownload'>Nadpisz dane</button>";
+          echo "<input class='btn-cta-white' type='submit' value='import prices' />";
+          //echo "<button type='submit' name='page' value='import prices'>Overwrite</button>";
+          echo "<button class='btn-cta-green' type='submit' name='page' value='forceDownload'>Overwrite</button>";
+        } else {
+          echo "<input type='submit' value='import prices' />";
         }
       ?>
     </li>

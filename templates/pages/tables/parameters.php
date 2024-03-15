@@ -51,7 +51,7 @@
 
 
             <div class="search">
-                <label>Wyszukaj: <br />
+                <label>Search: <br />
                     <input 
                         type="search" 
                         name="phrase" 
@@ -62,21 +62,21 @@
         </div>
         
         <div class="cta">
-            <input type="submit" value="filtruj"/>
+            <input type="submit" value="filter"/>
             <div class="sort">
-                <label>sortuj od: </label><br />
+                <label>sort from: </label><br />
                 <select name="sort" id="date">
                     <option 
                         value="desc" 
                         <?php echo $showSelected = !empty($selected['sort']['desc']) ? "selected" : "";?>
                         >
-                        najnowszych
+                        new first
                     </option>
                     <option 
                         value="asc" 
                         <?php echo $showSelected = !empty($selected['sort']['asc']) ? "selected" : "";?>
                         >
-                        najstarszych
+                        old first
                     </option>
                 </select> 
             </div>

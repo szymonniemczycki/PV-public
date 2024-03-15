@@ -3,3 +3,4 @@ config/
 logs/
 uuid.php
 .DS_Store
+createPass.php

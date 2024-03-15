@@ -8,8 +8,8 @@
         <thead>
           <tr>
             <th>Data</th>
-            <th>Godzina</th>
-            <th>Lokalizacja</th>
+            <th>Hour</th>
+            <th>Location</th>
             <th>Info</th>
           </tr>
         </thead>
