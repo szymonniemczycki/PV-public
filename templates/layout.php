@@ -26,9 +26,10 @@
         </div>
       </div>
 
-      <div class="footer">
+      <footer>
         <p>RCE importer - PHP</p>
-      </div>
+      </footer>
+      
     </div>
 
   </body>

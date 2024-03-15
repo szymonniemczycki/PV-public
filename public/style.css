@@ -196,7 +196,7 @@ form>div:first-child>label:first-child>input:focus {
   margin-left: 20px;
 }
 
-.footer {
+footer {
   margin-top: 20px;
   background-color: cadetblue;
   margin-left: 15%;
@@ -204,7 +204,7 @@ form>div:first-child>label:first-child>input:focus {
   font-size: 12px;
 }
 
-.footer p {
+footer p {
   text-align: center;
   color: #ddd;
 }
@@ -591,7 +591,7 @@ form.note-form input[type="submit"] {
     margin-left: 3%;
   }
 
-  .footer {
+  footer {
     margin-left: 3%;
     margin-right: 3%;
   }
@@ -642,7 +642,7 @@ form.note-form input[type="submit"] {
     margin: 0px
   }
 
-  .footer {
+  footer {
     margin: 0px;
   }
   
