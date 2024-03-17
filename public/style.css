@@ -155,8 +155,8 @@ form>div:first-child>label:first-child>input:focus {
   background-color: cadetblue;
   margin-bottom: 20px;
   padding: 20px 0;
-  margin-right: 15%;
-  margin-left: 15%;
+  margin-right: 10%;
+  margin-left: 10%;
   position: relative;
 }
 
@@ -165,8 +165,8 @@ form>div:first-child>label:first-child>input:focus {
   flex-direction: row;
   align-items: stretch;
   flex-grow: 1;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .menu {
@@ -199,8 +199,8 @@ form>div:first-child>label:first-child>input:focus {
 footer {
   margin-top: 20px;
   background-color: cadetblue;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 10%;
+  margin-right: 10%;
   font-size: 12px;
 }
 
@@ -600,7 +600,11 @@ form.note-form input[type="submit"] {
 	width: 200px;
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1200px) {
+
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
 
   .header {
     margin-right: 3%;
@@ -652,7 +656,7 @@ form.note-form input[type="submit"] {
   }
 
 
-@media only screen and (max-device-width: 768px) {
+@media screen and (max-width: 768px) {
 
   .header {
     margin: 0px
@@ -717,11 +721,13 @@ form.note-form input[type="submit"] {
   }
 
   .logs tr > th {
-    font-size: 12px;
+    font-size: 14px;
   }
+
   .logs tr > td {
-    font-size: 10px;
+    font-size: 14px;
   }
+
 
   form.loginForm {
     width: 76%;
@@ -758,12 +764,20 @@ form.note-form input[type="submit"] {
   .errors tr > th,
   .errors tr > td {
     font-size: 12px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .errors tr > th,
+  .errors tr>th:nth-child(3),
+  .errors tr>th:nth-child(4) {
+    font-size: 14px;
   }
 
   }
 
 
-  @media only screen and (max-device-width: 560px) {
+  @media screen and (max-width: 560px) {
 
     .parameter {
       display: grid;
@@ -789,9 +803,18 @@ form.note-form input[type="submit"] {
       margin-top: -22px;
     }
 
-
-  @media only screen and (max-device-width: 560px) {
+  }
   
-    
-    }
+
+
+  @media screen and (max-width: 468px) {
+
+  .logs tr > th {
+    font-size: 12px;
+  }
+
+  .logs tr > td {
+    font-size: 10px;
+  }
+
   }
