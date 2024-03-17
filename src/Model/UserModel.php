@@ -14,7 +14,7 @@ use App\ErrorLogs;
 
 class UserModel extends AbstractModel 
 {
-    
+    //method for checking credentials for auth users
     public function checkCredential(string $name, string $pass): bool
     {        
         try {
@@ -26,18 +26,16 @@ class UserModel extends AbstractModel
                     return (bool) $passVerifed;
                 } else {
                     return false;
-                    //throw new Throwable('Wrong credentials');
                 }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            //header('Location: ./login.php?info=4');
         }
     }
 
-
+    // method update last login of users
     public function updateLastLogin(string $name): bool
     {
         try {
@@ -59,7 +57,7 @@ class UserModel extends AbstractModel
         }
     }
 
-
+    // method keeping activity of users
     public function userLoginLog(?string $name, string $status): bool
     {
         try {

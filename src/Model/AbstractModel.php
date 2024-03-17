@@ -22,12 +22,14 @@ class AbstractModel
 
 
     public function __construct($config)
-    {
+    {    
         $this->errorLogs = new ErrorLogs();
         try {
+            //validdate config file with acces to DB
             $this->status = $validateConfig = $this->validateConfig($config);
             if ($validateConfig) {
-                $this->status = $createConnection = $this->createConnection($config);
+                //if cofig file is correctly and not missing data, then create connection
+                $this->status = $this->createConnection($config);
             }
         } catch (PDOException $e) {
             $this->errorLogs->saveErrorLog(
@@ -37,7 +39,7 @@ class AbstractModel
         }
     }
 
-
+    //method for validate confgi file - results saved in public property
     private function validateConfig (array $config): bool
     {
         try {
@@ -60,7 +62,7 @@ class AbstractModel
         }
     }
 
-
+    // method for creating connection
     private function createConnection(array $config): bool
     {
         try {
@@ -81,7 +83,7 @@ class AbstractModel
         return true;
     }
 
-
+    // method for saving logs - all issues occured will be saved in error file log
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
         try {
