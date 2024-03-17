@@ -18,26 +18,51 @@ class AbstractModel
     protected ErrorLogs $errorLogs;
     protected PDO $conn;
     protected $configuration = [];
+    public $status;
 
 
-    public function __construct($config) 
+    public function __construct($config)
     {
         $this->errorLogs = new ErrorLogs();
         try {
-            $this->validateConfig($config);
-            $this->createConnection($config); 
+            $this->status = $validateConfig = $this->validateConfig($config);
+            if ($validateConfig) {
+                $this->status = $createConnection = $this->createConnection($config);
+            }
         } catch (PDOException $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
-            );  
-            exit();
+            );
         }
     }
 
 
-    private function createConnection(array $config): void
-    {  
+    private function validateConfig (array $config): bool
+    {
+        try {
+            if (
+                empty($config['database'])
+                || empty($config['host'])
+                || empty($config['user'])
+                || empty($config['password'])
+            ) {
+                return false;
+                throw new Throwable('Division by zero.');
+            } else {
+                return true;
+            }
+        } catch (Throwable $e) {
+            $this->errorLogs->saveErrorLog(
+                $e->getFile() . " <br />line: " . $e->getLine(), 
+                $e->getMessage()
+            );
+        }
+    }
+
+
+    private function createConnection(array $config): bool
+    {
         try {
             $dsn = "mysql:dbname=" . $config['database'] . ";host=" . $config['host'];
             $this->conn = new PDO(
@@ -51,36 +76,15 @@ class AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
             );
-            exit;
+            return false;
         }
-    }
-
-
-    private function validateConfig (array $config): void
-    {
-        try {
-            if (
-                empty($config['database'])
-                || empty($config['host'])
-                || empty($config['user'])
-                || empty($config['password'])
-                );
-        } catch (Throwable $e) {
-            dump($e);
-            $this->errorLogs->saveErrorLog(
-                $e->getFile() . " <br />line: " . $e->getLine(), 
-                $e->getMessage()
-            );
-            exit;
-        }
+        return true;
     }
 
 
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
         try {
-            //$date = date("Y-m-d");
-            //$hour = date("H:i:s");
             $sqlQuery = "
                 INSERT INTO app_logs (log, status, info) 
                 VALUES ('$log', '$status', '$info')
@@ -99,8 +103,7 @@ class AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
-            }
+        }
     }
 
     

@@ -26,12 +26,14 @@ class UserModel extends AbstractModel
                     return (bool) $passVerifed;
                 } else {
                     return false;
+                    //throw new Throwable('Wrong credentials');
                 }
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
+            //header('Location: ./login.php?info=4');
         }
     }
 

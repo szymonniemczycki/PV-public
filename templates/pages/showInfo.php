@@ -8,7 +8,7 @@
                 case 'wrongData':
                     echo 'Wrong data!';
                     break;
-                case 'emptyform':
+                case 'emptyform':   
                     echo 'No data in the form!';
                     break;
                 case 'dateToShort':
@@ -31,6 +31,9 @@
                     break;
                 case 'noHash':
                     echo 'Enter login data!';
+                    break;
+                case 'appProblem':
+                    echo 'Any problem with App';
                     break;
                 default:
                     echo 'Unknown error...';

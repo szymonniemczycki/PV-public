@@ -26,6 +26,9 @@
                 case 'imported':
                     echo 'Data imported from pse.pl';
                     break;
+                case 'appProblem':
+                    echo 'Any problem with App';
+                    break;
                 default:
                     echo 'Unknown error...';
                     break;

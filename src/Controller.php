@@ -69,7 +69,8 @@ class Controller
                     exit;
                 }
 
-                if (!empty($this->msg) && !empty($usedForm)) {
+                //if (!empty($this->msg) && !empty($usedForm)) {
+                if (!empty($this->msg)) {
                     $this->view->showInfo($this->msg);
                 }
                 
@@ -200,6 +201,10 @@ class Controller
                 $errors = $this->errorLogs->getErrors($params['filters']);
                 
                 $this->view->render("errors", $errors);
+                break;  
+
+            case "404":
+                $this->view->render("404", []);
                 break;
 
             default:

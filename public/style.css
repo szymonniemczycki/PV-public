@@ -104,12 +104,12 @@ form .field-textarea {
 form input[type=submit],
 form input[type=button] {
   background: cadetblue;
-
   border: none;
   color: #fff;
   font-size: 18px;
   text-transform: uppercase;
   padding: 12 40px;
+  cursor: pointer;
 }
 
 form input[type=submit]:hover,

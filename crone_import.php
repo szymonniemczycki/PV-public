@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-session_start();
+//session_start();
 
 spl_autoload_register(function (string $classNamespace) {
   $path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
@@ -10,11 +10,6 @@ spl_autoload_register(function (string $classNamespace) {
 });
 
 require_once("src/Utils/debug.php");  
-use GetPrice;
-use PDO;
-use PDOException;
-use DateTime;
-use DateTimeZone;
 
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
