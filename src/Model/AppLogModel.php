@@ -15,7 +15,7 @@ class AppLogModel extends AbstractModel
 {
     private const PAGE_SIZE = 10;
     
-    // method for saving requested event in application
+    //method for saving requested event in application
     public function saveLogOut(string $type, string $what, string $info): void 
     {
         try {
@@ -33,7 +33,7 @@ class AppLogModel extends AbstractModel
         }
     }
 
-    // method for isting occured app event - along with filters
+    //method for isting occured app event - along with filters
     public function getListLogs(array $params): array 
     {
         $pageNr = $params['pageNr'] ?: 1;
@@ -60,7 +60,7 @@ class AppLogModel extends AbstractModel
         return $isExistAnyData;
     }
 
-    // method for reach how many log is saved on database - needed for get count of pagination
+    //method for reach how many log is saved on database - needed for get count of pagination
     public function getUniqueLog(): array
     {
         try {
@@ -85,7 +85,7 @@ class AppLogModel extends AbstractModel
         return $uniqueLogs;
     }
 
-    // method calculated how many pages of logs exist on database
+    //method calculated how many pages of logs exist on database
     public function getCountPage(array $params): int 
     {
         try {

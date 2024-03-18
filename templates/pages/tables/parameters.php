@@ -1,4 +1,5 @@
 <?php
+    //get selected filter
     if (!empty($viewParams['filters'])) {
         foreach ($viewParams['filters'] as $key => $value) {
             if (!empty($value)) {
@@ -9,10 +10,7 @@
     }
 ?>
 
-<?php
-?>
-
-
+<?php //section with parameters ?>
 <div class="parameters">
     <form class="settings-form" action="./?page=<?php echo $page; ?>" method="GET">
         <input type="hidden" name="page" value="<?php echo $page; ?>"/>
@@ -20,6 +18,7 @@
         <div class="parameter">
             <div class="filters">  
 
+                <?php //input with data filter ?>
                 <div class="date">
                     <div class="filterDate">Data:</div>
                     <input 
@@ -31,6 +30,7 @@
                     />
                 </div>
 
+                <?php //show log filter for app logs page ?>
                 <?php if ($page == "logs"): ?>
                     <div class="log">
                         <div class="filterLog">Log:</div>
@@ -49,7 +49,7 @@
                     <?php endif; ?>
                 </div>
 
-
+            <?php //input with search ?>
             <div class="search">
                 <label>Search: <br />
                     <input 
@@ -61,8 +61,11 @@
             </div>
         </div>
         
+        <?php //CTA button ?>
         <div class="cta">
             <input type="submit" value="filter"/>
+
+            <?php //input with sort ?>
             <div class="sort">
                 <label>sort from: </label><br />
                 <select name="sort" id="date">
@@ -82,6 +85,7 @@
             </div>
         </div>
 
+        <?php //resset form option ?>
         <div class="reset">
             <a href="./?page=<?php echo $page; ?>">[x] reset</a>
         </div>

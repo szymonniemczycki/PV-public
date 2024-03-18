@@ -6,6 +6,7 @@ use App\Model\PriceModel;
 use App\Model\AppLogModel;
 use App\GetPrice;
 
+//for service automatically download prices
 class Crone 
 {
     private static array $configuration = [];
@@ -23,7 +24,7 @@ class Crone
         self::$configuration = $configuration;
     }
     
-    
+    //set and connect with database
     public function __construct()
     {
         $this->errorLogs = new ErrorLogs();
@@ -34,7 +35,7 @@ class Crone
         $this->appLogsModel = new AppLogModel(self::$configuration['db']);
     }
     
-    
+    //method starting download prices
     public function startImportCrone(): void
     {
         $day = date("Ymd");

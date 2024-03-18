@@ -1,6 +1,7 @@
 <form class="note-form" action="./?page=prices" method="post" >
 	<ul>
 		<li>
+			<?php //input for data select ?>
       		<label>Choose data <span class="required">*</span></label>
       		<input 
         		type="date" 
@@ -14,6 +15,7 @@
 
 		<li>
       		<?php
+				//show button/s
       			if(isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "noDataInDB") {
     				echo "<input class='btn-cta-white' type='submit' value='Show price' />";
         			echo "<button class='btn-cta-green' type='submit' name='page' value='forceImport'>Import</button>";
@@ -26,6 +28,7 @@
 </form>
 
 <?php
+	//show alert with error or table with content
 	if (!empty($viewParams['listPrices']['error'])) {
 		require_once("templates/pages/errorMessage.php");
 	} elseif (empty($viewParams['listPrices']['error']) && !empty($viewParams['niceDate'])) {

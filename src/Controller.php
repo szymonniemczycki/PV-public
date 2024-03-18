@@ -10,7 +10,7 @@ use PDOException;
 use App\Model\AppLogModel;
 use App\Model\PriceModel;
 
-
+//general controler - core of application
 class Controller 
 {
     private static array $configuration = [];
@@ -26,18 +26,19 @@ class Controller
     private int $day;
     private string $msg = "";
 
-    
+    //method for getting configuration data
     public static function initConfiguration(array $configuration): void
     {
         self::$configuration = $configuration;
     }
 
-
+    //check configuration data and create new objects
     public function __construct($request)
     {
         if (empty(self::$configuration['db'])) {
             exit('błędna konfiguracja');
-        }
+        } //tutaj pytanie, czy nie zrobić try-catch i przekierowanie na 404?
+
         $this->priceModel = new PriceModel(self::$configuration['db']);
         $this->appLogsModel = new AppLogModel(self::$configuration['db']);
         $this->request = $request;
@@ -45,17 +46,20 @@ class Controller
         $this->errorLogs = new ErrorLogs();
     }
 
-
+    //mainly method running web-page
     public function run(): void
-    {
+    {   //checking params - depended of paramams, requested page will be loaded
         if (!empty($this->request->postParam('page'))) {
             $page = $this->request->postParam('page');
         } else {
             $page = $this->request->getParam('page', self::DEFAULT_ACTION);
         }
+        //"nice date" - it's transformed date catched from csv (pse.pl) - there is without separators
         $niceDate = $this->request->postParam('niceDate'); 
         
+        //depended of ?page param - souch page will display
         switch($page) {
+            //operations for page "prices"
             case "prices" :
                 $day = $this->validDate($page, $niceDate); 
                 try {
@@ -69,7 +73,6 @@ class Controller
                     exit;
                 }
 
-                //if (!empty($this->msg) && !empty($usedForm)) {
                 if (!empty($this->msg)) {
                     $this->view->showInfo($this->msg);
                 }
@@ -85,6 +88,7 @@ class Controller
 
                 break;
 
+            //operations for page "import"
             case "import":
                 $day = $this->validDate($page, $niceDate);
                 $this->getPrice = new GetPrice((int) $day);
@@ -118,6 +122,7 @@ class Controller
                 );
                 break;
 
+            //operations for "forceImport"
             case "forceImport":
                 try {
                     $day = $this->validDate($page, $niceDate);
@@ -139,6 +144,7 @@ class Controller
                 }
                 break;
 
+            //operations for "forceDownload"
             case "forceDownload":
                 try {
                     $day = $this->validDate($page, $niceDate);
@@ -171,6 +177,7 @@ class Controller
                 }
                 break;
 
+            //preparing details for listing logs (from db-log)
             case "logs":
                 $sortOrder = $this->request->getParam('sort');
                 if (!in_array ($sortOrder, ["asc", "desc"])) {
@@ -191,6 +198,7 @@ class Controller
                 $this->view->render("logs", $params);
                 break;  
 
+            //preparing details for listing errors (from file-log)
             case "errors":
                 $params['filters']['date'] = $this->request->getParam('date');
                 $params['filters']['phrase'] = $this->request->getParam('phrase');
@@ -203,16 +211,19 @@ class Controller
                 $this->view->render("errors", $errors);
                 break;  
 
+            //show 404 page
             case "404":
                 $this->view->render("404", []);
                 break;
 
+            //for other, unknow parametr of "page"
             default:
                 $this->view->render("main", []);
                 break;
             }
     }
 
+    //method sets page-nr as first for unknow value od pageNr param
     private function validatePageNr(?string $pageNr, int $countData): int
     {
         $pageNr = (int) $pageNr;
@@ -222,30 +233,7 @@ class Controller
         return $pageNr;
     }
 
-
-    protected function redirect(string $to, array $params): void 
-    {
-      $location = "." . $to;
-
-      if (count($params)) {
-        $queryParams = [];
-        foreach ($params as $key => $value) {
-          $queryParams[] = urlencode($key) . "=" . urlencode($value);
-        }
-        $queryParams = implode('&', $queryParams);
-        $location .= '?' . $queryParams;
-      }
-      header("Location: $location");
-      exit();
-    }
-
-
-    protected function action(): string
-    {
-        return $this->request->getParam('action', self::DEFAULT_ACTION);
-    }
-
-
+    //validate date format - must be 8 digits number
     private function validDate($page, $niceDate): string
     {
         if (!empty($niceDate)) {
@@ -270,7 +258,7 @@ class Controller
         return (string) ($day);  
     }
 
-
+    //create "nice" date fotrmat - with separators
     private function getDateFormat($day): string
     {
         if ((int) $day != 0 && strlen($day) == 8) {
@@ -283,29 +271,5 @@ class Controller
             return "";
         }
     }
-
-
-    public function showPrice($day = null) 
-    {
-        $this->priceModel->listPrice($day);
-    }
-
-
-    public function catchPrice() 
-    {
-        if(!$this->getPrice->checkIsCsvExist($this->day)) {
-            $this->getPrice->downloadCSV($this->day);
-        } else {
-            echo "file " . $this->day . ".csv already exist";
-        }
-
-        if($this->priceModel->checkIsDataExist($this->day)) {
-            $prices = $this->getPrice->getPriceFromCSV();
-            $this->priceModel->savePrice($prices);
-        } else {
-            echo "data for data " . $this->day . " already exist in database<br /><br />";            
-        }
-    }
-
-
+    
 }

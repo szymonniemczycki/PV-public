@@ -1,6 +1,7 @@
 <section>
     <div class="infoMessage">
         <?php
+            //possible messagse to display
             switch ($msg) {
                 case 'noDataInDB':
                     echo 'No data in the database!';

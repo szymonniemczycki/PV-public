@@ -1,8 +1,11 @@
 <html lang="pl">
-	<?php require_once("templates/header.php"); ?>
+	<?php 
+	//get meta tags
+	require_once("templates/header.php"); ?>
 	<body class="body">
 		<div class="wrapper">
 
+			<?php //show header ?>
 			<div class="header">
 				<h1><i class="far fa-chart-bar"></i>RCE importer</h1>
 				<div class="logout">
@@ -10,6 +13,7 @@
 				</div>
 			</div>
 
+			<?php //show menu ?>
 			<div class="container">
 				<div class="menu">
 				<ul>
@@ -21,6 +25,7 @@
 				</ul>
 				</div>
 
+				<?php //display page ?>
 				<div class="page">
 					<?php require_once("templates/pages/$page.php"); ?>
 				</div>
@@ -31,16 +36,6 @@
 			</footer>
 
 		</div>
-
-		<p id="demo"></p>
-
-<script>
-var w = window.innerWidth;
-var h = window.innerHeight;
-
-var x = document.getElementById("demo");
-x.innerHTML = "Browser width: " + w + ", height: " + h + ".";
-</script>
 
 	</body>
 </html>

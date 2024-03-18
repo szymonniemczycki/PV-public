@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+//db config data
 return [
     'db' => [
         'host' => 'localhost',

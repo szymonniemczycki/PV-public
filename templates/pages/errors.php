@@ -1,8 +1,11 @@
-<?php require_once("templates/pages/tables/parameters.php"); ?>
+<?php 
+//get parameter form
+require_once("templates/pages/tables/parameters.php"); ?>
 
 <div class="list">
 	<section>
 
+	<?php //first header with table ?>
 		<div class="tbl-header">
       		<table cellpadding="0" cellspacing="0" border="0" class="errors">
         		<thead>
@@ -16,14 +19,16 @@
       		</table>
     	</div>
 
-
+		<?php //table content ?>
     	<div class="tbl-content">
       		<table cellpadding="0" cellspacing="0" border="0" class="<?php echo $page; ?>">
         		<tbody>
             		<?php
+					//if no data on table
             		if (empty($viewParams[$page])) {
                 		echo '<div class="noData">Brak danych do wyświetlenia</div>';
             		} else {
+						//fill data in table
 						for ($i=0; $i < count($viewParams[$page][$countPage]); $i++) {
 							?>
 							<tr>
@@ -42,6 +47,7 @@
 
     
 		<?php
+		//create variable for link with params 
 		$paginationUrl = "
 			./?page=errors&date=" . $viewParams['filters']['date'] . 
 			"&phrase=" . $viewParams['filters']['phrase'] . 
@@ -53,7 +59,9 @@
 		$countPage = sizeof($viewParams[$page]) ?? 1;
 		?>
 
-    	<?php require_once("templates/pages/tables/pagination.php"); ?>
+    	<?php 
+		//get pagination section
+		require_once("templates/pages/tables/pagination.php"); ?>
 
   	</section>
 </div>

@@ -6,6 +6,7 @@ namespace App;
 require_once("src/ErrorLogs.php");
 require_once("src/View.php");
 
+//for save error logs in file
 class ErrorLogs 
 {
     private const ERROR_PATH = "logs/errors.txt";
@@ -13,7 +14,7 @@ class ErrorLogs
     private View $view;
     private const PAGE_SIZE = 10;
 
-    
+    //create handle to save logs
     public function __construct(string $date = NULL) 
     {
         $this->view = new View();
@@ -23,7 +24,7 @@ class ErrorLogs
         }
     }
 
-
+    //method for save error-log
     public function saveErrorLog(string $type, string $msg): void
     {
         error_log(
@@ -38,7 +39,7 @@ class ErrorLogs
         $this->view->render("404", []);
     }
 
-
+    //get errors items for listing
     public function getErrors(array $filterParams): array
     {            
         $filterParams = $this->view->escape($filterParams);
@@ -56,7 +57,7 @@ class ErrorLogs
         return $errorData;
     }
 
-
+    //validate page number from URL
     private function validatePageNr(?string $pageNr, int $countData): int
     {
         $pageNr = (int) $pageNr;
@@ -66,7 +67,7 @@ class ErrorLogs
         return $pageNr;
     }
 
-
+    //get all items form file
     private function getErrorData(): array
     {
         $rowFile = [];
@@ -85,32 +86,7 @@ class ErrorLogs
         return $rowFile;
     }
 
-
-    private function getAllTypes(array $data): array
-    {
-        $types = [];
-            foreach ($data as $key => $value) {    
-                array_push($types, $data[$key][0]);
-            }
-        return array_values(array_unique($types));
-    }
-
-
-    private function filterByType(array $data, ?string $filterType): array
-    {
-        if ($filterType === "all" || $filterType === NULL || empty($filterType)) {
-            return $data;
-        }
-        $filteredData = [];
-        foreach ($data as $key => $value) {    
-            if($data[$key][0] === $filterType) {
-                array_push($filteredData, $data[$key]);
-            }
-        }
-        return $filteredData;
-    }
-
-
+    //get error items filtered by Date
     private function filterByDate(array $data, ?string $filterDate): array
     {
         if ($filterDate === "" || $filterDate === NULL) {
@@ -125,7 +101,7 @@ class ErrorLogs
         return $filteredData;
     }
 
-
+    //get error items filtered by search
     private function filterBySearch(array $data, ?string $filterSearch): array
     {
         if ($filterSearch === "" || $filterSearch === NULL) {
@@ -142,7 +118,7 @@ class ErrorLogs
         return $searchData;
     }
 
-
+    //sort error items - order by lines in file
     private function sortErrorData(array $data, ?string $sortOrder): array
     {
         if (!in_array($sortOrder, ["asc", "desc"])) {
@@ -156,7 +132,7 @@ class ErrorLogs
         }
     }
     
-    
+    //method for creating array with pagination data (2-level array - 1st level it's number of page, 2nd level it's items for page) 
     private function paginationErrorData(array $data, int $pageSize, int $pageNrUrl): array
     {
         if (empty($data)) {

@@ -35,7 +35,7 @@ class UserModel extends AbstractModel
         }
     }
 
-    // method update last login of users
+    //method update last login of users
     public function updateLastLogin(string $name): bool
     {
         try {
@@ -57,7 +57,7 @@ class UserModel extends AbstractModel
         }
     }
 
-    // method keeping activity of users
+    //method keeping activity of users
     public function userLoginLog(?string $name, string $status): bool
     {
         try {

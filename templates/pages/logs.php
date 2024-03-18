@@ -1,17 +1,10 @@
-<?php require_once("templates/pages/tables/parameters.php"); ?>
-
-<?php
-	foreach ($viewParams['filters'] as $key => $value) {
-    	if (!empty($value)) {
-      		$selected[$key][$value] =  "selected";
-    	}
-  	}
-?>
-
+<?php 
+//get parameters form
+require_once("templates/pages/tables/parameters.php"); ?>
 
 <div class="list">
 	<section>
-
+		<?php //first header with table ?>
 		<div class="tbl-header">
       		<table cellpadding="0" cellspacing="0" border="0" class="logs">
 				<thead>
@@ -26,14 +19,16 @@
       		</table>
     	</div>
 
-
+		<?php //table content ?>
 		<div class="tbl-content">
 			<table cellpadding="0" cellspacing="0" border="0" class="<?php echo $page; ?>">
 				<tbody>
 					<?php
+						//if no data in table
 						if (empty($viewParams[$page])) {
 							echo '<div class="noData">Brak danych do wyświetlenia</div>';
 						} else {
+							//fill data in table
 							for ($i = 0; $i < count($viewParams[$page]); $i++) {
 								?>
 								<tr>
@@ -53,6 +48,7 @@
 
     
 		<?php
+		//create variable for link with params 
 		$paginationUrl = "
 			./?page=logs&log=" . $viewParams['filters']['log'] . 
 			"&date=" . $viewParams['filters']['date'] . 
@@ -64,7 +60,9 @@
 		$countPage = $viewParams['countPage']; 
 		?>
 
-    	<?php require_once("templates/pages/tables/pagination.php"); ?>
+    	<?php 
+		//get pagination section
+		require_once("templates/pages/tables/pagination.php"); ?>
 
   	</section>
 </div>

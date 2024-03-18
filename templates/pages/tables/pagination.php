@@ -1,5 +1,6 @@
 <ul class="pagination">
     <?php if ($currentPage != 1) : ?>
+    <?php //show button for previous page ?>
     <li>
         <a href="
         <?php echo $paginationUrl . "&pageNr=" . $currentPage - 1; ?>
@@ -11,6 +12,8 @@
     </li>
     <?php endif; ?>
 
+
+    <?php //show all pages if less than 10 ?>
     <?php
     if($countPage <= 9) {
     for ($i = 1; $i <= $countPage; $i++) : 
@@ -27,6 +30,7 @@
         </a>
         </li>
     <?php endfor; 
+    //group quantity of pages if more than 10
     } elseif ($countPage > 9) {
     for ($i = 1; $i < 4; $i++) : 
         if($i == $currentPage) {
@@ -62,6 +66,7 @@
     <?php endfor; 
     }?>
 
+<?php //show button for next page ?>
     <?php if ($currentPage < $countPage && $countPage != 1) : ?>
     <li>
         <a href="

@@ -40,7 +40,7 @@ class PriceModel extends AbstractModel
         return $listPrices;
     }
 
-    // method saving imported data with prices
+    //method saving imported data with prices
     public function savePrice(array $pricesToSave): bool 
     {   
         try {
@@ -63,7 +63,7 @@ class PriceModel extends AbstractModel
         return (bool) $result; 
     }
 
-    // method for clean data with price in requested day - need to download again new prices
+    //method for clean data with price in requested day - need to download again new prices
     public function deletePrice(string $day): bool 
     {   
         try {
@@ -79,7 +79,7 @@ class PriceModel extends AbstractModel
         return (bool) $result; 
     }
     
-    // checking is data with prices exist - need this information before import
+    //checking is data with prices exist - need this information before import
     public function checkIsDataExist(string $day): bool
     {
         try {

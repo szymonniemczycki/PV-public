@@ -12,6 +12,7 @@ use Error;
 
 require_once("src/ErrorLogs.php");
 
+//core for service download prices
 class GetPrice 
 {
     private const PSE_URL = "https://www.pse.pl/getcsv/-/export/csv/PL_CENY_RYN_EN/data/";
@@ -27,7 +28,7 @@ class GetPrice
         $this->errorLogs = new ErrorLogs();
     }
 
-
+    //check is csv file exist
     public function checkIsCsvExist($day): bool
     {
         if (empty(file_exists(self::RESOURCES_PATH . $day . ".csv"))) {
@@ -36,7 +37,7 @@ class GetPrice
         return true;
     }
 
-
+    //metgod for download csv file from external server
     public function downloadCSV(int $day): string
     {
         try {
@@ -89,7 +90,7 @@ class GetPrice
         return $pricesCollection;
     }
 
-
+    //delete price from CSV - needed for force download
     public function deleteCSV($day): bool
     {
         $isFile = $this->checkIsCsvExist($day);

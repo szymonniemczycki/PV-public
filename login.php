@@ -3,21 +3,30 @@ declare(strict_types=1);
 
 session_start();
 
+//check if session exist
+if (!empty($_SESSION['userName'])) {
+	header("Location: ./");
+} 
+
 require_once("src/Utils/debug.php");  
 
+//generete path for used Classes
 spl_autoload_register(function (string $classNamespace) {
 	$path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
 	$path = "src/$path.php";
 	require_once($path);
 });
 
+//used Classed
 use App\Exception\Exception;
 use App\Exception\Throwable;
 use App\Model\UserModel;
 use App\ErrorLogs;
 
+//create new object
 $errorLogs = new ErrorLogs();
 
+//get db configuration data
 try {
 	$configuration = require_once("config/config.php");
 } catch (Error $e) { 
@@ -28,14 +37,16 @@ try {
   	header('Location: ./404.php');
 }
 
-
+//check data from forms are filled
 if (!empty($_POST['login']) && !empty($_POST['password'])) {
   	$postSaveLogin = htmlentities((string) $_POST['login']);
   	$postSavePass = htmlentities((string) $_POST['password']);
   
+	//create connecion with database
   	try {
     	$userModel = new UserModel($configuration['db']);
-    
+
+		//checking credential
     	if ($userModel->status) {
       		$userExist = $userModel->checkCredential($postSaveLogin, $postSavePass);
    		} else {
@@ -43,6 +54,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
       		throw new Error('something bad with db configuration');
     	}
     
+		//create and assign value to session variable
     	if ($userExist) {
       		$_SESSION['userName'] = $postSaveLogin;
       		$userModel->updateLastLogin($postSaveLogin);
@@ -65,6 +77,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
     	header('Location: ./404.php');
   	}
 
+//show alert if any problem occured
 } elseif ((empty($_POST['login']) || empty($_POST['password'])) && isset($_POST['tried'])) {
 	$msg = "noHash";
 	include("templates/pages/showInfo.php");
@@ -73,8 +86,10 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 
 <html lang="pl">
 
+	<?php //show header ?>
 	<?php require_once("templates/header.php"); ?>
 
+	<?php //show login form ?>
 	<body class="body">
 		<div class="login">
     		<?php if (empty($_SESSION['user'])) { ?>

@@ -1,6 +1,6 @@
 <div class="list">
 	<section>
-
+	<?php //table header ?>
 		<div class="tbl-header">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<thead>
@@ -14,6 +14,7 @@
 			</table>
 		</div>
 
+		<?php //table content ?>
 		<div class="tbl-content">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tbody>

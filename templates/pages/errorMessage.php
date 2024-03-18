@@ -1,6 +1,7 @@
 <section>
     <div class="errorMessage">
         <?php
+            //possible messagse to display
             switch ($viewParams['listPrices']['error']) {
                 case 'noDataInDB':
                     echo 'No data in the database!';

@@ -3,20 +3,22 @@ declare(strict_types=1);
 
 namespace App;
 
+//class for generate view page in application
 class View 
 {
 
+    //method to render layout of web-page
     public function render(string $page, array $viewParams = []): void 
     {
         include_once("templates/layout.php");
     }
 
-
+    //method to show info (alert on top)
     public function showInfo(string $msg){
         include_once("templates/pages/showInfo.php");
     }
 
-
+    //escaping value from get param - e.g. injection
     public function escape(array $params): array 
     {
         $clearParams = [];
