@@ -18,7 +18,7 @@ class AbstractModel
     protected ErrorLogs $errorLogs;
     protected PDO $conn;
     protected $configuration = [];
-    public $status;
+    public bool $status;
 
 
     public function __construct($config)
@@ -62,7 +62,7 @@ class AbstractModel
         }
     }
 
-    // method for creating connection
+    //method for creating connection
     private function createConnection(array $config): bool
     {
         try {
@@ -83,13 +83,13 @@ class AbstractModel
         return true;
     }
 
-    // method for saving logs - all issues occured will be saved in error file log
+    //method for saving logs - all issues occured will be saved in error file log
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
         try {
             $sqlQuery = "
-                INSERT INTO app_logs (log, status, info) 
-                VALUES ('$log', '$status', '$info')
+                INSERT INTO app_logs (log, status, info, user_id) 
+                VALUES ('$log', '$status', '$info', '$_SESSION[userId]')
                 ";
             $result = $this->conn->exec($sqlQuery);
             if ($result) {

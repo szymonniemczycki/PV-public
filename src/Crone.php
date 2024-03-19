@@ -17,12 +17,6 @@ class Crone
     private Request $request;
     private GetPrice $getPrice;
     private ErrorLogs $errorLogs;
-
-
-    public static function initConfiguration(array $configuration): void
-    {
-        self::$configuration = $configuration;
-    }
     
     //set and connect with database
     public function __construct()
@@ -33,6 +27,12 @@ class Crone
         }
         $this->priceModel = new PriceModel(self::$configuration['db']);
         $this->appLogsModel = new AppLogModel(self::$configuration['db']);
+    }
+    
+    //get configuration data
+    public static function initConfiguration(array $configuration): void
+    {
+        self::$configuration = $configuration;
     }
     
     //method starting download prices

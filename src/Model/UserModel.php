@@ -35,6 +35,27 @@ class UserModel extends AbstractModel
         }
     }
 
+    //method for get user ID
+    public function getUserId(string $name): int
+    {
+        try {
+            $sqlQuery = "SELECT id FROM users WHERE name = '$name'";
+            $result = $this->conn->query($sqlQuery);
+            $isExistAnyData = $result->fetch(PDO::FETCH_ASSOC);
+            if (!empty($isExistAnyData)) {
+                    return $isExistAnyData['id'];
+                 } else {
+                     return 0;
+                 }
+        } catch (Throwable $e) {
+            $this->errorLogs->saveErrorLog(
+                $e->getFile() . " <br />line: " . $e->getLine(),
+                $e->getMessage()
+            );
+        }
+    }
+
+
     //method update last login of users
     public function updateLastLogin(string $name): bool
     {

@@ -49,6 +49,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 		//checking credential
     	if ($userModel->status) {
       		$userExist = $userModel->checkCredential($postSaveLogin, $postSavePass);
+			$userId = $userModel->getUserId($postSaveLogin);
    		} else {
       		$userExist = null;
       		throw new Error('something bad with db configuration');
@@ -57,6 +58,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 		//create and assign value to session variable
     	if ($userExist) {
       		$_SESSION['userName'] = $postSaveLogin;
+      		$_SESSION['userId'] = $userId;
       		$userModel->updateLastLogin($postSaveLogin);
       		$userModel->userLoginLog($postSaveLogin, "successful");
       		header("Location: ./");

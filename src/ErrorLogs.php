@@ -10,9 +10,8 @@ require_once("src/View.php");
 class ErrorLogs 
 {
     private const ERROR_PATH = "logs/errors.txt";
-
-    private View $view;
     private const PAGE_SIZE = 10;
+    private View $view;
 
     //create handle to save logs
     public function __construct(string $date = NULL) 
@@ -36,7 +35,8 @@ class ErrorLogs
             3, 
             self::ERROR_PATH
             );
-        $this->view->render("404", []);
+        header('Location: ./404.php');
+        //$this->view->render("404", []);
     }
 
     //get errors items for listing

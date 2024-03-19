@@ -1,6 +1,8 @@
 <html lang="pl">
 
 <?php require_once("templates/header.php"); ?>
+<?php //include_once("templates/logout.php"); ?>
+<?php //header('Location: ./logout.php'); ?>
 
 	<body class="body">
 		<section>

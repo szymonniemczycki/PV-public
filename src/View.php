@@ -14,7 +14,8 @@ class View
     }
 
     //method to show info (alert on top)
-    public function showInfo(string $msg){
+    public function showInfo(string $msg)
+    {
         include_once("templates/pages/showInfo.php");
     }
 

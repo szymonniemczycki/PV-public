@@ -26,11 +26,6 @@ class Controller
     private int $day;
     private string $msg = "";
 
-    //method for getting configuration data
-    public static function initConfiguration(array $configuration): void
-    {
-        self::$configuration = $configuration;
-    }
 
     //check configuration data and create new objects
     public function __construct($request)
@@ -45,6 +40,14 @@ class Controller
         $this->view = new View();
         $this->errorLogs = new ErrorLogs();
     }
+
+
+    //method for getting configuration data
+    public static function initConfiguration(array $configuration): void
+    {
+        self::$configuration = $configuration;
+    }
+
 
     //mainly method running web-page
     public function run(): void
@@ -194,6 +197,8 @@ class Controller
                 
                 $params['filters']['pageNr'] = $this->validatePageNr($params['filters']['pageNr'], $params['countPage']);
                 $params['logs'] = $this->appLogsModel->getListLogs($params['filters']);
+
+                //dump($params['logs']);
                 
                 $this->view->render("logs", $params);
                 break;  
@@ -223,6 +228,7 @@ class Controller
             }
     }
 
+
     //method sets page-nr as first for unknow value od pageNr param
     private function validatePageNr(?string $pageNr, int $countData): int
     {
@@ -232,6 +238,7 @@ class Controller
         }
         return $pageNr;
     }
+
 
     //validate date format - must be 8 digits number
     private function validDate($page, $niceDate): string
@@ -258,6 +265,7 @@ class Controller
         return (string) ($day);  
     }
 
+
     //create "nice" date fotrmat - with separators
     private function getDateFormat($day): string
     {
@@ -271,5 +279,5 @@ class Controller
             return "";
         }
     }
-    
+
 }
