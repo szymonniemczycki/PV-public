@@ -9,7 +9,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
       		<table cellpadding="0" cellspacing="0" border="0" class="logs">
 				<thead>
 				<tr>
-					<th>Data</th>
+					<th>Date</th>
 					<th>Hour</th>
 					<th>Type</th>
 					<th>Status - Info</th>
@@ -35,8 +35,8 @@ require_once("templates/pages/tables/parameters.php"); ?>
 									<td><?php echo explode(" ", $viewParams[$page][$i]['created'])[0]; ?></td>
 									<td><?php echo explode(" ", $viewParams[$page][$i]['created'])[1]; ?></td>
 									<td><?php echo $viewParams[$page][$i]['log']; ?></td>
-									<td><?php echo $viewParams[$page][$i]['status']." - "; ?>
-									<?php echo $viewParams[$page][$i]['info']; ?></td>
+									<td><?php echo $viewParams[$page][$i]['status']; ?>
+									<?php echo " - ".$viewParams[$page][$i]['info']; ?></td>
 									<td><?php echo $viewParams[$page][$i]['name']; ?></td>
 								</tr>
 								<?php 

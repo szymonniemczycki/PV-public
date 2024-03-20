@@ -2,54 +2,52 @@
 
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  color: #333;
-  background-color: #ddd;
-  margin: 0;
+	font-family: 'Montserrat', sans-serif;
+	color: #333;
+	background-color: #ddd;
+	margin: 0;
 }
 
 .wrapper {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
-
 h1 {
-  font-size: 30px;
-  color: #fff;
-  text-transform: uppercase;
-  text-align: center;
+	font-size: 30px;
+	color: #fff;
+	text-transform: uppercase;
+	text-align: center;
 }
 
 .far {
-  margin-right: 20px;
+	margin-right: 20px;
 }
 
 form,
 .content {
-  background-color: white;
-  padding: 30px 30px 20px 30px;
-  color: #222;
+	background-color: white;
+	padding: 30px 30px 20px 30px;
+	color: #222;
 }
 
 form li {
-  padding: 0;
-  display: block;
-  list-style: none;
-  margin: 10px 0 0 0;
+	padding: 0;
+	display: block;
+	list-style: none;
+	margin: 10px 0 0 0;
 }
 
 form label {
-  margin: 0 0 3px 0;
-  padding: 0px;
-  display: block;
-  color: #222;
-  font-weight: normal;
+	margin: 0 0 3px 0;
+	padding: 0px;
+	display: block;
+	color: #222;
+	font-weight: normal;
 }
 
 form input[type=text],
@@ -63,17 +61,17 @@ form input[type=url],
 form input[type=email],
 textarea,
 select {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  border: 1px solid #BEBEBE;
-  padding: 7px;
-  margin: 0px;
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
-  outline: none;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border: 1px solid #BEBEBE;
+	padding: 7px;
+	margin: 0px;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
 }
 
 form input[type=text]:focus,
@@ -87,373 +85,366 @@ form input[type=url]:focus,
 form input[type=email]:focus,
 form textarea:focus,
 form select:focus {
-  -moz-box-shadow: 0 0 8px #88D5E9;
-  -webkit-box-shadow: 0 0 8px #88D5E9;
-  box-shadow: 0 0 8px #88D5E9;
-  border: 1px solid #88D5E9;
+	-moz-box-shadow: 0 0 8px #88D5E9;
+	-webkit-box-shadow: 0 0 8px #88D5E9;
+	box-shadow: 0 0 8px #88D5E9;
+	border: 1px solid #88D5E9;
 }
 
 form .field-long {
-  width: 100%;
+	width: 100%;
 }
 
 form .field-textarea {
-  height: 100px;
+	height: 100px;
 }
 
 form input[type=submit],
 form input[type=button] {
-  background: cadetblue;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  text-transform: uppercase;
-  padding: 12 40px;
-  cursor: pointer;
+	background: cadetblue;
+	border: none;
+	color: #fff;
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 12 40px;
+	cursor: pointer;
 }
 
 form input[type=submit]:hover,
 form input[type=button]:hover {
-  background: #4691A4;
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
+	background: #4691A4;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 }
 
 form .required {
-  color: red;
+	color: red;
 }
 
 form>div {
-  font-weight: bold;
-  margin-right: 20px;
-  margin-bottom: 20px;
+	font-weight: bold;
+	margin-right: 20px;
+	margin-bottom: 20px;
 }
 
 form>div:first-child {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 form>div:first-child>label:first-child {
-  text-transform: uppercase;
-  font-weight: normal
+	text-transform: uppercase;
+	font-weight: normal;
 }
 
 form>div:first-child>label:first-child>input {
-  margin-left: 14px;
-  font-family: montserrat;
-  outline: none;
-  font-size: 22px;
+	margin-left: 14px;
+	font-family: montserrat;
+	outline: none;
+	font-size: 22px;
 }
 
 form>div:first-child>label:first-child>input:focus {
-  box-shadow: 0 0 0px 2px cadetblue;
+	box-shadow: 0 0 0px 2px cadetblue;
 }
 
 .header {
-  text-align: center;
-  background-color: cadetblue;
-  margin-bottom: 20px;
-  padding: 20px 0;
-  margin-right: 10%;
-  margin-left: 10%;
-  position: relative;
+	text-align: center;
+	background-color: cadetblue;
+	margin-bottom: 20px;
+	padding: 20px 0;
+	margin-right: 10%;
+	margin-left: 10%;
+	position: relative;
 }
 
 .container {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  flex-grow: 1;
-  padding-left: 10%;
-  padding-right: 10%;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	flex-grow: 1;
+	padding-left: 10%;
+	padding-right: 10%;
 }
 
 .menu {
-  width: 20%;
-  background-color: white;
+	width: 20%;
+	background-color: white;
 }
 
 .menu ul {
-  list-style: none;
+	list-style: none;
 }
 
 .menu ul a {
-  display: block;
-  color: cadetblue;
-  font-size: 16px;
-  text-transform: uppercase;
-  padding: 16px 0;
-  text-decoration: none;
+	display: block;
+	color: cadetblue;
+	font-size: 16px;
+	text-transform: uppercase;
+	padding: 16px 0;
+	text-decoration: none;
 }
 
 .menu ul a:hover {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .page {
-  width: calc(100% - 20px);
-  margin-left: 20px;
+	width: calc(100% - 20px);
+	margin-left: 20px;
 }
 
 footer {
-  margin-top: 20px;
-  background-color: cadetblue;
-  margin-left: 10%;
-  margin-right: 10%;
-  font-size: 12px;
+	margin-top: 20px;
+	background-color: cadetblue;
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 12px;
 }
 
 footer p {
-  text-align: center;
-  color: #ddd;
+	text-align: center;
+	color: #ddd;
 }
 
-
 .list {
-  margin: 0;
+	margin: 0;
 }
 
 table {
-  width: 100%;
-  table-layout: fixed;
+	width: 100%;
+	table-layout: fixed;
 }
 
 .tbl-header {
-  margin-top: 20px;
-  background-color: cadetblue;
-  color: white;
+	margin-top: 20px;
+	background-color: cadetblue;
+	color: white;
 }
 
 .tbl-content {
-  overflow-x: auto;
-  margin-top: 0px;
-  border: 3px solid cadetblue;
-  color: #222;
-  background-color: white;
+	overflow-x: auto;
+	margin-top: 0px;
+	border: 3px solid cadetblue;
+	color: #222;
+	background-color: white;
 }
 
 th {
-  padding: 20px 10px;
-  text-align: center;
-  font-weight: 500;
-  font-size: 14px;
-  color: #fff;
-  text-transform: uppercase;
-  padding-top: 23px;
+	padding: 20px 10px;
+	text-align: center;
+	font-weight: 500;
+	font-size: 14px;
+	color: #fff;
+	text-transform: uppercase;
+	padding-top: 23px;
 }
 
 td {
-  padding: 15px 10px;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: 300;
-  font-size: 14px;
-  color: #222;
-  /* border-bottom: solid 1px rgba(255,255,255,0.1); */
+	padding: 15px 10px;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: 300;
+	font-size: 14px;
+	color: #222;
 }
 
-tr>td {}
-
 tr>td {
-  overflow-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 tr>td:nth-child(1) {
-  width: 10%;
+	width: 10%;
 }
 
 tr>th:nth-child(1) {
-  width: 10%;
+	width: 10%;
 }
 
 tr>td:nth-child(2) {
-  width: 15%;
+	width: 15%;
 }
 
 tr>th:nth-child(2) {
-  width: 15%;
+	width: 15%;
 }
 
 tr>td:nth-child(3) {
-  width: 10%;
+	width: 10%;
 }
 
 tr>th:nth-child(3) {
-  width: 10%;
+	width: 10%;
 }
 
 tr>td:nth-child(4) {
-  width: 35%;
+	width: 35%;
 }
 
 tr>th:nth-child(4) {
-  width: 35%;
+	width: 35%;
 }
 
 tr>td:nth-child(5) {
-  width: 15%;
+	width: 15%;
 }
 
 tr>th:nth-child(5) {
-  width: 15%;
+	width: 15%;
 }
 
 tr>th:las-child {
-  font-size: x-small;
+	font-size: x-small;
 }
 
 .error {
-  /* margin: 0 10px 25px 10px; */
-  /* margin-top:0; */
-  text-align: center;
-  font-weight: 700;
-  color: #ff0000;
+	/* margin: 0 10px 25px 10px; */
+	/* margin-top:0; */
+	text-align: center;
+	font-weight: 700;
+	color: #ff0000;
 }
 
 .dump {
-    display: inline-block;
-    padding: 0px 10px;
-    margin: 5px;
-    border: 1px dashed gray;
-    background-color: lightgray;
+	display: inline-block;
+	padding: 0px 10px;
+	margin: 5px;
+	border: 1px dashed gray;
+	background-color: lightgray;
 }
 
 .errorMessage,
 .infoMessage {
-  /* margin: 0 25px 10px 25px; */
-  /* margin-top:0; */
-  text-align: center;
-  font-weight: 700;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  z-index: 1;
+	text-align: center;
+	font-weight: 700;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: white;
+	z-index: 1;
 }
 
 .pagination {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  align-items: auto;
-  align-content: center
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+	align-items: auto;
+	align-content: center
 }
 
 .pagination li {
-  flex: 0 0 auto;
-  margin: 10px;
+	flex: 0 0 auto;
+	margin: 10px;
 }
 
 .pagination li button {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .settings-form label {
-  display: inline-block;
+	display: inline-block;
 }
 
 button {
-  border: none;
-  background-color: cadetblue;
-  padding: 5px 10px;
-  color: white;
-  cursor: pointer;
+	border: none;
+	background-color: cadetblue;
+	padding: 5px 10px;
+	color: white;
+	cursor: pointer;
 }
 
 button:hover {
-  background-color: #4691A4;
+	background-color: #4691A4;
 }
 
 form.note-form li label {
-  font-size: 16px;
+	font-size: 16px;
 }
 
 form.note-form input,
 form.note-form textarea {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .delete,
 .show {
-  padding: 10px;
-  background-color: white;
-  color: #222;
+	padding: 10px;
+	background-color: white;
+	color: #222;
 }
 
 .delete ul,
 .show ul {
-  list-style: none;
+	list-style: none;
 }
 
 .delete button,
 .show button {
-  padding: 8px 12px;
+	padding: 8px 12px;
 }
 
 .unitPrice {
-  font-size: x-small;
-  display: block;
-  margin-bottom: -6px;
-  text-transform: none;
-  margin-top: -2px;
+	font-size: x-small;
+	display: block;
+	margin-bottom: -6px;
+	text-transform: none;
+	margin-top: -2px;
 }
 
 a.active {
-  font-weight: bold;
+	font-weight: bold;
 }
 
-
 .tbl-content tr:nth-child(even) {
-  background-color: #F1F1F1;
+	background-color: #F1F1F1;
 }
 
 form.note-form input.btn-cta-white,
 form.note-form button.btn-cta-white {
-  background-color: white;
-  color: cadetblue;
-  border-style: solid;
-  border-width: 1px;
-  padding: 12 40px;
-  text-transform: uppercase;
-  font-size: 14px;
+	background-color: white;
+	color: cadetblue;
+	border-style: solid;
+	border-width: 1px;
+	padding: 12 40px;
+	text-transform: uppercase;
+	font-size: 14px;
 }
 
 form.note-form button.btn-cta-green {
-  background-color: cadetblue;
-  color: white;
-  border-style: solid;
-  border-width: 1px;
-  padding: 14 40px;
-  text-transform: uppercase;
-  font-size: 14px;
-  width: 200px;
+	background-color: cadetblue;
+	color: white;
+	border-style: solid;
+	border-width: 1px;
+	padding: 14 40px;
+	text-transform: uppercase;
+	font-size: 14px;
+	width: 200px;
 }
 
 form.note-form button.btn-cta-white:hover {
-  opacity: 0.7;
+	opacity: 0.7;
 }
 
 .filters {
-  font-weight: 400;
-  display: flex;
-  justify-content: left;
-  width: 50%;
+	font-weight: 400;
+	display: flex;
+	justify-content: left;
+	width: 50%;
 }
 
 .parameter {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 35px !important;
-  margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 35px !important;
+	margin-top: 10px;
 }
 
 .cta {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 form input[type="submit"], form input[type="button"] .cta {
@@ -461,125 +452,123 @@ form input[type="submit"], form input[type="button"] .cta {
 }
 
 .filterType select {
-  width: 150px;
+	width: 150px;
 }
 
 .date input {
-  width: 150px;
+	width: 150px;
 }
 
 .sort {
-  margin-top: -16px;
+	margin-top: -16px;
 }
 
 .sort label {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .noData {
-  text-align: center;
-  padding: 20px;
+	text-align: center;
+	padding: 20px;
 }
 
 .reset {
-  float: right;
-  margin: 0px;
-  position: absolute;
-  left: 75px;
-  bottom: 15px;
-  font-size: 13px;
-  text-decoration: none;
-  color: black;
+	float: right;
+	margin: 0px;
+	position: absolute;
+	left: 75px;
+	bottom: 15px;
+	font-size: 13px;
+	text-decoration: none;
+	color: black;
 }
 
 .reset a {
-  color: black;
-  text-decoration: none;
-  font-weight: normal;
-  font-size: 13px;
+	color: black;
+	text-decoration: none;
+	font-weight: normal;
+	font-size: 13px;
 }
 
 form.settings-form {
-  position: relative;
+	position: relative;
 }
 
-
 .filters>.log {
-  margin-left: 25px;
+	margin-left: 25px;
 }
 
 .logs tr>th:nth-child(1),
 .logs tr>td:nth-child(1) {
-  width: 15%;
+	width: 15%;
 }
-
 
 .errors tr>th:nth-child(1),
 .errors tr>td:nth-child(1) {
-  width: 3%;
+	width: 3%;
 }
 
 .errors tr>th:nth-child(2),
 .errors tr>td:nth-child(2) {
-  width: 2%;
+	width: 2%;
 }
 
 .errors tr>th:nth-child(3),
 .errors tr>td:nth-child(3) {
-  width: 8%;
+	width: 8%;
 }
 
 .errors tr>th:nth-child(4),
 .errors tr>td:nth-child(4) {
-  width: 8%;
+	width: 8%;
 }
 
 .errors tr>th:nth-child(5),
 .errors tr>td:nth-child(5) {
-  width: 23%;
+	width: 23%;
 }
 
 .errors tr>th:nth-child(6),
 .errors tr>td:nth-child(6) {
-  width: 15%;
+	width: 15%;
 }
 
 .loginForm {
-  text-align: center;
+	text-align: center;
 }
 
 form.loginForm {
-  text-align: center;
-  top: 50%;
-  margin: 10% 30%;
+	text-align: center;
+	top: 50%;
+	margin: 10% 30%;
 }
 
 form.loginForm input {
-  margin: 10px;
-  width: 200px;
-  text-align: center;
-  padding: 8px;
+	margin: 10px;
+	width: 200px;
+	text-align: center;
+	padding: 8px;
 }
 
 .btnLogin {
-  margin: 5px 10px 10px;
+	margin: 5px 10px 10px;
 }
 
 .logout {
-  position: absolute;
-  text-align: right;
-  bottom: 10px;
-  right: 10px;
+	position: absolute;
+	text-align: right;
+	bottom: 10px;
+	right: 10px;
 }
 
 .logout a {
-  color: white;
-  text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 .pagination button.active {
-  border: solid 0px #4691A4;
-  background-color: #4691A4;
+	border: solid 0px #4691A4;
+	background-color: #4691A4;
 }
 
 form, .content {
@@ -589,7 +578,6 @@ form, .content {
 .note-form ul {
 	padding: 0px;
 }
-
 
 form.note-form input[type="submit"] {
 	width: 200px;
@@ -601,205 +589,203 @@ form.note-form input[type="submit"] {
 }
 
 
-
 @media screen and (min-width: 768px) and (max-width: 1200px) {
 
-  .header {
-    margin-right: 3%;
-    margin-left: 3%;
-  }
+	.header {
+		margin-right: 3%;
+		margin-left: 3%;
+	}
 
-  footer {
-    margin-left: 3%;
-    margin-right: 3%;
-  }
+	footer {
+		margin-left: 3%;
+		margin-right: 3%;
+	}
 
-  .container {
-    padding-left: 3%;
-    padding-right: 3%;
-  }
+	.container {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
 
-  .menu ul {
-    list-style: none;
-    padding-left: 0px;
-    text-align: center;
-  }
+	.menu ul {
+		list-style: none;
+		padding-left: 0px;
+		text-align: center;
+	}
 
-  td {
-    padding: 15px 5px;
-  }
+	td {
+		padding: 15px 5px;
+	}
 
-  th {
-    padding: 20px 5px;
-  }
+	th {
+		padding: 20px 5px;
+	}
 
-  tr > th:nth-child(3)
-  tr > td:nth-child(3) {
-    width: 15%;
-  }
+	tr > th:nth-child(3)
+	tr > td:nth-child(3) {
+		width: 15%;
+	}
 
-  tr > th:nth-child(4)
-  tr > td:nth-child(4) {
-    width: 30%;
-  }
+	tr > th:nth-child(4)
+	tr > td:nth-child(4) {
+		width: 30%;
+	}
 
-  .errors tr > td:nth-child(3) {
-    font-size: 12px;
-  }
+	.errors tr > td:nth-child(3) {
+		font-size: 12px;
+	}
 
-  .errors tr > td:nth-child(4) {
-    font-size: 12px;
-  }
+	.errors tr > td:nth-child(4) {
+		font-size: 12px;
+	}
   
-  }
+}
 
 
 @media screen and (max-width: 768px) {
 
-  .header {
-    margin: 0px
-  }
+	.header {
+		margin: 0px
+	}
 
-  footer {
-    margin: 0px;
-  }
+	footer {
+		margin: 0px;
+	}
   
-    .container {
-    display: inline;
-    padding: 0px;
-  }
+	.container {
+		display: inline;
+		padding: 0px;
+	}
   
-  .menu {
-    width: 100%;
-  }
+	.menu {
+		width: 100%;
+	}
   
-  .menu ul {
-    display: flex;
-    justify-content: space-around;
-    padding: 0px;
-    flex-wrap: wrap;
-    margin: 5px 0px;
-  }
+	.menu ul {
+		display: flex;
+		justify-content: space-around;
+		padding: 0px;
+		flex-wrap: wrap;
+		margin: 5px 0px;
+	}
   
-  .page {
-    width: 100%;
-    margin: 5px 0px;
-  }
+	.page {
+		width: 100%;
+		margin: 5px 0px;
+	}
   
-  td {
-    padding: 15px 0px;
-  }
+	td {
+		padding: 15px 0px;
+	}
 
-  th {
-    padding: 20px 0px;
-  }
+	th {
+		padding: 20px 0px;
+	}
   
-  tr > th:nth-child(1),
-  tr > td:nth-child(1) {
-    width: 25%;
-  }
+	tr > th:nth-child(1),
+	tr > td:nth-child(1) {
+		width: 25%;
+	}
 
-  tr > th:nth-child(2),
-  tr > td:nth-child(2) {
-    width: 15%;
-  }
+	tr > th:nth-child(2),
+	tr > td:nth-child(2) {
+		width: 15%;
+	}
 
-  tr > th:nth-child(3),
-  tr > td:nth-child(3) {
-    width: 18%;
-  }
+	tr > th:nth-child(3),
+	tr > td:nth-child(3) {
+		width: 18%;
+	}
   
-  tr > th:nth-child(4),
-  tr > td:nth-child(4) {
-    width: 25%;
-  }
+	tr > th:nth-child(4),
+	tr > td:nth-child(4) {
+		width: 25%;
+	}
 
-  tr > td:nth-child(4) {
-    font-size: 12px;
-  }
+	tr > td:nth-child(4) {
+		font-size: 12px;
+	}
 
-  .logs tr > th {
-    font-size: 14px;
-  }
+	.logs tr > th {
+		font-size: 14px;
+	}
 
-  .logs tr > td {
-    font-size: 14px;
-  }
+	.logs tr > td {
+		font-size: 14px;
+	}
 
+	form.loginForm {
+		width: 76%;
+		margin: 4%;
+		margin-top: 35%;
+	}
 
-  form.loginForm {
-    width: 76%;
-    margin: 4%;
-    margin-top: 35%;
-  }
+	form.loginForm input {
+		margin: 5px;
+		width: 80%;
+		height: 40px;
+		font-size: 16px;
+	}
 
-  form.loginForm input {
-    margin: 5px;
-    width: 80%;
-    height: 40px;
-    font-size: 16px;
-  }
+	.btnLogin {
+		margin: 15px 10px 10px;
+		width: 70%;
+		height: 40px;
+		font-size: 16px;
+	}
 
-  .btnLogin {
-    margin: 15px 10px 10px;
-    width: 70%;
-    height: 40px;
-    font-size: 16px;
-  }
+	.errors tr>th:nth-child(3),
+	.errors tr>td:nth-child(3) {
+		width: 5%;
+		font-size: 12px;
+	}
 
-  .errors tr>th:nth-child(3),
-  .errors tr>td:nth-child(3) {
-    width: 5%;
-    font-size: 12px;
-  }
+	.errors tr>th:nth-child(4),
+	.errors tr>td:nth-child(4) {
+		width: 5%;
+		font-size: 12px;
+	}
 
-  .errors tr>th:nth-child(4),
-  .errors tr>td:nth-child(4) {
-    width: 5%;
-    font-size: 12px;
-  }
+	.errors tr > th,
+	.errors tr > td {
+		font-size: 12px;
+		padding-left: 4px;
+		padding-right: 4px;
+	}
 
-  .errors tr > th,
-  .errors tr > td {
-    font-size: 12px;
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-
-  .errors tr > th,
-  .errors tr>th:nth-child(3),
-  .errors tr>th:nth-child(4) {
-    font-size: 14px;
-  }
+	.errors tr > th,
+	.errors tr>th:nth-child(3),
+	.errors tr>th:nth-child(4) {
+		font-size: 14px;
+	}
 
   }
 
 
   @media screen and (max-width: 560px) {
 
-    .parameter {
-      display: grid;
-      justify-content: center;
-      margin-right: 0px;
-    }
+	.parameter {
+		display: grid;
+		justify-content: center;
+		margin-right: 0px;
+	}
 
-    .filters {
-      width: 100%;
-      justify-content: center;
-    }
+	.filters {
+		width: 100%;
+		justify-content: center;
+	}
 
-    .search {
-      width: 100%;
-      margin-top: 15px;
-    }
+	.search {
+		width: 100%;
+		margin-top: 15px;
+	}
 
-    .cta {
-      margin-right: 0px;
-    }
+	.cta {
+		margin-right: 0px;
+	}
 
-    .sort {
-      margin-top: -22px;
-    }
+	.sort {
+		margin-top: -22px;
+	}
 
   }
   
@@ -807,12 +793,12 @@ form.note-form input[type="submit"] {
 
   @media screen and (max-width: 468px) {
 
-  .logs tr > th {
-    font-size: 12px;
-  }
+	.logs tr > th {
+		font-size: 12px;
+	}
 
-  .logs tr > td {
-    font-size: 10px;
-  }
+	.logs tr > td {
+		font-size: 10px;
+	}
 
   }

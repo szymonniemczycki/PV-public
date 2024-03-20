@@ -30,6 +30,7 @@
 <?php
 	//show alert with error
 	if (!empty($viewParams['listPrices']['error'])) {
-    	require_once("templates/pages/errorMessage.php");
+		$msg = $viewParams['listPrices']['error'];
+		require_once("templates/pages/showInfo.php");
   	}  
 ?>

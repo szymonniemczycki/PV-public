@@ -1,5 +1,5 @@
 <?php 
-//get parameter form
+//get parameters form
 require_once("templates/pages/tables/parameters.php"); ?>
 
 <div class="list">
@@ -10,7 +10,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
       		<table cellpadding="0" cellspacing="0" border="0" class="errors">
         		<thead>
           			<tr>
-            			<th>Data</th>
+            			<th>Date</th>
             			<th>Hour</th>
             			<th>Location</th>
             			<th>Info</th>
@@ -24,7 +24,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
       		<table cellpadding="0" cellspacing="0" border="0" class="<?php echo $page; ?>">
         		<tbody>
             		<?php
-					//if no data on table
+					//if no data in table
             		if (empty($viewParams[$page])) {
                 		echo '<div class="noData">Brak danych do wyświetlenia</div>';
             		} else {

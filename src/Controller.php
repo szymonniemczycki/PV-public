@@ -28,8 +28,8 @@ class Controller
 
 
     //check configuration data and create new objects
-    public function __construct($request)
-    {
+    public function __construct(Request $request)
+    { 
         if (empty(self::$configuration['db'])) {
             exit('błędna konfiguracja');
         } //tutaj pytanie, czy nie zrobić try-catch i przekierowanie na 404?
@@ -50,8 +50,8 @@ class Controller
 
 
     //mainly method running web-page
-    public function run(): void
-    {   //checking params - depended of paramams, requested page will be loaded
+    public function run(): void {   
+        //checking params - depended of paramams, requested page will be loaded
         if (!empty($this->request->postParam('page'))) {
             $page = $this->request->postParam('page');
         } else {
@@ -107,11 +107,11 @@ class Controller
                         $viewParams['error'] = "dataimportedFromCsv";
                     } else {
                         $importedPrices = $this->getPrice->downloadCSV((int) $day);
-                        $pricesFromCsv=$this->getPrice->getPriceFromCSV($day);                        
+                        $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                        
                             if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
                                 $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
                                 $viewParams['error'] = "imported";
-                                $this->appLogsModel->saveLog("manual", "imported", "correctly", 0);
+                                $this->appLogsModel->saveLog("manual", "imported ($niceDate)", "correctly", 0);
                             }
                     }
                 }
@@ -136,7 +136,7 @@ class Controller
                 
                     $this->msg = "imported";
                     $page = $this->request->setPostParam('page', 'prices');
-                    $this->appLogsModel->saveLog("manual", "forcedDownload", "correctly", 0);
+                    $this->appLogsModel->saveLog("manual", "forcedDownload ($niceDate)", "correctly", 0);
                     $this->run();
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
@@ -168,7 +168,7 @@ class Controller
 
                     $this->msg = "imported";
                     $page = $this->request->setPostParam('page', 'prices');
-                    $this->appLogsModel->saveLog("manual", "updated", "correctly", 0);
+                    $this->appLogsModel->saveLog("manual", "updated ($niceDate)", "correctly", 0);
                     $this->run();
 
                 } catch (Throwable $e) {
@@ -233,33 +233,45 @@ class Controller
     private function validatePageNr(?string $pageNr, int $countData): int
     {
         $pageNr = (int) $pageNr;
-        if ($pageNr > $countData || $pageNr <= 0){
+        if ($pageNr > $countData || $pageNr <= 0) {
             $pageNr = 1;
         }
         return $pageNr;
     }
 
 
-    //validate date format - must be 8 digits number
+    //validate date format - must be between 2018-01-01 and today 
     private function validDate($page, $niceDate): string
     {
+        $today = date("Y-m-d");
         if (!empty($niceDate)) {
-            $day = str_replace("-", "", $niceDate);
-
-            if ((int) $day == 0) {
+            if (
+                strtotime($niceDate) < strtotime("2018-01-01") 
+                || strtotime($niceDate) > strtotime($today)
+                ) {
+                    $page = ($page == "forceDownload") ? "import": $page;
+                    $page = ($page == "forceImport") ? "prices" : $page;
+                    var_dump(strtotime($page));
+                    //exit();
                 $viewParams['error'] = "wrongData";
-            } else if (strlen((string) $day) != 8) {
-                $viewParams['error'] = "dateToShort";
-            } else if (strlen((string) (int) $day) != 8) {
-                $viewParams['error'] = "dateToShort";
-            } else if ((int) $day !=0 ) {
-                $viewParams['error'] = "";
+                $this->view->render(
+                    $page,
+                    [
+                        'niceDate' => $niceDate,
+                        'listPrices' => $viewParams
+                    ]
+                );
+                exit();
+            } else {
+                $day = str_replace("-", "", $niceDate);
             }
         } else {
             $this->view->render(
                 $page,
-                ['niceDate' => $niceDate,]
-                );
+                [
+                    'niceDate' => $niceDate,
+                ]
+            );
             exit();
         }
         return (string) ($day);  
@@ -279,5 +291,6 @@ class Controller
             return "";
         }
     }
+
 
 }

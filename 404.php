@@ -1,17 +1,13 @@
 <html lang="pl">
 
 <?php require_once("templates/header.php"); ?>
-<?php //include_once("templates/logout.php"); ?>
-<?php //header('Location: ./logout.php'); ?>
 
 	<body class="body">
 		<section>
 			<?php //table header ?>
-			<div class="errorMessage">
 				<div class="infoMessage">
 					Any problem with App...
 				</div>
-			</div>
 		</section>
     
 		<?php //show login form ?>

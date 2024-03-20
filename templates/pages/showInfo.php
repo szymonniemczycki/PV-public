@@ -7,7 +7,7 @@
                     echo 'No data in the database!';
                     break;
                 case 'wrongData':
-                    echo 'Wrong data!';
+                    echo 'Incorrect date!';
                     break;
                 case 'emptyform':   
                     echo 'No data in the form!';

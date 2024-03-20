@@ -21,10 +21,10 @@ class Crone
     //set and connect with database
     public function __construct()
     {
-        $this->errorLogs = new ErrorLogs();
         if (empty(self::$configuration['db'])) {
             exit('błędna konfiguracja');
         }
+        $this->errorLogs = new ErrorLogs();
         $this->priceModel = new PriceModel(self::$configuration['db']);
         $this->appLogsModel = new AppLogModel(self::$configuration['db']);
     }
@@ -44,18 +44,18 @@ class Crone
         $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
         
         if ($dataExist) {
-            $this->appLogsModel->saveLog("crone", "noImported", "dataExist", 1);
+            $this->appLogsModel->saveLog("crone", "noImported ($day)", "dataExist", 1);
         } else {
             if ($csvExist) {
                 $pricesCollection = $this->getPrice->getPriceFromCSV($day);
                 $pricesImported = (int) $this->priceModel->savePrice($pricesCollection);
-                $this->appLogsModel->saveLog("crone", "imported", "fromCsv", 1);
+                $this->appLogsModel->saveLog("crone", "imported ($day)", "fromCsv", 1);
             } else {
                 $importedPrices = $this->getPrice->downloadCSV((int) $day);
                 $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                        
                     if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
                         $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
-                        $this->appLogsModel->saveLog("crone", "imported", "orrectly", 1);
+                        $this->appLogsModel->saveLog("crone", "imported ($day)", "correctly", 1);
                     }
             }       
         }

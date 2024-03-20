@@ -23,8 +23,7 @@ class GetPrice
     private ErrorLogs $errorLogs;
     
 
-    public function __construct($date = NULL) 
-    {
+    public function __construct($date = NULL) {
         $this->errorLogs = new ErrorLogs();
     }
 

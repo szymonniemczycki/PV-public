@@ -22,7 +22,7 @@ class AbstractModel
 
 
     public function __construct($config)
-    {    
+    {
         $this->errorLogs = new ErrorLogs();
         try {
             //validdate config file with acces to DB
@@ -50,7 +50,7 @@ class AbstractModel
                 || empty($config['password'])
             ) {
                 return false;
-                throw new Throwable('Division by zero.');
+                //throw new Throwable('Division by zero.');
             } else {
                 return true;
             }
@@ -86,10 +86,11 @@ class AbstractModel
     //method for saving logs - all issues occured will be saved in error file log
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
+        $usrId = (!empty($_SESSION['userId'])) ? $_SESSION['userId'] : 0;
         try {
             $sqlQuery = "
                 INSERT INTO app_logs (log, status, info, user_id) 
-                VALUES ('$log', '$status', '$info', '$_SESSION[userId]')
+                VALUES ('$log', '$status', '$info', '$usrId')
                 ";
             $result = $this->conn->exec($sqlQuery);
             if ($result) {

@@ -12,14 +12,13 @@
         		data-input-format="%d/%m/%y"
       		/>
     	</li>
-
 		<li>
       		<?php
 				//show button/s
-      			if(isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "noDataInDB") {
+      			if (isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "noDataInDB") {
     				echo "<input class='btn-cta-white' type='submit' value='Show price' />";
         			echo "<button class='btn-cta-green' type='submit' name='page' value='forceImport'>Import</button>";
-      			} else {
+				} else {
 					echo "<input type='submit' value='Show price' />";
       			}
       		?>
@@ -30,7 +29,8 @@
 <?php
 	//show alert with error or table with content
 	if (!empty($viewParams['listPrices']['error'])) {
-		require_once("templates/pages/errorMessage.php");
+		$msg = $viewParams['listPrices']['error'];
+		require_once("templates/pages/showInfo.php");
 	} elseif (empty($viewParams['listPrices']['error']) && !empty($viewParams['niceDate'])) {
 		require_once("templates/pages/table.php");
 	}
