@@ -36,7 +36,7 @@ class GetPrice
         return true;
     }
 
-    //metgod for download csv file from external server
+    //method for download csv file from external server
     public function downloadCSV(int $day): string
     {
         try {

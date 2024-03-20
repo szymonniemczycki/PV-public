@@ -32,7 +32,6 @@ class AppLogModel extends AbstractModel
                 ORDER BY app_logs.created $params[sort]
                 LIMIT $offset, $pageSize
                 ";
-
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $e) {

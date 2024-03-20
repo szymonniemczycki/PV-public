@@ -50,7 +50,6 @@ class AbstractModel
                 || empty($config['password'])
             ) {
                 return false;
-                //throw new Throwable('Division by zero.');
             } else {
                 return true;
             }

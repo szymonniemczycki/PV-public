@@ -252,7 +252,6 @@ class Controller
                     $page = ($page == "forceDownload") ? "import": $page;
                     $page = ($page == "forceImport") ? "prices" : $page;
                     var_dump(strtotime($page));
-                    //exit();
                 $viewParams['error'] = "wrongData";
                 $this->view->render(
                     $page,
