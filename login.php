@@ -18,8 +18,8 @@ spl_autoload_register(function (string $classNamespace) {
 });
 
 //used Classed
-use App\Exception\Exception;
-use App\Exception\Throwable;
+// use App\Exception\Exception;
+// use App\Exception\Throwable;
 use App\Model\UserModel;
 use App\ErrorLogs;
 
@@ -96,9 +96,9 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 		<div class="login">
     		<?php if (empty($_SESSION['user'])) { ?>
         		<form class="loginForm" action="login.php" method="post">
-          			<input type="text" name="login" placeholder="login" /> 
+          			<input type="text" name="login" placeholder="login" required/> 
           			<br/> 
-          			<input type="password" name="password" placeholder="password" /> 
+          			<input type="password" name="password" placeholder="password" required/> 
           			<br/>  
           			<input type="hidden" name="tried" value="true" />
           			<button class="btnLogin" type="submit">LOG IN</button>

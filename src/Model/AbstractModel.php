@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Exception\AppException;
-use App\Exception\NotFoundException;
-use App\Exception\StorageException;
-use App\Exception;
+//used classes
 use Throwable;
 use PDO;
 use PDOException;

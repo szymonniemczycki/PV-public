@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+//used classes
 use App\ErrorLogs;
 use App\Model\PriceModel;
 use App\Model\AppLogModel;

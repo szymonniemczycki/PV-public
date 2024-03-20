@@ -1,15 +1,17 @@
 <form class="note-form" action="./?page=import" method="post" >
 	<ul>
 		<li>
-			<?php //input for data select ?>
-      		<label>Choose data <span class="required">*</span></label>
-      			<input 
-        			type="date" 
-					name="niceDate" 
-					value="<?php echo $date = ($viewParams['niceDate']) ?: date('Y-m-d'); ?>" 
-					min="2018-01-01" 
-					max="<?php echo date("Y-m-d");?>" 
-					data-input-format="%y/%m/%d"
+			<?php 
+				//input for data select 
+				?>
+				<label>Choose data <span class="required">*</span></label>
+					<input 
+						type="date" 
+						name="niceDate" 
+						value="<?php echo $date = ($viewParams['niceDate']) ?: date('Y-m-d'); ?>" 
+						min="2018-01-01" 
+						max="<?php echo date("Y-m-d");?>" 
+						data-input-format="%y/%m/%d"
       			/>
    		</li>
     

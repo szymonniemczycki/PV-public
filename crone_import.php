@@ -11,13 +11,6 @@ spl_autoload_register(function (string $classNamespace) {
 
 require_once("src/Utils/debug.php");  
 
-//used Classed
-use App\Exception\AppException;
-use App\Exception\ConfigurationException;
-use App\Controller;
-use App\Request;
-use App\Model\PriceModel;
-
 $configuration = require_once("config/config.php");
 
 

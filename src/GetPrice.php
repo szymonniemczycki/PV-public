@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use PDO;
-use PDOException;
+//used classes
 use Throwable;
-use Exception;
-use Error;
 
 require_once("src/ErrorLogs.php");
 

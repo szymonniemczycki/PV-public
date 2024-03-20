@@ -20,8 +20,8 @@ require_once("src/Utils/debug.php");
 $configuration = require_once("config/config.php");
 
 //used Classed
-use App\Exception\AppException;
-use App\Exception\ConfigurationException;
+// use App\Exception\AppException;
+// use App\Exception\ConfigurationException;
 use App\Controller;
 use App\Request;
 use App\Model\PriceModel;
@@ -42,7 +42,7 @@ try {
 		$e->getFile() . " <br />line: " . $e->getLine(),
 		$e->getMessage()
 	);
-	header("Location: ./?page=404");
+	header("Location: ./404.php");
 }
 
 ?>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Exception;
+//used classes
 use PDO;
 use Throwable;
 use PDOException;
