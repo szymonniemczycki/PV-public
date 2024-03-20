@@ -34,9 +34,8 @@ class ErrorLogs
             "\n",
             3, 
             self::ERROR_PATH
-            );
+        );
         header('Location: ./404.php');
-        //$this->view->render("404", []);
     }
 
     //get errors items for listing
@@ -76,7 +75,7 @@ class ErrorLogs
             $rowData = fgets($handle);
             if ($rowData) {
                 $row = explode(";", $rowData);
-                if(strpos($row[0], "\n") !== FALSE || sizeof($row) != 4) {
+                if (strpos($row[0], "\n") !== FALSE || sizeof($row) != 4) {
                     continue;
                 }
                 array_push($rowFile, $row);
@@ -94,7 +93,7 @@ class ErrorLogs
         }
         $filteredData = [];
         foreach ($data as $key => $value) {
-            if($data[$key][0] === $filterDate) {
+            if ($data[$key][0] === $filterDate) {
                 array_push($filteredData, $data[$key]);
             }
         }
@@ -109,7 +108,7 @@ class ErrorLogs
         }
         $searchData = [];
         foreach ($data as $key => $value) {    
-            if(str_contains(strtolower($data[$key][2]), strtolower($filterSearch))) {
+            if (str_contains(strtolower($data[$key][2]), strtolower($filterSearch))) {
                 array_push($searchData, $data[$key]);
             } elseif (str_contains(strtolower($data[$key][3]), strtolower($filterSearch))) {
                 array_push($searchData, $data[$key]);
@@ -142,7 +141,7 @@ class ErrorLogs
         
         for ($i=0; $i < sizeof($data); $i++) {
             array_unshift($data[$i], $i);
-            if($i % $pageSize == 0) {
+            if ($i % $pageSize == 0) {
                 $pageNr++;
                 $paginationData[$pageNr] = [];
             }

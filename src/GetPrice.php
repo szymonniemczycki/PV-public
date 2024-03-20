@@ -71,7 +71,7 @@ class GetPrice
             while (!feof($filePath)) {
                 $data = fgetcsv($filePath, 0 , ";");
                     if (!empty($data)) {
-                        if($firstRow) {
+                        if ($firstRow) {
                             $firstRow = false;
                             continue;
                         }
@@ -90,7 +90,7 @@ class GetPrice
     public function deleteCSV($day): bool
     {
         $isFile = $this->checkIsCsvExist($day);
-        if($isFile) {
+        if ($isFile) {
             $path = self::RESOURCES_PATH . $day . ".csv";
             unlink($path);
             return true;

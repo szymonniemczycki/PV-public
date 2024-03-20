@@ -5,7 +5,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
 <div class="list">
 	<section>
 
-	<?php //first header with table ?>
+		<?php //first header with table ?>
 		<div class="tbl-header">
       		<table cellpadding="0" cellspacing="0" border="0" class="errors">
         		<thead>

@@ -63,7 +63,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
 
     	<?php 
 		//get pagination section
-		require_once("templates/pages/tables/pagination.php"); ?>
-
+		require_once("templates/pages/tables/pagination.php"); 
+		?>
   	</section>
 </div>

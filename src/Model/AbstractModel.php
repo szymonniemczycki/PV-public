@@ -25,7 +25,7 @@ class AbstractModel
             //validdate config file with acces to DB
             $this->status = $validateConfig = $this->validateConfig($config);
             if ($validateConfig) {
-                //if cofig file is correctly and not missing data, then create connection
+                //if config file is correctly and not missing data, then create connection
                 $this->status = $this->createConnection($config);
             }
         } catch (PDOException $e) {

@@ -18,7 +18,7 @@
     	<li>
       		<?php
 				//show button/s
-				if(isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "dataExist") {
+				if (isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "dataExist") {
 					echo "<input class='btn-cta-white' type='submit' value='import prices' />";
 					echo "<button class='btn-cta-green' type='submit' name='page' value='forceDownload'>Overwrite</button>";
 				} else {

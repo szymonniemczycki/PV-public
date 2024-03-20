@@ -18,8 +18,6 @@ spl_autoload_register(function (string $classNamespace) {
 });
 
 //used Classed
-// use App\Exception\Exception;
-// use App\Exception\Throwable;
 use App\Model\UserModel;
 use App\ErrorLogs;
 
@@ -67,8 +65,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
       		include("templates/pages/showInfo.php");
     	} else {
       		$msg = "wrongHash";
-      		include("templates/pages/showInfo.php");  
-      		$userModel->userLoginLog($postSaveLogin, "incorrect credentials");
+      		include("templates/pages/showInfo.php");
     	}
 
   	} catch (Error $e) { 
@@ -80,7 +77,10 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
   	}
 
 //show alert if any problem occured
-} elseif ((empty($_POST['login']) || empty($_POST['password'])) && isset($_POST['tried'])) {
+} elseif (
+	(empty($_POST['login']) || empty($_POST['password'])) 
+	&& isset($_POST['tried'])
+) {
 	$msg = "noHash";
 	include("templates/pages/showInfo.php");
 } 
@@ -96,6 +96,10 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 		<div class="login">
     		<?php if (empty($_SESSION['user'])) { ?>
         		<form class="loginForm" action="login.php" method="post">
+					<div class="logininfo">
+						<h3>Logowanie</h3>
+						<p>RCE importer</p>
+					</div>
           			<input type="text" name="login" placeholder="login" required/> 
           			<br/> 
           			<input type="password" name="password" placeholder="password" required/> 

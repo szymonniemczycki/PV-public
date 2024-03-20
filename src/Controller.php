@@ -50,7 +50,8 @@ class Controller
 
 
     //mainly method running web-page
-    public function run(): void {   
+    public function run(): void 
+    {   
         //checking params - depended of paramams, requested page will be loaded
         if (!empty($this->request->postParam('page'))) {
             $page = $this->request->postParam('page');
@@ -198,8 +199,6 @@ class Controller
                 $params['filters']['pageNr'] = $this->validatePageNr($params['filters']['pageNr'], $params['countPage']);
                 $params['logs'] = $this->appLogsModel->getListLogs($params['filters']);
 
-                //dump($params['logs']);
-                
                 $this->view->render("logs", $params);
                 break;  
 
@@ -225,7 +224,7 @@ class Controller
             default:
                 $this->view->render("main", []);
                 break;
-            }
+        }
     }
 
 
@@ -248,10 +247,9 @@ class Controller
             if (
                 strtotime($niceDate) < strtotime("2018-01-01") 
                 || strtotime($niceDate) > strtotime($today)
-                ) {
-                    $page = ($page == "forceDownload") ? "import": $page;
-                    $page = ($page == "forceImport") ? "prices" : $page;
-                    var_dump(strtotime($page));
+            ) {
+                $page = ($page == "forceDownload") ? "import": $page;
+                $page = ($page == "forceImport") ? "prices" : $page;
                 $viewParams['error'] = "wrongData";
                 $this->view->render(
                     $page,

@@ -1,4 +1,4 @@
-<form class="note-form" action="./?page=prices" method="post" >
+<form class="note-form" action="./?page=prices" method="post">
 	<ul>
 		<li>
 			<?php //input for data select ?>

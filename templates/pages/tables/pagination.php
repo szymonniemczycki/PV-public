@@ -2,12 +2,10 @@
     <?php if ($currentPage != 1) : ?>
     <?php //show button for previous page ?>
     <li>
-        <a href="
-        <?php echo $paginationUrl . "&pageNr=" . $currentPage - 1; ?>
-        ">
-        <button>
-            <?php echo "<<"; ?>
-        </button>
+        <a href="<?php echo $paginationUrl . "&pageNr=" . $currentPage - 1; ?>">
+            <button>
+                <?php echo "<<"; ?>
+            </button>
         </a>
     </li>
     <?php endif; ?>
@@ -15,65 +13,63 @@
 
     <?php //show all pages if less than 10 ?>
     <?php
-    if($countPage <= 9) {
-    for ($i = 1; $i <= $countPage; $i++) : 
-        if($i == $currentPage) {
-        $isActive = 'class="active"';
-        } else {
-        $isActive = "";
-        }
-        ?>
+    if ($countPage <= 9) {
+        for ($i = 1; $i <= $countPage; $i++) : 
+            if ($i == $currentPage) {
+                $isActive = 'class="active"';
+            } else {
+                $isActive = "";
+            }
+            ?>
 
-        <li>
-        <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
-            <button <?php echo $isActive; ?>><?php echo $i; ?></button>
-        </a>
-        </li>
-    <?php endfor; 
+            <li>
+                <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
+                    <button <?php echo $isActive; ?>><?php echo $i; ?></button>
+                </a>
+            </li>
+        <?php endfor; 
     //group quantity of pages if more than 10
     } elseif ($countPage > 9) {
-    for ($i = 1; $i < 4; $i++) : 
-        if($i == $currentPage) {
-        $isActive = 'class="active"';
-        } else {
-        $isActive = "";
-        }
-        ?>
-        <li>
-        <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
-            <button <?php echo $isActive; ?>><?php echo $i; ?></button>
-        </a>
-        </li>
-    <?php endfor; ?>
+        for ($i = 1; $i < 4; $i++) : 
+            if ($i == $currentPage) {
+                $isActive = 'class="active"';
+            } else {
+                $isActive = "";
+            }
+            ?>
+            <li>
+                <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
+                    <button <?php echo $isActive; ?>><?php echo $i; ?></button>
+                </a>
+            </li>
+            <?php endfor; ?>
 
-    <li>
-        ...
-    </li>
+            <li>
+                ...
+            </li>
 
-    <?php 
-        for ($i=$countPage - 2; $i <= $countPage; $i++) :
-        if($i == $currentPage) {
-            $isActive = 'class="active"';
-        } else {
-            $isActive = "";
-        }
-        ?>
-        <li>
-        <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
-            <button <?php echo $isActive; ?>><?php echo $i; ?></button>
-        </a>
-        </li>
-    <?php endfor; 
+            <?php 
+                for ($i=$countPage - 2; $i <= $countPage; $i++) :
+                if ($i == $currentPage) {
+                    $isActive = 'class="active"';
+                } else {
+                    $isActive = "";
+                }
+            ?>
+            <li>
+                <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
+                <button <?php echo $isActive; ?>><?php echo $i; ?></button>
+            </a>
+            </li>
+        <?php endfor; 
     }?>
 
-<?php //show button for next page ?>
+    <?php //show button for next page ?>
     <?php if ($currentPage < $countPage && $countPage != 1) : ?>
-    <li>
-        <a href="
-        <?php echo $paginationUrl . "&pageNr=" . $currentPage + 1; ?>
-        ">
-        <button><?php echo ">>"; ?></button>
-        </a>
-    </li>
+        <li>
+            <a href="<?php echo $paginationUrl . "&pageNr=" . $currentPage + 1; ?>">
+                <button><?php echo ">>"; ?></button>
+            </a>
+        </li>
     <?php endif; ?>
 </ul>

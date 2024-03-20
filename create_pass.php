@@ -12,13 +12,13 @@
 <?php
     if (!empty($_POST['newPass'])) {
         $newPass = htmlentities((string) $_POST['newPass']);
-?>
-    <input 
-        type="text"
-        placeholder="new pass" 
-        value="<?php echo password_hash($newPass, PASSWORD_DEFAULT);?>"
-        style="width: 500px;" 
-    /> 
-<?php
+        ?>
+        <input 
+            type="text"
+            placeholder="new pass" 
+            value="<?php echo password_hash($newPass, PASSWORD_DEFAULT);?>"
+            style="width: 500px;" 
+        /> 
+        <?php
     }
 ?>
