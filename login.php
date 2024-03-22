@@ -87,7 +87,6 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 ?>
 
 <html lang="pl">
-
 	<?php 
 	//show header 
 	require_once("templates/header.php");

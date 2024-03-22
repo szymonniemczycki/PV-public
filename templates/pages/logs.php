@@ -8,13 +8,13 @@ require_once("templates/pages/tables/filtersPanel.php"); ?>
 		<div class="tbl-header">
       		<table cellpadding="0" cellspacing="0" border="0" class="logs">
 				<thead>
-				<tr>
-					<th>Date</th>
-					<th>Hour</th>
-					<th>Type</th>
-					<th>Status - Info</th>
-					<th>User</th>
-				</tr>
+					<tr>
+						<th>Date</th>
+						<th>Hour</th>
+						<th>Type</th>
+						<th>Status - Info</th>
+						<th>User</th>
+					</tr>
 				</thead>
       		</table>
     	</div>

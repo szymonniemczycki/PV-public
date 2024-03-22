@@ -92,8 +92,6 @@ if (!empty($viewParams['filters'])) {
                 </option>
             </select> 
         </div>
-
-
-
+        
     </form>
 </div>

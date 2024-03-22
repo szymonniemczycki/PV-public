@@ -12,7 +12,6 @@
         <?php 
     } ?>
 
-
     <?php
     //show all pages if less than 10
     if ($countPage <= 9) {
@@ -23,7 +22,6 @@
                 $isActive = "";
             }
             ?>
-
             <li>
                 <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
                     <button <?php echo $isActive; ?>><?php echo $i; ?></button>
@@ -47,11 +45,9 @@
             </li>
             <?php 
         } ?>
-
             <li>
                 ...
             </li>
-
         <?php 
             for ($i=$countPage - 2; $i <= $countPage; $i++) {
                 if ($i == $currentPage) {

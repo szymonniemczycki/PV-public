@@ -1,5 +1,6 @@
 <div class="list">
 	<section>
+		
 	<!-- table header -->
 		<div class="tbl-header">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -19,7 +20,7 @@
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tbody>
 					<?php 
-						foreach ($viewParams['listPrices']['prices'] ?? [] as $price) {
+					foreach ($viewParams['listPrices']['prices'] ?? [] as $price) {
 					?>
 					<tr>
 						<td><?php echo $viewParams['formatedDate']; ?></td>

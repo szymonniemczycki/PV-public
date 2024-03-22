@@ -6,7 +6,6 @@
 
 	//show login form ?>
 	<body class="body">
-
         <form class="loginForm" action="./create_pass.php" method="post">
             <input 
                 id="newPass"
@@ -32,11 +31,6 @@
                 <?php
             }
             ?>
-
         </form>
-    
-
-
-
     </body>
 </html>
