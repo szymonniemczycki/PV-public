@@ -18,10 +18,10 @@ class PriceModel extends AbstractModel
     public function listPrice(string $day): array
     {   
         try {
-            $sqlQuery = "SELECT created, date, DATE_FORMAT(hour, \"%H:%i\") as hour, price 
-                FROM prices 
-                WHERE date = $day 
-                ORDER BY hour ASC
+            $sqlQuery = "SELECT `created`, `date`, DATE_FORMAT(`hour`, \"%H:%i\") as `hour`, `price` 
+                FROM `prices` 
+                WHERE date = " . $day . " 
+                ORDER BY hour
                 ";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -47,8 +47,8 @@ class PriceModel extends AbstractModel
             foreach($pricesToSave as $data => $days) {
                 foreach($days as $hour => $price) {
                     $sqlQuery = "
-                        INSERT INTO prices (date, hour, price) 
-                        VALUES ($data, $hour*10000, $price)
+                        INSERT INTO `prices` (`date`, `hour`, `price`) 
+                        VALUES (" . $data . ", " . $hour*10000 . ", " . $price . ")
                         ";
                     $result = $this->conn->exec($sqlQuery);
                     }
@@ -67,7 +67,7 @@ class PriceModel extends AbstractModel
     public function deletePrice(string $day): bool 
     {   
         try {
-            $sqlQuery = "DELETE FROM prices WHERE date = $day";
+            $sqlQuery = "DELETE FROM `prices` WHERE `date` = " . $day . "";
             $result = $this->conn->exec($sqlQuery);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
@@ -84,16 +84,15 @@ class PriceModel extends AbstractModel
     {
         try {
             $sqlQuery = "
-                SELECT * FROM prices
-                WHERE date = $day
+                SELECT * FROM `prices`
+                WHERE `date` = " . $day . "
                 ";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
-            if (count($isExistAnyData) != 0) {
-                return true;
-            } else {
+            if (count($isExistAnyData) == 0) {
                 return false;
             }
+            return true;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(),

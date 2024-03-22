@@ -66,7 +66,8 @@ class GetPrice
         $filePath = fopen($filePath, "r");
         
         if ($filePath !== false) {            
-            $pricesCollection[$day] = [];
+            //$pricesCollection[$day] = [];
+            $pricesCollection = [];
             $firstRow = true;
             while (!feof($filePath)) {
                 $data = fgetcsv($filePath, 0 , ";");
@@ -75,28 +76,28 @@ class GetPrice
                             $firstRow = false;
                             continue;
                         }
+                        $day_id = (int) $data[0];
+                        $hour = (int) $data[1];
                         $price = (float) (str_replace(',', '.', $data[2]));
-                        $pricesCollection[$data[0]] += [
-                            (int)$data[1] => $price,
-                        ];
+                        $pricesCollection[$hour] = $price;
                     }
             }
+            $pricesDayCollection[$day] = $pricesCollection;
         }
         fclose($filePath);
-        return $pricesCollection;
+        return $pricesDayCollection;
     }
 
     //delete price from CSV - needed for force download
     public function deleteCSV($day): bool
     {
         $isFile = $this->checkIsCsvExist($day);
-        if ($isFile) {
-            $path = self::RESOURCES_PATH . $day . ".csv";
-            unlink($path);
-            return true;
-        } else {
+        if (!$isFile) {
             return false;
         }
+        $path = self::RESOURCES_PATH . $day . ".csv";
+        unlink($path);
+        return true;
     }
 
     

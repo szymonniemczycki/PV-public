@@ -1,13 +1,13 @@
 <?php 
-//get parameters form
-require_once("templates/pages/tables/parameters.php"); ?>
+//get filters form
+require_once("templates/pages/tables/filtersPanel.php"); ?>
 
 <div class="list">
 	<section>
 
-		<?php //first header with table ?>
+		<!-- first header with table -->
 		<div class="tbl-header">
-      		<table cellpadding="0" cellspacing="0" border="0" class="errors">
+      		<table cellpadding="0" cellspacing="0" border="0" id="errors">
         		<thead>
           			<tr>
             			<th>Date</th>
@@ -19,7 +19,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
       		</table>
     	</div>
 
-		<?php //table content ?>
+		<!-- table content -->
     	<div class="tbl-content">
       		<table cellpadding="0" cellspacing="0" border="0" class="<?php echo $page; ?>">
         		<tbody>
@@ -45,7 +45,6 @@ require_once("templates/pages/tables/parameters.php"); ?>
       		</table>
     	</div>
 
-    
 		<?php
 		//create variable for link with params 
 		$paginationUrl = "
@@ -54,14 +53,12 @@ require_once("templates/pages/tables/parameters.php"); ?>
 			"&sort=" . $viewParams['filters']['sort'] . 
 			"";
 
-		$currentPage = $viewParams['filters']['pageNr'] ?? 1;
-		$currentPage = ($currentPage) ? $currentPage : 1;
-		$countPage = sizeof($viewParams[$page]) ?? 1;
-		?>
+		$currentPage = ($viewParams['filters']['pageNr']) ? $viewParams['filters']['pageNr'] : 1;
+		$countPage = count($viewParams[$page]) ?? 1;
 
-    	<?php 
 		//get pagination section
-		require_once("templates/pages/tables/pagination.php"); ?>
+		require_once("templates/pages/tables/pagination.php"); 
+		?>
 
   	</section>
 </div>

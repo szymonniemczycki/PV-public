@@ -1,6 +1,6 @@
 <div class="list">
 	<section>
-	<?php //table header ?>
+	<!-- table header -->
 		<div class="tbl-header">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<thead>
@@ -14,20 +14,20 @@
 			</table>
 		</div>
 
-		<?php //table content ?>
+		<!-- table content -->
 		<div class="tbl-content">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tbody>
 					<?php 
-						foreach ($viewParams['listPrices']['prices'] ?? [] as $price) : 
+						foreach ($viewParams['listPrices']['prices'] ?? [] as $price) {
 					?>
 					<tr>
-						<td><?php echo $viewParams['niceDate']; ?></td>
+						<td><?php echo $viewParams['formatedDate']; ?></td>
 						<td><?php echo htmlentities($price['hour']); ?></td>
 						<td><?php echo htmlentities($price['price']); ?></td>
 						<td><?php echo htmlentities($price['created']); ?></td>
 					</tr>
-					<?php endforeach; ?>
+					<?php } ?>
 				</tbody>
 			</table>
 		</div>

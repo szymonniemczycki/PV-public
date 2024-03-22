@@ -7,9 +7,9 @@ ini_set('display_errors','1');
 
 
 function dump($data) {
-    echo "<div class=\"dump\">";
+    echo "<div id=\"dump\">";
     echo"<pre>";
     print_r($data);
     echo"</pre>";
-    echo"</div><br /><br />";
+    echo"</div>";
 }

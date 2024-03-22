@@ -12,12 +12,22 @@ if (empty($_SESSION['userName'])) {
 //generete path for used Classes
 spl_autoload_register(function (string $classNamespace) {
 	$path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
-	$path = "src/$path.php";
+	$path = "src/" . $path . ".php";
 	require_once($path);
 });
 
 require_once("src/Utils/debug.php");  
-$configuration = require_once("config/config.php");
+
+//get db configuration data
+try {
+	$configuration = require_once("config/config.php");
+} catch (Error $e) { 
+	$errorLogs->saveErrorLog(
+		$e->getFile() . " <br />line: " . $e->getLine(),
+		$e->getMessage()
+	);
+  	header('Location: ./404.php');
+}
 
 //used Classed
 use App\Controller;

@@ -29,16 +29,21 @@ class Controller
 
     //check configuration data and create new objects
     public function __construct(Request $request)
-    { 
-        if (empty(self::$configuration['db'])) {
-            exit('błędna konfiguracja');
-        } //tutaj pytanie, czy nie zrobić try-catch i przekierowanie na 404?
-
-        $this->priceModel = new PriceModel(self::$configuration['db']);
-        $this->appLogsModel = new AppLogModel(self::$configuration['db']);
-        $this->request = $request;
-        $this->view = new View();
-        $this->errorLogs = new ErrorLogs();
+    {
+        //set Class properties
+        try {
+            $this->priceModel = new PriceModel(self::$configuration['db']);
+            $this->appLogsModel = new AppLogModel(self::$configuration['db']);
+            $this->request = $request;
+            $this->view = new View();
+            $this->errorLogs = new ErrorLogs();
+        } catch (Throwable $e) {
+            $errorLogs->saveErrorLog(
+                $e->getFile() . " <br />line: " . $e->getLine(),
+                $e->getMessage()
+            );
+            header("Location: ./404.php");
+        }
     }
 
 
@@ -58,17 +63,17 @@ class Controller
         } else {
             $page = $this->request->getParam('page', self::DEFAULT_ACTION);
         }
-        //"nice date" - it's transformed date catched from csv (pse.pl) - there is without separators
-        $niceDate = $this->request->postParam('niceDate'); 
+        //"formatedDate" - it's transformed date catched from csv (pse.pl) - there is without separators
+        $formatedDate = $this->request->postParam('formatedDate'); 
         
         //depended of ?page param - souch page will display
         switch($page) {
             //operations for page "prices"
             case "prices" :
-                $day = $this->validDate($page, $niceDate); 
+                $day = $this->validDate($page, $formatedDate); 
                 try {
                     $viewParams = ($this->priceModel->listPrice($day));
-                    $niceDate = $this->getDateFormat($day);
+                    $formatedDate = $this->getDateFormat($day);
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
                         $e->getFile() . " <br />line: " . $e->getLine(),
@@ -85,7 +90,7 @@ class Controller
                     $page,
                     [
                         'date' => $day,
-                        'niceDate' => $niceDate,
+                        'formatedDate' => $formatedDate,
                         'listPrices' => $viewParams
                     ]
                 );
@@ -94,7 +99,7 @@ class Controller
 
             //operations for page "import"
             case "import":
-                $day = $this->validDate($page, $niceDate);
+                $day = $this->validDate($page, $formatedDate);
                 $this->getPrice = new GetPrice((int) $day);
                 $dataExist = (int) $this->priceModel->checkIsDataExist($day);
                 $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
@@ -112,7 +117,7 @@ class Controller
                             if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
                                 $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
                                 $viewParams['error'] = "imported";
-                                $this->appLogsModel->saveLog("manual", "imported ($niceDate)", "correctly", 0);
+                                $this->appLogsModel->saveLog("manual", "imported ($formatedDate)", "correctly", 0);
                             }
                     }
                 }
@@ -120,7 +125,7 @@ class Controller
                     $page,
                     [
                         'date' => $day,
-                        'niceDate' => $niceDate,
+                        'formatedDate' => $formatedDate,
                         'listPrices' => $viewParams
                     ]
                 );
@@ -129,7 +134,7 @@ class Controller
             //operations for "forceImport"
             case "forceImport":
                 try {
-                    $day = $this->validDate($page, $niceDate);
+                    $day = $this->validDate($page, $formatedDate);
                     $this->getPrice = new GetPrice((int) $day);
                     $importedPrices = $this->getPrice->downloadCSV((int) $day);
                     $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                    
@@ -137,7 +142,7 @@ class Controller
                 
                     $this->msg = "imported";
                     $page = $this->request->setPostParam('page', 'prices');
-                    $this->appLogsModel->saveLog("manual", "forcedDownload ($niceDate)", "correctly", 0);
+                    $this->appLogsModel->saveLog("manual", "forcedDownload ($formatedDate)", "correctly", 0);
                     $this->run();
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
@@ -151,7 +156,7 @@ class Controller
             //operations for "forceDownload"
             case "forceDownload":
                 try {
-                    $day = $this->validDate($page, $niceDate);
+                    $day = $this->validDate($page, $formatedDate);
                     $this->getPrice = new GetPrice((int) $day);
 
                     $dataExist = (int) $this->priceModel->checkIsDataExist($day);
@@ -169,7 +174,7 @@ class Controller
 
                     $this->msg = "imported";
                     $page = $this->request->setPostParam('page', 'prices');
-                    $this->appLogsModel->saveLog("manual", "updated ($niceDate)", "correctly", 0);
+                    $this->appLogsModel->saveLog("manual", "updated ($formatedDate)", "correctly", 0);
                     $this->run();
 
                 } catch (Throwable $e) {
@@ -240,13 +245,13 @@ class Controller
 
 
     //validate date format - must be between 2018-01-01 and today 
-    private function validDate($page, $niceDate): string
+    private function validDate($page, $formatedDate): string
     {
         $today = date("Y-m-d");
-        if (!empty($niceDate)) {
+        if (!empty($formatedDate)) {
             if (
-                strtotime($niceDate) < strtotime("2018-01-01") 
-                || strtotime($niceDate) > strtotime($today)
+                strtotime($formatedDate) < strtotime("2018-01-01") 
+                || strtotime($formatedDate) > strtotime($today)
             ) {
                 $page = ($page == "forceDownload") ? "import": $page;
                 $page = ($page == "forceImport") ? "prices" : $page;
@@ -254,19 +259,19 @@ class Controller
                 $this->view->render(
                     $page,
                     [
-                        'niceDate' => $niceDate,
+                        'formatedDate' => $formatedDate,
                         'listPrices' => $viewParams
                     ]
                 );
                 exit();
             } else {
-                $day = str_replace("-", "", $niceDate);
+                $day = str_replace("-", "", $formatedDate);
             }
         } else {
             $this->view->render(
                 $page,
                 [
-                    'niceDate' => $niceDate,
+                    'formatedDate' => $formatedDate,
                 ]
             );
             exit();
@@ -279,11 +284,11 @@ class Controller
     private function getDateFormat($day): string
     {
         if ((int) $day != 0 && strlen($day) == 8) {
-            $niceDate =
+            $formatedDate =
             str_split($day, 4)[0] . "-" .
             str_split(str_split($day, 4)[1], 2)[0] . "-" .
             str_split(str_split($day, 4)[1], 2)[1];
-            return $niceDate;
+            return $formatedDate;
         } else {
             return "";
         }

@@ -23,7 +23,6 @@ class View
     public function escape(array $params): array 
     {
         $clearParams = [];
-        
         foreach ($params as $key => $param) {
             switch (true) {
                 case is_array($param):

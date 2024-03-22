@@ -1,15 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap&subset=latin-ext');
 
-
 body {
 	font-family: 'Montserrat', sans-serif;
 	color: #333;
-	background-color: #ddd;
+	background-color: #DDD;
 	margin: 0;
 }
 
 .wrapper {
-	width: 100%;
 	max-width: 1400px;
 	margin: 0 auto;
 	display: flex;
@@ -19,7 +17,7 @@ body {
 
 h1 {
 	font-size: 30px;
-	color: #fff;
+	color: #FFF;
 	text-transform: uppercase;
 	text-align: center;
 }
@@ -30,7 +28,7 @@ h1 {
 
 form,
 .content {
-	background-color: white;
+	background-color: #FFF;
 	padding: 30px 30px 20px 30px;
 	color: #222;
 }
@@ -44,7 +42,7 @@ form li {
 
 form label {
 	margin: 0 0 3px 0;
-	padding: 0px;
+	padding: 0;
 	display: block;
 	color: #222;
 	font-weight: normal;
@@ -66,7 +64,7 @@ select {
 	-moz-box-sizing: border-box;
 	border: 1px solid #BEBEBE;
 	padding: 7px;
-	margin: 0px;
+	margin: 0;
 	-webkit-transition: all 0.30s ease-in-out;
 	-moz-transition: all 0.30s ease-in-out;
 	-ms-transition: all 0.30s ease-in-out;
@@ -101,12 +99,12 @@ form .field-textarea {
 
 form input[type=submit],
 form input[type=button] {
-	background: cadetblue;
+	background: #5F9EA0;
 	border: none;
-	color: #fff;
+	color: #FFF;
 	font-size: 18px;
 	text-transform: uppercase;
-	padding: 12 40px;
+	padding: 12px 40px;
 	cursor: pointer;
 }
 
@@ -119,38 +117,43 @@ form input[type=button]:hover {
 }
 
 form .required {
-	color: red;
+	color: #F00;
 }
 
-form>div {
+form > div {
 	font-weight: bold;
 	margin-right: 20px;
 	margin-bottom: 20px;
 }
 
-form>div:first-child {
+form > div:first-child {
 	margin-bottom: 20px;
 }
 
-form>div:first-child>label:first-child {
+form > div:first-child > label:first-child {
 	text-transform: uppercase;
 	font-weight: normal;
 }
 
-form>div:first-child>label:first-child>input {
+form > div:first-child > label:first-child > input {
 	margin-left: 14px;
 	font-family: montserrat;
 	outline: none;
 	font-size: 22px;
 }
 
-form>div:first-child>label:first-child>input:focus {
-	box-shadow: 0 0 0px 2px cadetblue;
+form > div:first-child > label:first-child > input:focus {
+	box-shadow: 0 0 0 2px ;
+}
+
+#log,
+#date {
+	cursor: pointer;
 }
 
 .header {
 	text-align: center;
-	background-color: cadetblue;
+	background-color: #5F9EA0;
 	margin-bottom: 20px;
 	padding: 20px 0;
 	margin-right: 10%;
@@ -169,7 +172,7 @@ form>div:first-child>label:first-child>input:focus {
 
 .menu {
 	width: 20%;
-	background-color: white;
+	background-color: #FFF;
 }
 
 .menu ul {
@@ -178,7 +181,7 @@ form>div:first-child>label:first-child>input:focus {
 
 .menu ul a {
 	display: block;
-	color: cadetblue;
+	color: #5F9EA0;
 	font-size: 16px;
 	text-transform: uppercase;
 	padding: 16px 0;
@@ -196,7 +199,7 @@ form>div:first-child>label:first-child>input:focus {
 
 footer {
 	margin-top: 20px;
-	background-color: cadetblue;
+	background-color: #5F9EA0;
 	margin-left: 10%;
 	margin-right: 10%;
 	font-size: 12px;
@@ -204,7 +207,7 @@ footer {
 
 footer p {
 	text-align: center;
-	color: #ddd;
+	color: #DDD;
 }
 
 .list {
@@ -218,16 +221,16 @@ table {
 
 .tbl-header {
 	margin-top: 20px;
-	background-color: cadetblue;
-	color: white;
+	background-color: #5F9EA0;
+	color: #FFF;
 }
 
 .tbl-content {
 	overflow-x: auto;
-	margin-top: 0px;
-	border: 3px solid cadetblue;
+	margin-top: 0;
+	border: 3px solid #5F9EA0;
 	color: #222;
-	background-color: white;
+	background-color: #FFF;
 }
 
 th {
@@ -235,7 +238,7 @@ th {
 	text-align: center;
 	font-weight: 500;
 	font-size: 14px;
-	color: #fff;
+	color: #FFF;
 	text-transform: uppercase;
 	padding-top: 23px;
 }
@@ -249,71 +252,68 @@ td {
 	color: #222;
 }
 
-tr>td {
+tr > td {
 	overflow-wrap: break-word;
 }
 
-tr>td:nth-child(1) {
+tr > td:nth-child(1) {
 	width: 10%;
 }
 
-tr>th:nth-child(1) {
+tr > th:nth-child(1) {
 	width: 10%;
 }
 
-tr>td:nth-child(2) {
+tr > td:nth-child(2) {
 	width: 15%;
 }
 
-tr>th:nth-child(2) {
+tr > th:nth-child(2) {
 	width: 15%;
 }
 
-tr>td:nth-child(3) {
+tr > td:nth-child(3) {
 	width: 10%;
 }
 
-tr>th:nth-child(3) {
+tr > th:nth-child(3) {
 	width: 10%;
 }
 
-tr>td:nth-child(4) {
+tr > td:nth-child(4) {
 	width: 35%;
 }
 
-tr>th:nth-child(4) {
+tr > th:nth-child(4) {
 	width: 35%;
 }
 
-tr>td:nth-child(5) {
+tr > td:nth-child(5) {
 	width: 15%;
 }
 
-tr>th:nth-child(5) {
+tr > th:nth-child(5) {
 	width: 15%;
 }
 
-tr>th:las-child {
+tr > th:las-child {
 	font-size: x-small;
 }
 
-.error {
-	/* margin: 0 10px 25px 10px; */
-	/* margin-top:0; */
+#error {
 	text-align: center;
 	font-weight: 700;
-	color: #ff0000;
+	color: #FF0000;
 }
 
-.dump {
+#dump {
 	display: inline-block;
-	padding: 0px 10px;
+	padding: 0 10px;
 	margin: 5px;
-	border: 1px dashed gray;
-	background-color: lightgray;
+	border: 1px dashed #708090;
+	background-color: #D3D3D3;
 }
 
-.errorMessage,
 .infoMessage {
 	text-align: center;
 	font-weight: 700;
@@ -321,7 +321,7 @@ tr>th:las-child {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background-color: white;
+	background-color: #FFF;
 	z-index: 1;
 }
 
@@ -350,9 +350,9 @@ tr>th:las-child {
 
 button {
 	border: none;
-	background-color: cadetblue;
+	background-color: #5F9EA0;
 	padding: 5px 10px;
-	color: white;
+	color: #FFF;
 	cursor: pointer;
 }
 
@@ -372,7 +372,7 @@ form.note-form textarea {
 .delete,
 .show {
 	padding: 10px;
-	background-color: white;
+	background-color: #FFF;
 	color: #222;
 }
 
@@ -389,9 +389,8 @@ form.note-form textarea {
 .unitPrice {
 	font-size: x-small;
 	display: block;
-	margin-bottom: -6px;
 	text-transform: none;
-	margin-top: -2px;
+	height: 6px;
 }
 
 a.active {
@@ -404,8 +403,8 @@ a.active {
 
 form.note-form input.btn-cta-white,
 form.note-form button.btn-cta-white {
-	background-color: white;
-	color: cadetblue;
+	background-color: #FFF;
+	color: #5F9EA0;
 	border-style: solid;
 	border-width: 1px;
 	padding: 12 40px;
@@ -414,8 +413,8 @@ form.note-form button.btn-cta-white {
 }
 
 form.note-form button.btn-cta-green {
-	background-color: cadetblue;
-	color: white;
+	background-color: #5F9EA0;
+	color: #FFF;
 	border-style: solid;
 	border-width: 1px;
 	padding: 14 40px;
@@ -435,19 +434,20 @@ form.note-form button.btn-cta-white:hover {
 	width: 50%;
 }
 
-.parameter {
+form > div.filtersPanel {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 35px !important;
+	margin-bottom: 35px;
 	margin-top: 10px;
 }
 
-.cta {
+.button-cta {
 	display: flex;
 	justify-content: space-between;
 }
 
-form input[type="submit"], form input[type="button"] .cta {
+form input[type="submit"], 
+form input[type="button"] .button-cta {
 	font-size: 14px;
 }
 
@@ -460,8 +460,11 @@ form input[type="submit"], form input[type="button"] .cta {
 }
 
 .sort {
-	margin-top: -16px;
-	margin-right: 3px;
+	position: absolute;
+	right: 50px;
+	bottom: 24px;
+	width: 90px;
+	margin-right: 0;
 }
 
 .sort label {
@@ -475,17 +478,17 @@ form input[type="submit"], form input[type="button"] .cta {
 
 .reset {
 	float: right;
-	margin: 0px;
+	margin: 0;
 	position: absolute;
-	left: 75px;
+	left: 68px;
 	bottom: 15px;
 	font-size: 13px;
 	text-decoration: none;
-	color: black;
+	color: #000;
 }
 
 .reset a {
-	color: black;
+	color: #000;
 	text-decoration: none;
 	font-weight: normal;
 	font-size: 13px;
@@ -495,42 +498,42 @@ form.settings-form {
 	position: relative;
 }
 
-.filters>.log {
+.filters > .filterLog {
 	margin-left: 25px;
 }
 
-.logs tr>th:nth-child(1),
-.logs tr>td:nth-child(1) {
+.logs tr > th:nth-child(1),
+.logs tr > td:nth-child(1) {
 	width: 15%;
 }
 
-.errors tr>th:nth-child(1),
-.errors tr>td:nth-child(1) {
+.errors tr > th:nth-child(1),
+.errors tr > td:nth-child(1) {
 	width: 3%;
 }
 
-.errors tr>th:nth-child(2),
-.errors tr>td:nth-child(2) {
+.errors tr > th:nth-child(2),
+.errors tr > td:nth-child(2) {
 	width: 2%;
 }
 
-.errors tr>th:nth-child(3),
-.errors tr>td:nth-child(3) {
+.errors tr > th:nth-child(3),
+.errors tr > td:nth-child(3) {
 	width: 8%;
 }
 
-.errors tr>th:nth-child(4),
-.errors tr>td:nth-child(4) {
+.errors tr > th:nth-child(4),
+.errors tr > td:nth-child(4) {
 	width: 8%;
 }
 
-.errors tr>th:nth-child(5),
-.errors tr>td:nth-child(5) {
+.errors tr > th:nth-child(5),
+.errors tr > td:nth-child(5) {
 	width: 23%;
 }
 
-.errors tr>th:nth-child(6),
-.errors tr>td:nth-child(6) {
+.errors tr > th:nth-child(6),
+.errors tr > td:nth-child(6) {
 	width: 15%;
 }
 
@@ -549,10 +552,15 @@ form.loginForm input {
 	width: 200px;
 	text-align: center;
 	padding: 8px;
+	display: block;
 }
 
 .btnLogin {
-	margin: 10px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 15px;
+	width: 100px;
+	height: 35px;
 }
 
 .logout {
@@ -563,21 +571,22 @@ form.loginForm input {
 }
 
 .logout a {
-	color: white;
+	color: #FFF;
 	text-decoration: none;
 }
 
 .pagination button.active {
-	border: solid 0px #4691A4;
+	border: solid 0 #4691A4;
 	background-color: #4691A4;
 }
 
-form, .content {
+form, 
+.content {
 	text-align: center;
 }
 
 .note-form ul {
-	padding: 0px;
+	padding: 0;
 }
 
 form.note-form input[type="submit"] {
@@ -590,7 +599,7 @@ form.note-form input[type="submit"] {
 }
 
 form > div.logininfo {
-	margin: 5px;
+	margin: 0;
 }
 
 .logininfo h3 {
@@ -604,9 +613,26 @@ form > div.logininfo {
 	font-size: 15px;
 }
 
+form.loginForm input.newPass {
+	width: 100%;
+}
+
+.search {
+	width: 200px;
+}
+
+.search label {
+	margin: 0;
+}
+
+.loginInputs {
+	display: grid;
+	justify-content: center;
+	margin: 20px 0;
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
-
 	.header {
 		margin-right: 3%;
 		margin-left: 3%;
@@ -624,7 +650,7 @@ form > div.logininfo {
 
 	.menu ul {
 		list-style: none;
-		padding-left: 0px;
+		padding-left: 0;
 		text-align: center;
 	}
 
@@ -653,23 +679,21 @@ form > div.logininfo {
 	.errors tr > td:nth-child(4) {
 		font-size: 12px;
 	}
-  
+
 }
 
-
 @media screen and (max-width: 768px) {
-
 	.header {
-		margin: 0px
+		margin: 0
 	}
 
 	footer {
-		margin: 0px;
+		margin: 0;
 	}
   
 	.container {
 		display: inline;
-		padding: 0px;
+		padding: 0;
 	}
   
 	.menu {
@@ -679,22 +703,22 @@ form > div.logininfo {
 	.menu ul {
 		display: flex;
 		justify-content: space-around;
-		padding: 0px;
+		padding: 0;
 		flex-wrap: wrap;
-		margin: 5px 0px;
+		margin: 5px 0;
 	}
   
 	.page {
 		width: 100%;
-		margin: 5px 0px;
+		margin: 5px 0;
 	}
   
 	td {
-		padding: 15px 0px;
+		padding: 15px 0;
 	}
 
 	th {
-		padding: 20px 0px;
+		padding: 20px 0;
 	}
   
 	tr > th:nth-child(1),
@@ -730,33 +754,33 @@ form > div.logininfo {
 	}
 
 	form.loginForm {
-		width: 76%;
-		margin: 4%;
-		margin-top: 35%;
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 10%;
 	}
 
 	form.loginForm input {
 		margin: 5px;
-		width: 80%;
-		height: 40px;
+		width: 100%;
 		font-size: 16px;
 	}
 
 	.btnLogin {
-		margin: 15px 10px 10px;
-		width: 70%;
+		margin: 0 auto;
+		width: 80%;
 		height: 40px;
 		font-size: 16px;
+		margin-top: 10px;
 	}
 
-	.errors tr>th:nth-child(3),
-	.errors tr>td:nth-child(3) {
+	.errors tr > th:nth-child(3),
+	.errors tr > td:nth-child(3) {
 		width: 5%;
 		font-size: 12px;
 	}
 
-	.errors tr>th:nth-child(4),
-	.errors tr>td:nth-child(4) {
+	.errors tr > th:nth-child(4),
+	.errors tr > td:nth-child(4) {
 		width: 5%;
 		font-size: 12px;
 	}
@@ -769,20 +793,17 @@ form > div.logininfo {
 	}
 
 	.errors tr > th,
-	.errors tr>th:nth-child(3),
-	.errors tr>th:nth-child(4) {
+	.errors tr > th:nth-child(3),
+	.errors tr > th:nth-child(4) {
 		font-size: 14px;
 	}
-
   }
 
-
   @media screen and (max-width: 560px) {
-
-	.parameter {
-		display: grid;
+	form > div.filtersPanel {
+		display: block;
 		justify-content: center;
-		margin-right: 0px;
+		margin-right: 0;
 	}
 
 	.filters {
@@ -793,22 +814,17 @@ form > div.logininfo {
 	.search {
 		width: 100%;
 		margin-top: 15px;
+		display: grid;
+		justify-content: center;
+		margin: 10px auto;
 	}
 
-	.cta {
-		margin-right: 0px;
+	.button-cta {
+		margin-right: 0;
 	}
-
-	.sort {
-		margin-top: -22px;
-	}
-
   }
   
-
-
-  @media screen and (max-width: 468px) {
-
+@media screen and (max-width: 468px) {
 	.logs tr > th {
 		font-size: 12px;
 	}
@@ -816,5 +832,4 @@ form > div.logininfo {
 	.logs tr > td {
 		font-size: 10px;
 	}
-
-  }
+}

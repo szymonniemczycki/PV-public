@@ -13,7 +13,7 @@ require_once("src/Utils/debug.php");
 //generete path for used Classes
 spl_autoload_register(function (string $classNamespace) {
 	$path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
-	$path = "src/$path.php";
+	$path = "src/" . $path . ".php";
 	require_once($path);
 });
 
@@ -88,26 +88,12 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
 
 <html lang="pl">
 
-	<?php //show header ?>
-	<?php require_once("templates/header.php"); ?>
+	<?php 
+	//show header 
+	require_once("templates/header.php");
 
-	<?php //show login form ?>
+	//show login form ?>
 	<body class="body">
-		<div class="login">
-    		<?php if (empty($_SESSION['user'])) { ?>
-        		<form class="loginForm" action="login.php" method="post">
-					<div class="logininfo">
-						<h3>Logowanie</h3>
-						<p>RCE importer</p>
-					</div>
-          			<input type="text" name="login" placeholder="login" required/> 
-          			<br/> 
-          			<input type="password" name="password" placeholder="password" required/> 
-          			<br/>  
-          			<input type="hidden" name="tried" value="true" />
-          			<button class="btnLogin" type="submit">LOG IN</button>
-        		</form>
-      		<?php } ?>
-    	</div>
+		<?php require_once("templates/loginForm.php"); ?>
 	</body>
 </html>

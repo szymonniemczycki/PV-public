@@ -1,10 +1,10 @@
 <?php 
-//get parameters form
-require_once("templates/pages/tables/parameters.php"); ?>
+//get filters
+require_once("templates/pages/tables/filtersPanel.php"); ?>
 
 <div class="list">
 	<section>
-		<?php //first header with table ?>
+		<!-- first header with table -->
 		<div class="tbl-header">
       		<table cellpadding="0" cellspacing="0" border="0" class="logs">
 				<thead>
@@ -19,7 +19,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
       		</table>
     	</div>
 
-		<?php //table content ?>
+		<!-- table content -->
 		<div class="tbl-content">
 			<table cellpadding="0" cellspacing="0" border="0" class="<?php echo $page; ?>">
 				<tbody>
@@ -59,9 +59,7 @@ require_once("templates/pages/tables/parameters.php"); ?>
 
 		$currentPage = ($viewParams['filters']['pageNr']) ? : 1;
 		$countPage = $viewParams['countPage']; 
-		?>
 
-    	<?php 
 		//get pagination section
 		require_once("templates/pages/tables/pagination.php"); 
 		?>

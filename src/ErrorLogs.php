@@ -43,7 +43,7 @@ class ErrorLogs
     {            
         $filterParams = $this->view->escape($filterParams);
         $dataFromFile = $this->getErrorData();
-        $filterParams['pageNr'] = $this->validatePageNr($filterParams['pageNr'], sizeof($dataFromFile));
+        $filterParams['pageNr'] = $this->validatePageNr($filterParams['pageNr'], count($dataFromFile));
         
         $dataFromFile = $this->sortErrorData($dataFromFile, $filterParams['sort']);
         $dataFromFile = $this->filterByDate($dataFromFile, $filterParams['date']);
@@ -75,7 +75,7 @@ class ErrorLogs
             $rowData = fgets($handle);
             if ($rowData) {
                 $row = explode(";", $rowData);
-                if (strpos($row[0], "\n") !== FALSE || sizeof($row) != 4) {
+                if (strpos($row[0], "\n") !== FALSE || count($row) != 4) {
                     continue;
                 }
                 array_push($rowFile, $row);
@@ -139,7 +139,7 @@ class ErrorLogs
         }
         $pageNr = 0;
         
-        for ($i=0; $i < sizeof($data); $i++) {
+        for ($i=0; $i < count($data); $i++) {
             array_unshift($data[$i], $i);
             if ($i % $pageSize == 0) {
                 $pageNr++;

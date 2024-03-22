@@ -5,7 +5,7 @@
 	<body class="body">
 		<div class="wrapper">
 
-			<?php //show header ?>
+			<!-- show header -->
 			<div class="header">
 				<h1><i class="far fa-chart-bar"></i>RCE importer</h1>
 				<div class="logout">
@@ -13,7 +13,7 @@
 				</div>
 			</div>
 
-			<?php //show menu ?>
+			<!-- show menu -->
 			<div class="container">
 				<div class="menu">
 					<ul>
@@ -25,7 +25,7 @@
 					</ul>
 				</div>
 
-				<?php //display page ?>
+				<!-- display page -->
 				<div class="page">
 					<?php require_once("templates/pages/$page.php"); ?>
 				</div>
