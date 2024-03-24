@@ -37,6 +37,7 @@ class PriceModel extends AbstractModel
             );
             exit;
         }
+
         return $listPrices;
     }
 
@@ -60,6 +61,7 @@ class PriceModel extends AbstractModel
             );
             exit;
         }
+
         return (bool) $result; 
     }
 
@@ -76,6 +78,7 @@ class PriceModel extends AbstractModel
             );
             exit;
         }
+
         return (bool) $result; 
     }
     
@@ -92,6 +95,7 @@ class PriceModel extends AbstractModel
             if (count($isExistAnyData) == 0) {
                 return false;
             }
+            
             return true;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(

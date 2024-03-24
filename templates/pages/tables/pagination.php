@@ -1,3 +1,28 @@
+<?php
+//create variable for link with params 
+$logParam = !empty($viewParams['filters']['log']) ? "&log=" . $viewParams['filters']['log'] : "";
+$dateParam = !empty($viewParams['filters']['date']) ? "&date=" . $viewParams['filters']['date'] : "";
+$phraseParam = !empty($viewParams['filters']['phrase']) ? "&phrase=" . $viewParams['filters']['phrase'] : "";
+$sortParam = !empty($viewParams['filters']['sort']) ? "&sort=" . $viewParams['filters']['sort'] : "";
+
+$paginationUrl = "
+    ./?page=". $page . $logParam . $dateParam . $phraseParam . $sortParam;
+
+ $currentPage = ($viewParams['filters']['pageNr']) ? : 1;
+
+ switch ($page) {
+    case "logs":
+        $countPage = ($viewParams['countPage']) ?? 1;
+        break;
+    case "errors":
+        $countPage = count($viewParams[$page]) ?? 1;
+        break;
+    default:
+        $countPage = 1;
+        break;    
+}    
+?>
+
 <ul class="pagination">
     <?php 
     //show button for previous page
@@ -22,9 +47,12 @@
                 $isActive = "";
             }
             ?>
+
             <li>
                 <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
-                    <button <?php echo $isActive; ?>><?php echo $i; ?></button>
+                    <button <?php echo $isActive; ?>>
+                        <?php echo $i; ?>
+                    </button>
                 </a>
             </li>
             <?php 
@@ -40,14 +68,18 @@
             ?>
             <li>
                 <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
-                    <button <?php echo $isActive; ?>><?php echo $i; ?></button>
+                    <button <?php echo $isActive; ?>>
+                        <?php echo $i; ?>
+                    </button>
                 </a>
             </li>
             <?php 
         } ?>
+
             <li>
                 ...
             </li>
+
         <?php 
             for ($i=$countPage - 2; $i <= $countPage; $i++) {
                 if ($i == $currentPage) {
@@ -58,7 +90,9 @@
                 ?>
                 <li>
                     <a href="<?php echo $paginationUrl . "&pageNr=" . $i; ?>">
-                        <button <?php echo $isActive; ?>><?php echo $i; ?></button>
+                        <button <?php echo $isActive; ?>>
+                            <?php echo $i; ?>
+                        </button>
                     </a>
                 </li>
                 <?php 
@@ -70,7 +104,9 @@
     if ($currentPage < $countPage && $countPage != 1) { ?>
         <li>
             <a href="<?php echo $paginationUrl . "&pageNr=" . $currentPage + 1; ?>">
-                <button><?php echo ">>"; ?></button>
+                <button>
+                    <?php echo ">>"; ?>
+                </button>
             </a>
         </li>
         <?php 

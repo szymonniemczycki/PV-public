@@ -306,7 +306,7 @@ tr > th:las-child {
 	color: #FF0000;
 }
 
-#dump {
+.dump {
 	display: inline-block;
 	padding: 0 10px;
 	margin: 5px;
@@ -559,8 +559,9 @@ form.loginForm input {
 	display: block;
 	margin: 0 auto;
 	margin-top: 15px;
-	width: 100px;
 	height: 35px;
+	width: auto;
+	padding: 0 30px;
 }
 
 .logout {
@@ -767,7 +768,7 @@ form.loginForm input.newPass {
 
 	.btnLogin {
 		margin: 0 auto;
-		width: 80%;
+		width: auto;
 		height: 40px;
 		font-size: 16px;
 		margin-top: 10px;

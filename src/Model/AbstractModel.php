@@ -10,6 +10,13 @@ use PDO;
 use PDOException;
 use App\ErrorLogs;
 
+/**
+ * @method __construct($config)
+ * @method bool validateConfig(array $config)
+ * @method bool createConnection(array $config)
+ * @method bool saveLog(string $log, string $status, string $info, int $show)
+ * 
+ */
 class AbstractModel 
 {
     protected ErrorLogs $errorLogs;
@@ -17,7 +24,7 @@ class AbstractModel
     public bool $status;
 
 
-    public function __construct($config)
+    public function __construct(array $config)
     {
         $this->errorLogs = new ErrorLogs();
         try {
@@ -47,6 +54,7 @@ class AbstractModel
             ) {
                 return false;
             }
+
             return true;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
@@ -72,15 +80,17 @@ class AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
             );
+
             return false;
         }
+
         return true;
     }
 
     //method for saving logs - all issues occured will be saved in error file log
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
-        $usrId = (!empty($_SESSION['userId'])) ? $_SESSION['userId'] : 0;
+        $usrId = (!empty($_SESSION['userId'])) ? $_SESSION['userId'] : 1;
         try {
             $sqlQuery = "
                 INSERT INTO `app_logs` (`log`, `status`, `info`, `user_id`) 
@@ -93,6 +103,7 @@ class AbstractModel
             if ($show) {
                 dump($status . " - " . $info);
             }
+            
             return true;
         } catch (Throwable $e) {               
             $this->errorLogs->saveErrorLog(

@@ -1,19 +1,11 @@
 <form class="note-form" action="./?page=import" method="post" >
 	<ul>
 		<li>
-			<?php 
-			//input for data select 
+			<?php  
+				$labelFor = "importData";
+				$inputID = "importValue";
+				require_once("templates/pages/tables/selectForm.php"); 
 			?>
-			<label for="chooseImportData">Choose data <span class="required">*</span></label>
-				<input 
-					id="dateImportInput"
-					type="date" 
-					name="formatedDate" 
-					value="<?php echo $date = ($viewParams['formatedDate']) ?: date('Y-m-d'); ?>" 
-					min="2018-01-01" 
-					max="<?php echo date("Y-m-d");?>" 
-					data-input-format="%y/%m/%d"
-				/>
    		</li>
     
     	<li>

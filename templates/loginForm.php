@@ -2,7 +2,7 @@
 	<?php if (empty($_SESSION['user'])) { ?>
 		<form class="loginForm" action="login.php" method="post">
 			<div class="logininfo">
-				<h3>Logowanie</h3>
+				<h3>Login</h3>
 				<p>RCE importer</p>
 			</div>
 			<div class="loginInputs">

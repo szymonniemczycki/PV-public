@@ -66,7 +66,7 @@ class Controller
         //"formatedDate" - it's transformed date catched from csv (pse.pl) - there is without separators
         $formatedDate = $this->request->postParam('formatedDate'); 
         
-        //depended of ?page param - souch page will display
+        //depended of ?page param - page will display
         switch($page) {
             //operations for page "prices"
             case "prices" :
@@ -85,22 +85,15 @@ class Controller
                 if (!empty($this->msg)) {
                     $this->view->showInfo($this->msg);
                 }
-                
-                $this->view->render(
-                    $page,
-                    [
-                        'date' => $day,
-                        'formatedDate' => $formatedDate,
-                        'listPrices' => $viewParams
-                    ]
-                );
+
+                $this->view->render($page, ['date' => $day, 'formatedDate' => $formatedDate, 'listPrices' => $viewParams]);
 
                 break;
 
             //operations for page "import"
             case "import":
                 $day = $this->validDate($page, $formatedDate);
-                $this->getPrice = new GetPrice((int) $day);
+                $this->getPrice = new GetPrice($day);
                 $dataExist = (int) $this->priceModel->checkIsDataExist($day);
                 $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
 
@@ -112,7 +105,7 @@ class Controller
                         $pricesImported = (int) $this->priceModel->savePrice($pricesCollection);
                         $viewParams['error'] = "dataimportedFromCsv";
                     } else {
-                        $importedPrices = $this->getPrice->downloadCSV((int) $day);
+                        $importedPrices = $this->getPrice->downloadCSV($day);
                         $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                        
                             if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
                                 $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
@@ -135,8 +128,8 @@ class Controller
             case "forceImport":
                 try {
                     $day = $this->validDate($page, $formatedDate);
-                    $this->getPrice = new GetPrice((int) $day);
-                    $importedPrices = $this->getPrice->downloadCSV((int) $day);
+                    $this->getPrice = new GetPrice($day);
+                    $importedPrices = $this->getPrice->downloadCSV($day);
                     $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                    
                     $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
                 
@@ -157,7 +150,7 @@ class Controller
             case "forceDownload":
                 try {
                     $day = $this->validDate($page, $formatedDate);
-                    $this->getPrice = new GetPrice((int) $day);
+                    $this->getPrice = new GetPrice($day);
 
                     $dataExist = (int) $this->priceModel->checkIsDataExist($day);
                     $deletePriceFromDB = $dataExist ? (int) $this->priceModel->deletePrice($day) : 0;
@@ -165,7 +158,7 @@ class Controller
                     $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
                     $deleteCsvFile = $csvExist ? $this->getPrice->deleteCSV($day) : 0;
 
-                    $importedPrices = $this->getPrice->downloadCSV((int) $day);
+                    $importedPrices = $this->getPrice->downloadCSV($day);
                     $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);  
 
                     if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
@@ -240,18 +233,18 @@ class Controller
         if ($pageNr > $countData || $pageNr <= 0) {
             $pageNr = 1;
         }
+
         return $pageNr;
     }
 
 
     //validate date format - must be between 2018-01-01 and today 
-    private function validDate($page, $formatedDate): string
+    private function validDate(string $page, string $formatedDate = null): string
     {
         $today = date("Y-m-d");
         if (!empty($formatedDate)) {
             if (
-                strtotime($formatedDate) < strtotime("2018-01-01") 
-                || strtotime($formatedDate) > strtotime($today)
+                strtotime($formatedDate) < strtotime("2018-01-01") || strtotime($formatedDate) > strtotime($today)
             ) {
                 $page = ($page == "forceDownload") ? "import": $page;
                 $page = ($page == "forceImport") ? "prices" : $page;
@@ -276,18 +269,20 @@ class Controller
             );
             exit();
         }
+        
         return (string) ($day);  
     }
 
 
     //create "nice" date fotrmat - with separators
-    private function getDateFormat($day): string
+    private function getDateFormat(string $day): string
     {
         if ((int) $day != 0 && strlen($day) == 8) {
             $formatedDate =
             str_split($day, 4)[0] . "-" .
             str_split(str_split($day, 4)[1], 2)[0] . "-" .
             str_split(str_split($day, 4)[1], 2)[1];
+            
             return $formatedDate;
         } else {
             return "";

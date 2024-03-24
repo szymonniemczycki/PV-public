@@ -20,21 +20,22 @@ class GetPrice
     private ErrorLogs $errorLogs;
     
 
-    public function __construct($date = NULL) {
+    public function __construct(string $date = NULL) {
         $this->errorLogs = new ErrorLogs();
     }
 
     //check is csv file exist
-    public function checkIsCsvExist($day): bool
+    public function checkIsCsvExist(string $day): bool
     {
         if (empty(file_exists(self::RESOURCES_PATH . $day . ".csv"))) {
             return false; 
         }
+        
         return true;
     }
 
     //method for download csv file from external server
-    public function downloadCSV(int $day): string
+    public function downloadCSV(string $day): string
     {
         try {
             $url = self::PSE_URL . $day;
@@ -55,18 +56,18 @@ class GetPrice
             );
            exit;
         }
+        
         return $dayData;
     }
 
 
     //get Prices from CSV:
-    public function getPriceFromCSV($day): array
+    public function getPriceFromCSV(string $day): array
     {
         $filePath = self::RESOURCES_PATH . $day . ".csv";
         $filePath = fopen($filePath, "r");
         
-        if ($filePath !== false) {            
-            //$pricesCollection[$day] = [];
+        if ($filePath !== false) {          
             $pricesCollection = [];
             $firstRow = true;
             while (!feof($filePath)) {
@@ -85,11 +86,12 @@ class GetPrice
             $pricesDayCollection[$day] = $pricesCollection;
         }
         fclose($filePath);
+
         return $pricesDayCollection;
     }
 
     //delete price from CSV - needed for force download
-    public function deleteCSV($day): bool
+    public function deleteCSV(string $day): bool
     {
         $isFile = $this->checkIsCsvExist($day);
         if (!$isFile) {
@@ -97,6 +99,7 @@ class GetPrice
         }
         $path = self::RESOURCES_PATH . $day . ".csv";
         unlink($path);
+
         return true;
     }
 

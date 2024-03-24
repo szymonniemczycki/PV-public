@@ -7,15 +7,16 @@
 	//show login form ?>
 	<body class="body">
         <form class="loginForm" action="./create_pass.php" method="post">
-            <input 
-                id="newPass"
-                type="text" 
-                name="newPass" 
-                placeholder="write pass" 
-                value="<?php echo $new = (!empty($_POST['newPass'])) ? $_POST['newPass'] : "";?>" 
-            /> 
-            <br/> 
-            <button class="btnLogin" type="submit">Generate Pass</button>
+            <div class="loginInputs">
+                <input 
+                    id="newPass"
+                    type="text" 
+                    name="newPass" 
+                    placeholder="write pass" 
+                    value="<?php echo $new = (!empty($_POST['newPass'])) ? $_POST['newPass'] : "";?>" 
+                /> 
+                <button class="btnLogin" type="submit">Generate Pass</button>
+            </div>
 
             <?php
             if (!empty($_POST['newPass'])) {

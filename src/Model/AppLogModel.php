@@ -45,6 +45,7 @@ class AppLogModel extends AbstractModel
             );
             exit;
         }
+
         return $isExistAnyData;
     }
 
@@ -69,6 +70,7 @@ class AppLogModel extends AbstractModel
             $key = (string) $isExistAnyData[$i]['log'];
             $uniqueLogs[$key] = $isExistAnyData[$i]['log'];
         }
+        
         return $uniqueLogs;
     }
 

@@ -7,6 +7,7 @@ if (!empty($viewParams['filters'])) {
         }
     }
     $countPage = $viewParams['filters']['pageNr'] ? $viewParams['filters']['pageNr'] : 1;
+    $filterDate = !empty($viewParams['filters']['date']) ? htmlentities((string) $viewParams['filters']['date']) : "";
 }
 ?>
 
@@ -25,7 +26,7 @@ if (!empty($viewParams['filters'])) {
                         id="filterDate"
                         type="date" 
                         name="date" 
-                        value="<?php echo htmlentities((string) $viewParams['filters']['date']); ?>" 
+                        value="<?php echo $filterDate; ?>" 
                         min="2018-01-01" 
                         max="<?php echo date('Y-m-d');?>"
                     />

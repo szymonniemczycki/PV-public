@@ -44,11 +44,9 @@ class ErrorLogs
         $filterParams = $this->view->escape($filterParams);
         $dataFromFile = $this->getErrorData();
         $filterParams['pageNr'] = $this->validatePageNr($filterParams['pageNr'], count($dataFromFile));
-        
-        $dataFromFile = $this->sortErrorData($dataFromFile, $filterParams['sort']);
-        $dataFromFile = $this->filterByDate($dataFromFile, $filterParams['date']);
-        $dataFromFile = $this->filterBySearch($dataFromFile, $filterParams['phrase']);
-        $dataFromFilePag = $this->paginationErrorData($dataFromFile, self::PAGE_SIZE, $filterParams['pageNr']);
+
+        $filteredData = $this->filterData($dataFromFile, $filterParams);
+        $dataFromFilePag = $this->paginationErrorData($filteredData, self::PAGE_SIZE, $filterParams['pageNr']);
         
         $errorData['filters'] = $filterParams;
         $errorData['errors'] = $dataFromFilePag;
@@ -63,6 +61,7 @@ class ErrorLogs
         if ($pageNr > $countData || $pageNr < 0) {
             $pageNr = 1;
         }
+        
         return $pageNr;
     }
 
@@ -82,7 +81,18 @@ class ErrorLogs
             }
         }
         fclose($handle);
+        
         return $rowFile;
+    }
+
+    //filter data
+    private function filterData(array $filteredData, array $filterParams): ?array
+    {
+        $filteredData = $this->sortErrorData($filteredData, $filterParams['sort']);
+        $filteredData = $this->filterByDate($filteredData, $filterParams['date']);
+        $filteredData = $this->filterBySearch($filteredData, $filterParams['phrase']);
+
+        return $filteredData;
     }
 
     //get error items filtered by Date
@@ -97,6 +107,7 @@ class ErrorLogs
                 array_push($filteredData, $data[$key]);
             }
         }
+
         return $filteredData;
     }
 
@@ -114,6 +125,7 @@ class ErrorLogs
                 array_push($searchData, $data[$key]);
             }
         }
+        
         return $searchData;
     }
 
@@ -147,6 +159,7 @@ class ErrorLogs
             }
             array_push($paginationData[$pageNr], $data[$i]);
         }
+        
         return $paginationData;
     }
 

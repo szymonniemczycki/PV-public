@@ -22,6 +22,7 @@ class UserModel extends AbstractModel
                 return false;
             }
             $passVerifed = password_verify($pass, $isExistAnyData['password']);
+            
             return (bool) $passVerifed;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
@@ -41,6 +42,7 @@ class UserModel extends AbstractModel
             if (empty($isExistAnyData)) {
                 return 0;
             }
+            
             return $isExistAnyData['id'];
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
@@ -62,6 +64,7 @@ class UserModel extends AbstractModel
             if (empty($userData)) {
                 return false;
             }
+            
             return true;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
@@ -88,6 +91,7 @@ class UserModel extends AbstractModel
             );
             exit;
         }
+        
         return (bool) $result; 
     }
  
