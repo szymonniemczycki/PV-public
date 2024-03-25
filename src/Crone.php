@@ -22,12 +22,17 @@ class Crone
     //set and connect with database
     public function __construct()
     {
-        if (empty(self::$configuration['db'])) {
-            exit('błędna konfiguracja');
+        try {
+            $this->errorLogs = new ErrorLogs();
+            $this->priceModel = new PriceModel(self::$configuration['db']);
+            $this->appLogsModel = new AppLogModel(self::$configuration['db']);
+        } catch (Throwable $e) {
+            $errorLogs->saveErrorLogNoDirect(
+                $e->getFile() . " <br />line: " . $e->getLine(),
+                $e->getMessage()
+            );
+            dump($e->getMessage());
         }
-        $this->errorLogs = new ErrorLogs();
-        $this->priceModel = new PriceModel(self::$configuration['db']);
-        $this->appLogsModel = new AppLogModel(self::$configuration['db']);
     }
     
     //get configuration data

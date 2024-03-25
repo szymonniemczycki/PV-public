@@ -42,7 +42,6 @@ class Controller
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            header("Location: ./404.php");
         }
     }
 
@@ -63,87 +62,48 @@ class Controller
         } else {
             $page = $this->request->getParam('page', self::DEFAULT_ACTION);
         }
+        
         //"formatedDate" - it's transformed date catched from csv (pse.pl) - there is without separators
-        $formatedDate = $this->request->postParam('formatedDate'); 
+        
+        $formatedDate = $this->request->postParam('formatedDate');
+        if (!empty($formatedDate)) {
+            $day = str_replace("-", "", $formatedDate);
+        } else {
+            $day = null;
+        }
         
         //depended of ?page param - page will display
         switch($page) {
+
             //operations for page "prices"
             case "prices" :
-                $day = $this->validDate($page, $formatedDate); 
-                try {
-                    $viewParams = ($this->priceModel->listPrice($day));
-                    $formatedDate = $this->getDateFormat($day);
-                } catch (Throwable $e) {
-                    $this->errorLogs->saveErrorLog(
-                        $e->getFile() . " <br />line: " . $e->getLine(),
-                        $e->getMessage()
-                    );
-                    exit;
-                }
-
+                $this->validDate($page, $formatedDate); 
                 if (!empty($this->msg)) {
                     $this->view->showInfo($this->msg);
                 }
 
-                $this->view->render($page, ['date' => $day, 'formatedDate' => $formatedDate, 'listPrices' => $viewParams]);
-
-                break;
-
-            //operations for page "import"
-            case "import":
-                $day = $this->validDate($page, $formatedDate);
-                $this->getPrice = new GetPrice($day);
-                $dataExist = (int) $this->priceModel->checkIsDataExist($day);
-                $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
-
-                if ($dataExist) {
-                    $viewParams['error'] = "dataExist";
-                } else {
-                    if ($csvExist) {
-                        $pricesCollection = $this->getPrice->getPriceFromCSV($day);
-                        $pricesImported = (int) $this->priceModel->savePrice($pricesCollection);
-                        $viewParams['error'] = "dataimportedFromCsv";
-                    } else {
-                        $importedPrices = $this->getPrice->downloadCSV($day);
-                        $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                        
-                            if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
-                                $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
-                                $viewParams['error'] = "imported";
-                                $this->appLogsModel->saveLog("manual", "imported ($formatedDate)", "correctly", 0);
-                            }
-                    }
-                }
-                $this->view->render(
-                    $page,
-                    [
-                        'date' => $day,
-                        'formatedDate' => $formatedDate,
-                        'listPrices' => $viewParams
-                    ]
-                );
-                break;
-
-            //operations for "forceImport"
-            case "forceImport":
                 try {
-                    $day = $this->validDate($page, $formatedDate);
-                    $this->getPrice = new GetPrice($day);
-                    $importedPrices = $this->getPrice->downloadCSV($day);
-                    $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                    
-                    $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
-                
-                    $this->msg = "imported";
-                    $page = $this->request->setPostParam('page', 'prices');
-                    $this->appLogsModel->saveLog("manual", "forcedDownload ($formatedDate)", "correctly", 0);
-                    $this->run();
+                    $viewParams = ($this->priceModel->listPrice($formatedDate));
                 } catch (Throwable $e) {
                     $this->errorLogs->saveErrorLog(
                         $e->getFile() . " <br />line: " . $e->getLine(),
                         $e->getMessage()
                     );
-                    exit;
                 }
+
+                $this->view->render(
+                    $page, [
+                        'formatedDate' => $formatedDate, 
+                        'listPrices' => $viewParams
+                    ]
+                );
+
+                break;
+                
+            //operations for page "import"
+            case "import":
+                $this->validDate($page, $formatedDate);
+                $this->importPrices($page, $day, $formatedDate);
                 break;
 
             //operations for "forceDownload"
@@ -175,7 +135,6 @@ class Controller
                         $e->getFile() . " <br />line: " . $e->getLine(),
                         $e->getMessage()
                     );
-                    exit;
                 }
                 break;
 
@@ -225,6 +184,37 @@ class Controller
         }
     }
 
+    private function importPrices(string $page, string $day, string $formatedDate) : void {
+        $this->getPrice = new GetPrice($day);
+        $dataExist = (int) $this->priceModel->checkIsDataExist($formatedDate);
+
+        if ($dataExist) {
+            $viewParams['error'] = "dataExist";
+        } else {
+            $importedPrices = $this->getPrice->downloadCSV($day);
+            $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);                        
+            $pricesDataBase =  $this->priceModel->savePrice($pricesFromCsv);
+                if ((!empty($importedPrices)) && (!empty($pricesFromCsv)) && (!empty($pricesDataBase)) ) {
+                    $viewParams['error'] = "imported";
+                    $this->appLogsModel->saveLog("manual", "imported ($formatedDate)", "correctly", 0);
+                    $this->request->setPostParam('formatedDate', $formatedDate);
+                    $this->request->setPostParam('page', 'prices');
+                    $this->msg = "imported";
+                    $this->run();
+                } else {
+                    $viewParams['error'] = "noImported";
+                    $this->appLogsModel->saveLog("manual", "NOT imported ($formatedDate)", "problem occurred", 0);
+                }
+        }
+    
+        $this->view->render(
+            $page, 
+            [
+                'formatedDate' => $formatedDate,
+                'listPrices' => $viewParams
+            ]
+        );
+    }
 
     //method sets page-nr as first for unknow value od pageNr param
     private function validatePageNr(?string $pageNr, int $countData): int
@@ -244,9 +234,10 @@ class Controller
         $today = date("Y-m-d");
         if (!empty($formatedDate)) {
             if (
-                strtotime($formatedDate) < strtotime("2018-01-01") || strtotime($formatedDate) > strtotime($today)
+                strtotime($formatedDate) < strtotime("2018-01-01") 
+                || strtotime($formatedDate) > strtotime($today)
             ) {
-                $page = ($page == "forceDownload") ? "import": $page;
+                $page = ($page == "forceDownload") ? "import" : $page;
                 $page = ($page == "forceImport") ? "prices" : $page;
                 $viewParams['error'] = "wrongData";
                 $this->view->render(
@@ -256,7 +247,6 @@ class Controller
                         'listPrices' => $viewParams
                     ]
                 );
-                exit();
             } else {
                 $day = str_replace("-", "", $formatedDate);
             }

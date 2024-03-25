@@ -1,6 +1,15 @@
 <html lang="pl">
 
-<?php require_once("templates/header.php"); ?>
+<?php
+//stop session
+session_start();
+unset($_SESSION['userName']);
+unset($_SESSION['userId']);
+session_destroy();
+
+require_once("templates/header.php"); 
+
+?>
 
 	<body class="body">
 		<?php
@@ -9,9 +18,7 @@
 		?>
 
 		<!-- show login form -->
-		<div class="login">
 			<?php require_once("templates/loginForm.php"); ?>
-		</div>
   	</body>
 	
 </html>

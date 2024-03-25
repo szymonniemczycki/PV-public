@@ -18,11 +18,12 @@ class PriceModel extends AbstractModel
     public function listPrice(string $day): array
     {   
         try {
-            $sqlQuery = "SELECT `created`, `date`, DATE_FORMAT(`hour`, \"%H:%i\") as `hour`, `price` 
-                FROM `prices` 
-                WHERE date = " . $day . " 
-                ORDER BY hour
-                ";
+            $sqlQuery = "
+            SELECT `created`, `date`, DATE_FORMAT(`hour`, \"%H:%i\") as `hour`, `price` 
+            FROM `prices` 
+            WHERE date = \"" . $day . "\" 
+            ORDER BY hour
+            ";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
                 if (count($isExistAnyData) == 0) {
@@ -30,15 +31,16 @@ class PriceModel extends AbstractModel
                 } else {
                     $listPrices['prices'] = $isExistAnyData;
                 }
+            return $listPrices;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
+            exit();
         }
 
-        return $listPrices;
+
     }
 
     //method saving imported data with prices
@@ -50,7 +52,7 @@ class PriceModel extends AbstractModel
                     $sqlQuery = "
                         INSERT INTO `prices` (`date`, `hour`, `price`) 
                         VALUES (" . $data . ", " . $hour*10000 . ", " . $price . ")
-                        ";
+                    ";
                     $result = $this->conn->exec($sqlQuery);
                     }
                 }
@@ -59,7 +61,7 @@ class PriceModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
+            exit();
         }
 
         return (bool) $result; 
@@ -76,7 +78,7 @@ class PriceModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
+            exit();
         }
 
         return (bool) $result; 
@@ -86,10 +88,7 @@ class PriceModel extends AbstractModel
     public function checkIsDataExist(string $day): bool
     {
         try {
-            $sqlQuery = "
-                SELECT * FROM `prices`
-                WHERE `date` = " . $day . "
-                ";
+            $sqlQuery = "SELECT * FROM `prices` WHERE `date` = \"" . $day . "\"";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
             if (count($isExistAnyData) == 0) {
@@ -102,7 +101,7 @@ class PriceModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
+            exit();
         }            
     }
 

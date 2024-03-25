@@ -58,7 +58,11 @@ class UserModel extends AbstractModel
     {
         try {
             $now = date("Y-m-d H:i:s");
-            $sqlQuery = "UPDATE `users` SET `last_login` = '" . $now . "' WHERE name = '" . $name . "'";
+            $sqlQuery = "
+                UPDATE `users` 
+                SET `last_login` = '" . $now . "' 
+                WHERE name = '" . $name . "'
+            ";
             $result = $this->conn->query($sqlQuery);
             $userData = $result->fetch(PDO::FETCH_ASSOC);
             if (empty($userData)) {
@@ -71,7 +75,6 @@ class UserModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
         }
     }
 
@@ -82,14 +85,13 @@ class UserModel extends AbstractModel
             $sqlQuery = "
                 INSERT INTO `login_log` (`user_form`, `status`) 
                 VALUES ('" . $name . "', '" . $status . "')
-                ";
-                $result = $this->conn->exec($sqlQuery);
+            ";
+            $result = $this->conn->exec($sqlQuery);
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
         }
         
         return (bool) $result; 

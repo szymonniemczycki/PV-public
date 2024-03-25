@@ -95,7 +95,7 @@ class AbstractModel
             $sqlQuery = "
                 INSERT INTO `app_logs` (`log`, `status`, `info`, `user_id`) 
                 VALUES ('" . $log . "', '" . $status . "', '" . $info . "', '" . $usrId . "')
-                ";
+            ";
             $result = $this->conn->exec($sqlQuery);
             if (!$result) {
                 return false; 
@@ -113,5 +113,5 @@ class AbstractModel
         }
     }
 
-    
+
 }

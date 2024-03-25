@@ -19,13 +19,16 @@
                 echo 'Data already exists in the database!';
                 break;
             case 'dataimportedFromCsv':
-                echo 'Data inported from CSV';
+                echo 'Data imported from CSV';
                 break;
             case 'needToImport':
                 echo 'Need to import';
                 break;
             case 'imported':
                 echo 'Data imported from pse.pl';
+                break;
+            case 'noImported':
+                echo 'Data NOT imported from pse.pl';
                 break;
             case 'wrongHash':
                 echo 'Incorrect login data!';

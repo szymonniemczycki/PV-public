@@ -35,7 +35,7 @@ class AppLogModel extends AbstractModel
                 )
                 ORDER BY `app_logs`.`created` " . $params['sort'] . "
                 LIMIT " . $offset . ", " . $pageSize . "
-                ";
+            ";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $e) {
@@ -43,7 +43,6 @@ class AppLogModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
         }
 
         return $isExistAnyData;
@@ -61,7 +60,6 @@ class AppLogModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
         }
         $uniqueLogs = [];
         $uniqueLogs["all"] = "";
@@ -89,7 +87,7 @@ class AppLogModel extends AbstractModel
                     `app_logs`.`info` LIKE '%" . $params['phrase'] .  "%' OR 
                     `users`.`name` LIKE '%" . $params['phrase'] .  "%'
                 )
-                ";
+            ";
             $result = $this->conn->query($sqlQuery);
             $isExistAnyData = $result->fetch(PDO::FETCH_ASSOC);  
         } catch (Throwable $e) {
@@ -97,7 +95,6 @@ class AppLogModel extends AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-            exit;
         }
         $pageSize = self::PAGE_SIZE;
         $counLogs = $isExistAnyData['COUNT(log)'];
@@ -106,5 +103,5 @@ class AppLogModel extends AbstractModel
         return $countPage;
     }
 
-    
+
 }

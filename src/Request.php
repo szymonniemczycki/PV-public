@@ -37,5 +37,13 @@ class Request
         return $this->post[$name];
     }
 
+    //set value in class property
+    public function setGetParam(string $name, string $value = null)
+    {
+        $this->get[$name] = $value;
+        
+        return $this->get[$name];
+    }
+
 
 }

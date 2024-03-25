@@ -14,7 +14,7 @@
 			if (isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "noDataInDB") {
 				echo "
 					<input id='showPriceAgain' class='btn-cta-white' type='submit' value='Show price' />
-					<button class='btn-cta-green' type='submit' name='page' value='forceImport'>Import</button>
+					<button class='btn-cta-green' type='submit' name='page' value='import'>Import</button>
 				";
 			} else {
 				echo "<input id='showPrice' type='submit' value='Show price' />";
@@ -30,7 +30,7 @@ if (!empty($viewParams['listPrices']['error'])) {
 	$msg = $viewParams['listPrices']['error'];
 	require_once("templates/pages/showInfo.php");
 } elseif (empty($viewParams['listPrices']['error']) && !empty($viewParams['formatedDate'])) {
-	require_once("templates/pages/tables/table.php");
+	require_once("templates/pages/tables/tablePrices.php");
 }
 ?>
   

@@ -54,7 +54,6 @@ class GetPrice
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-           exit;
         }
         
         return $dayData;

@@ -38,6 +38,20 @@ class ErrorLogs
         header('Location: ./404.php');
     }
 
+    //method for save error-log without direct
+    public function saveErrorLogNoDirect(string $type, string $msg): void
+    {
+        error_log(
+            date("Y-m-d") . ";" .
+            date("H:i:s") . ";" .
+            $type . ";" .
+            $msg .
+            "\n",
+            3, 
+            self::ERROR_PATH
+        );
+    }
+
     //get errors items for listing
     public function getErrors(array $filterParams): array
     {            
