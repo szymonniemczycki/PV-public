@@ -77,19 +77,11 @@ class Controller
 
             //operations for page "prices"
             case "prices" :
-                $this->validDate($page, $formatedDate); 
                 if (!empty($this->msg)) {
                     $this->view->showInfo($this->msg);
                 }
-
-                try {
-                    $viewParams = ($this->priceModel->listPrice($formatedDate));
-                } catch (Throwable $e) {
-                    $this->errorLogs->saveErrorLog(
-                        $e->getFile() . " <br />line: " . $e->getLine(),
-                        $e->getMessage()
-                    );
-                }
+                $this->validDate($page, $formatedDate); 
+                $viewParams = ($this->priceModel->listPrice($formatedDate));
 
                 $this->view->render(
                     $page, [
@@ -108,64 +100,21 @@ class Controller
 
             //operations for "forceDownload"
             case "forceDownload":
-                try {
-                    $day = $this->validDate($page, $formatedDate);
-                    $this->getPrice = new GetPrice($day);
-
-                    $dataExist = (int) $this->priceModel->checkIsDataExist($day);
-                    $deletePriceFromDB = $dataExist ? (int) $this->priceModel->deletePrice($day) : 0;
-                    
-                    $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
-                    $deleteCsvFile = $csvExist ? $this->getPrice->deleteCSV($day) : 0;
-
-                    $importedPrices = $this->getPrice->downloadCSV($day);
-                    $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);  
-
-                    if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
-                        $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
-                    }
-
-                    $this->msg = "imported";
-                    $page = $this->request->setPostParam('page', 'prices');
-                    $this->appLogsModel->saveLog("manual", "updated ($formatedDate)", "correctly", 0);
-                    $this->run();
-
-                } catch (Throwable $e) {
-                    $this->errorLogs->saveErrorLog(
-                        $e->getFile() . " <br />line: " . $e->getLine(),
-                        $e->getMessage()
-                    );
-                }
+                $this->validDate($page, $formatedDate);
+                $this->forceDownload($page, $day, $formatedDate);
                 break;
 
             //preparing details for listing logs (from db-log)
             case "logs":
-                $sortOrder = $this->request->getParam('sort');
-                if (!in_array ($sortOrder, ["asc", "desc"])) {
-                    $sortOrder = "desc";
-                }
-
-                $params['logTypes'] = $this->appLogsModel->getUniqueLog();            
-                $params['filters']['log'] = $this->request->getParam('log');  
-                $params['filters']['date'] = $this->request->getParam('date');
-                $params['filters']['phrase'] = $this->request->getParam('phrase');
-                $params['filters']['sort'] = $sortOrder;
-                $params['filters']['pageNr'] = $this->request->getParam('pageNr');
-                $params['countPage'] = (int) $this->appLogsModel->getCountPage($params['filters']);
-                
-                $params['filters']['pageNr'] = $this->validatePageNr($params['filters']['pageNr'], $params['countPage']);
-                $params['logs'] = $this->appLogsModel->getListLogs($params['filters']);
-
+                $params = $this->getLogsParams();
                 $this->view->render("logs", $params);
-                break;  
+                break; 
+
 
             //preparing details for listing errors (from file-log)
             case "errors":
-                $params['filters']['date'] = $this->request->getParam('date');
-                $params['filters']['phrase'] = $this->request->getParam('phrase');
-                $params['filters']['sort'] = $this->request->getParam('sort');
-                $params['filters']['pageNr'] = $this->request->getParam('pageNr');
-        
+                $params = $this->getErrorsParams();
+
                 $this->errorLogs = new ErrorLogs();
                 $errors = $this->errorLogs->getErrors($params['filters']);
                 
@@ -184,7 +133,9 @@ class Controller
         }
     }
 
-    private function importPrices(string $page, string $day, string $formatedDate) : void {
+
+    private function importPrices(string $page, string $day, string $formatedDate) : void 
+    {
         $this->getPrice = new GetPrice($day);
         $dataExist = (int) $this->priceModel->checkIsDataExist($formatedDate);
 
@@ -215,6 +166,32 @@ class Controller
             ]
         );
     }
+
+
+    private function forceDownload(string $page, string $day, string $formatedDate): void
+    {
+        $this->getPrice = new GetPrice($day);
+
+        $dataExist = (int) $this->priceModel->checkIsDataExist($day);
+        $deletePriceFromDB = $dataExist ? (int) $this->priceModel->deletePrice($day) : 0;
+        
+        $csvExist = (int) $this->getPrice->checkIsCsvExist($day);
+        $deleteCsvFile = $csvExist ? $this->getPrice->deleteCSV($day) : 0;
+
+        $importedPrices = $this->getPrice->downloadCSV($day);
+        $pricesFromCsv = $this->getPrice->getPriceFromCSV($day);  
+
+        if ((!empty($importedPrices)) && (!empty($pricesFromCsv))) {
+            $pricesFromCsv = (int) $this->priceModel->savePrice($pricesFromCsv);
+        }
+
+        $this->msg = "imported";
+        $page = $this->request->setPostParam('page', 'prices');
+        $this->appLogsModel->saveLog("manual", "updated ($formatedDate)", "correctly", 0);
+        $this->run();
+
+    }
+
 
     //method sets page-nr as first for unknow value od pageNr param
     private function validatePageNr(?string $pageNr, int $countData): int
@@ -277,6 +254,40 @@ class Controller
         } else {
             return "";
         }
+    }
+
+
+    private function getLogsParams(): array
+    {
+        $sortOrder = $this->request->getParam('sort');
+        if (!in_array ($sortOrder, ["asc", "desc"])) {
+            $sortOrder = "desc";
+        }
+
+        $params['logTypes'] = $this->appLogsModel->getUniqueLog();            
+        $params['filters']['log'] = $this->request->getParam('log');  
+        $params['filters']['date'] = $this->request->getParam('date');
+        $params['filters']['phrase'] = $this->request->getParam('phrase');
+        $params['filters']['sort'] = $sortOrder;
+        $params['filters']['pageNr'] = $this->request->getParam('pageNr');
+        $params['countPage'] = (int) $this->appLogsModel->getCountPage($params['filters']);
+        
+        $params['filters']['pageNr'] = $this->validatePageNr($params['filters']['pageNr'], $params['countPage']);
+        $params['logs'] = $this->appLogsModel->getListLogs($params['filters']);
+
+        return $params;
+    }
+
+
+    private function getErrorsParams(): array
+    {
+        $params['filters']['date'] = $this->request->getParam('date');
+        $params['filters']['phrase'] = $this->request->getParam('phrase');
+        $params['filters']['sort'] = $this->request->getParam('sort');
+        $params['filters']['pageNr'] = $this->request->getParam('pageNr');
+
+        return $params;
+
     }
 
 
