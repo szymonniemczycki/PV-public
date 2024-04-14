@@ -2,5 +2,5 @@ resources/
 config/
 uuid.php
 .DS_Store
-logs/
+logs/error.txt
 README.md

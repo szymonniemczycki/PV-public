@@ -17,9 +17,9 @@ class ErrorLogs
     public function __construct(string $date = NULL) 
     {
         $this->view = new View();
-        if (empty(file_exists(self::ERROR_PATH))) {
+        if (!empty(file_exists(self::ERROR_PATH))) {
             fopen(self::ERROR_PATH, 'www') or die("Can't create file");
-            $this->view->render("404", []);
+            //$this->view->render("404", []);
         }
     }
 
