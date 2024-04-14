@@ -2,5 +2,5 @@ resources/
 config/
 uuid.php
 .DS_Store
-createPass.php
 logs/
+README.md

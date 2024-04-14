@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use PDO;
-use PDOException;
+//used classes
 use Throwable;
-use Exception;
-use Error;
 
 require_once("src/ErrorLogs.php");
 
@@ -23,21 +20,22 @@ class GetPrice
     private ErrorLogs $errorLogs;
     
 
-    public function __construct($date = NULL) {
+    public function __construct(string $date = NULL) {
         $this->errorLogs = new ErrorLogs();
     }
 
     //check is csv file exist
-    public function checkIsCsvExist($day): bool
+    public function checkIsCsvExist(string $day): bool
     {
         if (empty(file_exists(self::RESOURCES_PATH . $day . ".csv"))) {
             return false; 
         }
+        
         return true;
     }
 
-    //metgod for download csv file from external server
-    public function downloadCSV(int $day): string
+    //method for download csv file from external server
+    public function downloadCSV(string $day): string
     {
         try {
             $url = self::PSE_URL . $day;
@@ -56,50 +54,52 @@ class GetPrice
                 $e->getFile() . " <br />line: " . $e->getLine(),
                 $e->getMessage()
             );
-           exit;
         }
+        
         return $dayData;
     }
 
 
     //get Prices from CSV:
-    public function getPriceFromCSV($day): array
+    public function getPriceFromCSV(string $day): array
     {
         $filePath = self::RESOURCES_PATH . $day . ".csv";
         $filePath = fopen($filePath, "r");
         
-        if ($filePath !== false) {            
-            $pricesCollection[$day] = [];
+        if ($filePath !== false) {          
+            $pricesCollection = [];
             $firstRow = true;
             while (!feof($filePath)) {
                 $data = fgetcsv($filePath, 0 , ";");
                     if (!empty($data)) {
-                        if($firstRow) {
+                        if ($firstRow) {
                             $firstRow = false;
                             continue;
                         }
+                        $day_id = (int) $data[0];
+                        $hour = (int) $data[1];
                         $price = (float) (str_replace(',', '.', $data[2]));
-                        $pricesCollection[$data[0]] += [
-                            (int)$data[1] => $price,
-                        ];
+                        $pricesCollection[$hour] = $price;
                     }
             }
+            $pricesDayCollection[$day] = $pricesCollection;
         }
         fclose($filePath);
-        return $pricesCollection;
+
+        return $pricesDayCollection;
     }
 
     //delete price from CSV - needed for force download
-    public function deleteCSV($day): bool
+    public function deleteCSV(string $day): bool
     {
         $isFile = $this->checkIsCsvExist($day);
-        if($isFile) {
-            $path = self::RESOURCES_PATH . $day . ".csv";
-            unlink($path);
-            return true;
-        } else {
+        if (!$isFile) {
             return false;
         }
+        $path = self::RESOURCES_PATH . $day . ".csv";
+        unlink($path);
+
+        return true;
     }
 
     

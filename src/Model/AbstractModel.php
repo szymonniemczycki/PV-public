@@ -4,31 +4,34 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Exception\AppException;
-use App\Exception\NotFoundException;
-use App\Exception\StorageException;
-use App\Exception;
+//used classes
 use Throwable;
 use PDO;
 use PDOException;
 use App\ErrorLogs;
 
+/**
+ * @method __construct($config)
+ * @method bool validateConfig(array $config)
+ * @method bool createConnection(array $config)
+ * @method bool saveLog(string $log, string $status, string $info, int $show)
+ * 
+ */
 class AbstractModel 
 {
     protected ErrorLogs $errorLogs;
     protected PDO $conn;
-    protected $configuration = [];
     public bool $status;
 
 
-    public function __construct($config)
+    public function __construct(array $config)
     {
         $this->errorLogs = new ErrorLogs();
         try {
-            //validdate config file with acces to DB
+            //validate config file with access to DB
             $this->status = $validateConfig = $this->validateConfig($config);
             if ($validateConfig) {
-                //if cofig file is correctly and not missing data, then create connection
+                //if config file is correctly and not missing data, then create connection
                 $this->status = $this->createConnection($config);
             }
         } catch (PDOException $e) {
@@ -50,10 +53,9 @@ class AbstractModel
                 || empty($config['password'])
             ) {
                 return false;
-                //throw new Throwable('Division by zero.');
-            } else {
-                return true;
             }
+
+            return true;
         } catch (Throwable $e) {
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(), 
@@ -78,29 +80,31 @@ class AbstractModel
                 $e->getFile() . " <br />line: " . $e->getLine(), 
                 $e->getMessage()
             );
+
             return false;
         }
+
         return true;
     }
 
     //method for saving logs - all issues occured will be saved in error file log
     public function saveLog(string $log, string $status, string $info, int $show): bool 
     {
-        $usrId = (!empty($_SESSION['userId'])) ? $_SESSION['userId'] : 0;
+        $usrId = (!empty($_SESSION['userId'])) ? $_SESSION['userId'] : 1;
         try {
             $sqlQuery = "
-                INSERT INTO app_logs (log, status, info, user_id) 
-                VALUES ('$log', '$status', '$info', '$usrId')
-                ";
+                INSERT INTO `app_logs` (`log`, `status`, `info`, `user_id`) 
+                VALUES ('" . $log . "', '" . $status . "', '" . $info . "', '" . $usrId . "')
+            ";
             $result = $this->conn->exec($sqlQuery);
-            if ($result) {
-                if ($show) {
-                    dump($status . " - " . $info);
-                }
-                return true; 
-            } else {
-                return "";
+            if (!$result) {
+                return false; 
             }
+            if ($show) {
+                dump($status . " - " . $info);
+            }
+            
+            return true;
         } catch (Throwable $e) {               
             $this->errorLogs->saveErrorLog(
                 $e->getFile() . " <br />line: " . $e->getLine(),
@@ -109,5 +113,5 @@ class AbstractModel
         }
     }
 
-    
+
 }

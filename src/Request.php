@@ -18,22 +18,31 @@ class Request
     }
 
     //keep value from get param in class property
-    public function getParam(string $name, $default = null)
+    public function getParam(string $name, string $default = null)
     {
         return $this->get[$name] ?? $default;
     }
 
     //keep value from post param in class property
-    public function postParam(string $name, $default = null)
+    public function postParam(string $name, string $default = null)
     {
         return $this->post[$name] ?? $default;
     }
     
     //set value in class property
-    public function setPostParam(string $name, $value = null)
+    public function setPostParam(string $name, string $value = null)
     {
         $this->post[$name] = $value;
+        
         return $this->post[$name];
+    }
+
+    //set value in class property
+    public function setGetParam(string $name, string $value = null)
+    {
+        $this->get[$name] = $value;
+        
+        return $this->get[$name];
     }
 
 

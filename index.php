@@ -1,27 +1,35 @@
 <?php
 declare(strict_types=1);
 
-
 session_start();
-
 //check if session exist
 if (empty($_SESSION['userName'])) {
 	header("Location: ./login.php");
 } 
 
+include_once("templates/checkActivity.php");
+
 //generete path for used Classes
-spl_autoload_register(function (string $classNamespace) {
+spl_autoload_register(function(string $classNamespace) {
 	$path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
-	$path = "src/$path.php";
+	$path = "src/" . $path . ".php";
 	require_once($path);
 });
 
 require_once("src/Utils/debug.php");  
-$configuration = require_once("config/config.php");
+
+//get db configuration data
+try {
+	$configuration = require_once("config/config.php");
+} catch (Error $e) { 
+	$errorLogs->saveErrorLog(
+		$e->getFile() . " <br />line: " . $e->getLine(),
+		$e->getMessage()
+	);
+  	header('Location: ./404.php');
+}
 
 //used Classed
-use App\Exception\AppException;
-use App\Exception\ConfigurationException;
 use App\Controller;
 use App\Request;
 use App\Model\PriceModel;
@@ -42,7 +50,7 @@ try {
 		$e->getFile() . " <br />line: " . $e->getLine(),
 		$e->getMessage()
 	);
-	header("Location: ./?page=404");
+	header("Location: ./404.php");
 }
 
 ?>
