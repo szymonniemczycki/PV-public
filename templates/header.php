@@ -6,7 +6,7 @@
     <link href="./csstemplate/style.css" rel="stylesheet">
     <?php
         if (!empty($_SESSION['userName'])) {
-            echo '<meta http-equiv="refresh" content="61">';
+            echo '<meta http-equiv="refresh" content="301">';
         } 
     ?>
 </head>

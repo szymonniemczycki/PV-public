@@ -2,7 +2,7 @@
 session_start();
 
 // set the inactivity time - required in seconds
-$inactivity_time = 1 * 60;
+$inactivity_time = 5 * 60;
 
 // check if the last_timestamp is set
 if (isset($_SESSION['last_timestamp']) && (time() - $_SESSION['last_timestamp']) > $inactivity_time) {
