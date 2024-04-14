@@ -6,14 +6,14 @@ namespace App;
 require_once("src/ErrorLogs.php");
 require_once("src/View.php");
 
+//for save error logs in file
 class ErrorLogs 
 {
     private const ERROR_PATH = "logs/errors.txt";
-
-    private View $view;
     private const PAGE_SIZE = 10;
+    private View $view;
 
-    
+    //create handle to save logs
     public function __construct(string $date = NULL) 
     {
         $this->view = new View();
@@ -23,7 +23,7 @@ class ErrorLogs
         }
     }
 
-
+    //method for save error-log
     public function saveErrorLog(string $type, string $msg): void
     {
         error_log(
@@ -34,21 +34,33 @@ class ErrorLogs
             "\n",
             3, 
             self::ERROR_PATH
-            );
-        $this->view->render("404", []);
+        );
+        header('Location: ./404.php');
     }
 
+    //method for save error-log without direct
+    public function saveErrorLogNoDirect(string $type, string $msg): void
+    {
+        error_log(
+            date("Y-m-d") . ";" .
+            date("H:i:s") . ";" .
+            $type . ";" .
+            $msg .
+            "\n",
+            3, 
+            self::ERROR_PATH
+        );
+    }
 
+    //get errors items for listing
     public function getErrors(array $filterParams): array
     {            
         $filterParams = $this->view->escape($filterParams);
         $dataFromFile = $this->getErrorData();
-        $filterParams['pageNr'] = $this->validatePageNr($filterParams['pageNr'], sizeof($dataFromFile));
-        
-        $dataFromFile = $this->sortErrorData($dataFromFile, $filterParams['sort']);
-        $dataFromFile = $this->filterByDate($dataFromFile, $filterParams['date']);
-        $dataFromFile = $this->filterBySearch($dataFromFile, $filterParams['phrase']);
-        $dataFromFilePag = $this->paginationErrorData($dataFromFile, self::PAGE_SIZE, $filterParams['pageNr']);
+        $filterParams['pageNr'] = $this->validatePageNr($filterParams['pageNr'], count($dataFromFile));
+
+        $filteredData = $this->filterData($dataFromFile, $filterParams);
+        $dataFromFilePag = $this->paginationErrorData($filteredData, self::PAGE_SIZE, $filterParams['pageNr']);
         
         $errorData['filters'] = $filterParams;
         $errorData['errors'] = $dataFromFilePag;
@@ -56,17 +68,18 @@ class ErrorLogs
         return $errorData;
     }
 
-
+    //validate page number from URL
     private function validatePageNr(?string $pageNr, int $countData): int
     {
         $pageNr = (int) $pageNr;
         if ($pageNr > $countData || $pageNr < 0) {
             $pageNr = 1;
         }
+        
         return $pageNr;
     }
 
-
+    //get all items form file
     private function getErrorData(): array
     {
         $rowFile = [];
@@ -75,42 +88,28 @@ class ErrorLogs
             $rowData = fgets($handle);
             if ($rowData) {
                 $row = explode(";", $rowData);
-                if(strpos($row[0], "\n") !== FALSE || sizeof($row) != 4) {
+                if (strpos($row[0], "\n") !== FALSE || count($row) != 4) {
                     continue;
                 }
                 array_push($rowFile, $row);
             }
         }
         fclose($handle);
+        
         return $rowFile;
     }
 
-
-    private function getAllTypes(array $data): array
+    //filter data
+    private function filterData(array $filteredData, array $filterParams): ?array
     {
-        $types = [];
-            foreach ($data as $key => $value) {    
-                array_push($types, $data[$key][0]);
-            }
-        return array_values(array_unique($types));
-    }
+        $filteredData = $this->sortErrorData($filteredData, $filterParams['sort']);
+        $filteredData = $this->filterByDate($filteredData, $filterParams['date']);
+        $filteredData = $this->filterBySearch($filteredData, $filterParams['phrase']);
 
-
-    private function filterByType(array $data, ?string $filterType): array
-    {
-        if ($filterType === "all" || $filterType === NULL || empty($filterType)) {
-            return $data;
-        }
-        $filteredData = [];
-        foreach ($data as $key => $value) {    
-            if($data[$key][0] === $filterType) {
-                array_push($filteredData, $data[$key]);
-            }
-        }
         return $filteredData;
     }
 
-
+    //get error items filtered by Date
     private function filterByDate(array $data, ?string $filterDate): array
     {
         if ($filterDate === "" || $filterDate === NULL) {
@@ -118,14 +117,15 @@ class ErrorLogs
         }
         $filteredData = [];
         foreach ($data as $key => $value) {
-            if($data[$key][0] === $filterDate) {
+            if ($data[$key][0] === $filterDate) {
                 array_push($filteredData, $data[$key]);
             }
         }
+
         return $filteredData;
     }
 
-
+    //get error items filtered by search
     private function filterBySearch(array $data, ?string $filterSearch): array
     {
         if ($filterSearch === "" || $filterSearch === NULL) {
@@ -133,16 +133,17 @@ class ErrorLogs
         }
         $searchData = [];
         foreach ($data as $key => $value) {    
-            if(str_contains(strtolower($data[$key][2]), strtolower($filterSearch))) {
+            if (str_contains(strtolower($data[$key][2]), strtolower($filterSearch))) {
                 array_push($searchData, $data[$key]);
             } elseif (str_contains(strtolower($data[$key][3]), strtolower($filterSearch))) {
                 array_push($searchData, $data[$key]);
             }
         }
+        
         return $searchData;
     }
 
-
+    //sort error items - order by lines in file
     private function sortErrorData(array $data, ?string $sortOrder): array
     {
         if (!in_array($sortOrder, ["asc", "desc"])) {
@@ -156,7 +157,7 @@ class ErrorLogs
         }
     }
     
-    
+    //method for creating array with pagination data (2-level array - 1st level it's number of page, 2nd level it's items for page) 
     private function paginationErrorData(array $data, int $pageSize, int $pageNrUrl): array
     {
         if (empty($data)) {
@@ -164,14 +165,15 @@ class ErrorLogs
         }
         $pageNr = 0;
         
-        for ($i=0; $i < sizeof($data); $i++) {
+        for ($i=0; $i < count($data); $i++) {
             array_unshift($data[$i], $i);
-            if($i % $pageSize == 0) {
+            if ($i % $pageSize == 0) {
                 $pageNr++;
                 $paginationData[$pageNr] = [];
             }
             array_push($paginationData[$pageNr], $data[$i]);
         }
+        
         return $paginationData;
     }
 

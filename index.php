@@ -1,57 +1,56 @@
 <?php
 declare(strict_types=1);
 
-
 session_start();
-
+//check if session exist
 if (empty($_SESSION['userName'])) {
-  header("Location: ./login.php");
+	header("Location: ./login.php");
 } 
 
-spl_autoload_register(function (string $classNamespace) {
-  $path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
-  $path = "src/$path.php";
-  require_once($path);
+include_once("templates/checkActivity.php");
+
+//generete path for used Classes
+spl_autoload_register(function(string $classNamespace) {
+	$path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
+	$path = "src/" . $path . ".php";
+	require_once($path);
 });
 
 require_once("src/Utils/debug.php");  
-$configuration = require_once("config/config.php");
 
-use App\Exception\AppException;
-use App\Exception\ConfigurationException;
+//get db configuration data
+try {
+	$configuration = require_once("config/config.php");
+} catch (Error $e) { 
+	$errorLogs->saveErrorLog(
+		$e->getFile() . " <br />line: " . $e->getLine(),
+		$e->getMessage()
+	);
+  	header('Location: ./404.php');
+}
+
+//used Classed
 use App\Controller;
 use App\Request;
 use App\Model\PriceModel;
+use App\ErrorLogs;
+use App\View;
 
+//create new objects
 $request = new Request($_GET, $_POST);
+$errorLogs = new ErrorLogs();
+$view = new View();
 
+//start render webpage - begginig of application
 try {
-  Controller::initConfiguration($configuration);
-  (new Controller($request))->run();   
-} catch (ConfigurationException $e) {
-  echo '<h1>Wystąpił błąd w aplikacji. </h1>';
-  echo '<h3>ConfigurationException</h3>';
-  dump($e);
-} catch (StorageException $e) {
-  echo '<h1>Wystąpił błąd w aplikacji. </h1>';
-  echo '<h3>StorageException</h3>';
-  dump($e);
-} catch (NotFoundException $e) {
-  echo '<h1>Wystąpił błąd w aplikacji. </h1>';
-  echo "<h3>NotFoundException</h3>";
-  dump($e);
-} catch (AppException $e) {
-  echo '<h1>Wystąpił błąd w aplikacji. </h1>';
-  echo "<h3>AppException</h3>";
-  dump($e);
-} catch (PDOException $e) {
-  echo '<h1>Wystąpił błąd w aplikacji. </h1>';
-  echo "<h3>PDOException</h3>";
-  dump($e);
-} catch (Exception $e) {
-  echo '<h1>Wystąpił błąd w aplikacji.... </h1>';
-  echo "<h3>Exception</h3>";
-  dump($e);
+	Controller::initConfiguration($configuration);
+	(new Controller($request))->run();   
+} catch (Throwable $e) {
+	$errorLogs->saveErrorLog(
+		$e->getFile() . " <br />line: " . $e->getLine(),
+		$e->getMessage()
+	);
+	header("Location: ./404.php");
 }
-  
-  ?>
+
+?>

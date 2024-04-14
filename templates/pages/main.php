@@ -1,3 +1,5 @@
 <div class="content">
-    <p>Dzień dobry, <?php echo $_SESSION['userName']; ?>!<br /></p>
+    <p>Hello, <?php echo $_SESSION['userName']; ?>!</p>
+     <p>(id: <?php echo $_SESSION['userId']; ?>)</p>
+</p>
 </div>

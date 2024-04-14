@@ -1,41 +1,48 @@
 <section>
     <div class="infoMessage">
         <?php
-            switch ($msg) {
-                case 'noDataInDB':
-                    echo 'Brak danych w Bazie Danych!';
-                    break;
-                case 'wrongData':
-                    echo 'Niepoprawna data!';
-                    break;
-                case 'emptyform':
-                    echo 'Brak danych w formularzu!';
-                    break;
-                case 'dateToShort':
-                    echo 'Niepoprawny format daty';
-                    break;
-                case 'dataExist':
-                    echo 'Dane istnieją juz bazie!';
-                    break;
-                case 'dataimportedFromCsv':
-                    echo 'Dane zaimportowane z CSV';
-                    break;
-                case 'needToImport':
-                    echo 'Trzeba importować';
-                    break;
-                case 'imported':
-                    echo 'Dane poprawnie zaimportowane z pse.pl';
-                    break;
-                case 'wrongHash':
-                    echo 'Niepoprawne dane do logowania!';
-                    break;
-                case 'noHash':
-                    echo 'Podaj dane do logowania!';
-                    break;
-                default:
-                    echo 'Nieznany błąd...';
-                    break;
-            }
+        //possible messagse to display
+        switch ($msg) {
+            case 'noDataInDB':
+                echo 'No data in the database!';
+                break;
+            case 'wrongData':
+                echo 'Incorrect date!';
+                break;
+            case 'emptyform':   
+                echo 'No data in the form!';
+                break;
+            case 'dateToShort':
+                echo 'Incorrect date format!';
+                break;
+            case 'dataExist':
+                echo 'Data already exists in the database!';
+                break;
+            case 'dataimportedFromCsv':
+                echo 'Data imported from CSV';
+                break;
+            case 'needToImport':
+                echo 'Need to import';
+                break;
+            case 'imported':
+                echo 'Data imported from pse.pl';
+                break;
+            case 'noImported':
+                echo 'Data NOT imported from pse.pl';
+                break;
+            case 'wrongHash':
+                echo 'Incorrect login data!';
+                break;
+            case 'noHash':
+                echo 'Enter login data!';
+                break;
+            case 'appProblem':
+                echo 'Any problem with App';
+                break;
+            default:
+                echo 'Unknown error...';
+                break;
+        }
         ?>
     </div>
 </section>
