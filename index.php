@@ -2,11 +2,12 @@
 declare(strict_types=1);
 
 session_start();
-
 //check if session exist
 if (empty($_SESSION['userName'])) {
 	header("Location: ./login.php");
 } 
+
+include_once("templates/checkActivity.php");
 
 //generete path for used Classes
 spl_autoload_register(function(string $classNamespace) {

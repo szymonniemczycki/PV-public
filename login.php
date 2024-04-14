@@ -6,7 +6,7 @@ session_start();
 //check if session exist
 if (!empty($_SESSION['userName'])) {
 	header("Location: ./");
-} 
+}
 
 require_once("src/Utils/debug.php");  
 
