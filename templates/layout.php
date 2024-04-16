@@ -17,11 +17,14 @@
 			<div class="container">
 				<div class="menu">
 					<ul>
-						<li><a <?php echo $active = ($page=="main") ? 'class="active"' : null; ?> href="./">Main</a></li>
-						<li><a <?php echo $active = ($page=="prices") ? 'class="active"' : null; ?> href="./?page=prices">Prices</a></li>
-						<li><a <?php echo $active = ($page=="import") ? 'class="active"' : null; ?> href="./?page=import">Import</a></li>
-						<li><a <?php echo $active = ($page=="logs") ? 'class="active"' : null; ?> href="./?page=logs">Logs</a></li>
-						<li><a <?php echo $active = ($page=="errors") ? 'class="active"' : null; ?> href="./?page=errors">Errors</a></li>
+						<?php
+							$menuItem = ["main"=>"Main", "prices"=>"Prices", "import"=>"Import", "logs"=>"Logs", "errors"=>"Errors"];
+							foreach ($menuItem as $id => $item) {
+								if (in_array($id, $userPerm)) {
+									echo "<li><a " . ($active = ($page==$id) ? 'class="active"' : null) . " href='./?page=".$id."'>" . $item . "</a></li>";
+								}
+							}
+						?> 
 					</ul>
 				</div>
 

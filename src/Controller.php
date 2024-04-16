@@ -9,6 +9,7 @@ use Throwable;
 use PDOException;
 use App\Model\AppLogModel;
 use App\Model\PriceModel;
+use App\Model\UserModel;
 
 //general controler - core of application
 class Controller 
@@ -18,6 +19,7 @@ class Controller
 
     private AppLogModel $appLogsModel;
     private PriceModel $priceModel;
+    private UserModel $userModel;
     private Request $request;
     private View $view;
     private GetPrice $getPrice;
@@ -25,6 +27,7 @@ class Controller
 
     private int $day;
     private string $msg = "";
+    private array $userPerm = [];
 
 
     //check configuration data and create new objects
@@ -34,6 +37,7 @@ class Controller
         try {
             $this->priceModel = new PriceModel(self::$configuration['db']);
             $this->appLogsModel = new AppLogModel(self::$configuration['db']);
+            $this->userModel = new UserModel(self::$configuration['db']);
             $this->request = $request;
             $this->view = new View();
             $this->errorLogs = new ErrorLogs();
@@ -64,17 +68,23 @@ class Controller
         }
         
         //"formatedDate" - it's transformed date catched from csv (pse.pl) - there is without separators
-        
         $formatedDate = $this->request->postParam('formatedDate');
         if (!empty($formatedDate)) {
             $day = str_replace("-", "", $formatedDate);
         } else {
             $day = null;
         }
-        
-        //depended of ?page param - page will display
-        switch($page) {
 
+        //get permissions for User
+        $this->userPerm = $this->userModel->getUserPermissions($_SESSION['userId']);
+
+        //restrict permisions = don't allow to open page without permission
+        if(!(in_array($page, $this->userPerm))) {
+            header('Location: ./');
+        }
+
+        //depended of 'page' param - page will display
+        switch($page) {
             //operations for page "prices"
             case "prices" :
                 if (!empty($this->msg)) {
@@ -87,7 +97,8 @@ class Controller
                     $page, [
                         'formatedDate' => $formatedDate, 
                         'listPrices' => $viewParams
-                    ]
+                    ],
+                    $this->userPerm
                 );
 
                 break;
@@ -107,7 +118,7 @@ class Controller
             //preparing details for listing logs (from db-log)
             case "logs":
                 $params = $this->getLogsParams();
-                $this->view->render("logs", $params);
+                $this->view->render("logs", $params, $this->userPerm);
                 break; 
 
 
@@ -118,17 +129,17 @@ class Controller
                 $this->errorLogs = new ErrorLogs();
                 $errors = $this->errorLogs->getErrors($params['filters']);
                 
-                $this->view->render("errors", $errors);
+                $this->view->render("errors", $errors, $this->userPerm);
                 break;  
 
             //show 404 page
             case "404":
-                $this->view->render("404", []);
+                $this->view->render("404", [], $this->userPerm);
                 break;
 
             //for other, unknow parametr of "page"
             default:
-                $this->view->render("main", []);
+                $this->view->render("main", [], $this->userPerm);
                 break;
         }
     }
@@ -163,7 +174,8 @@ class Controller
             [
                 'formatedDate' => $formatedDate,
                 'listPrices' => $viewParams
-            ]
+            ],
+            $this->userPerm
         );
     }
 
@@ -222,7 +234,8 @@ class Controller
                     [
                         'formatedDate' => $formatedDate,
                         'listPrices' => $viewParams
-                    ]
+                    ],
+                    $this->userPerm
                 );
             } else {
                 $day = str_replace("-", "", $formatedDate);
@@ -232,7 +245,8 @@ class Controller
                 $page,
                 [
                     'formatedDate' => $formatedDate,
-                ]
+                ],
+                $this->userPerm
             );
             exit();
         }

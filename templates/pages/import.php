@@ -11,7 +11,7 @@
     	<li>
       		<?php
 			//show button/s
-			if (isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "dataExist") {
+			if (isset($viewParams['listPrices']['error']) && $viewParams['listPrices']['error'] == "dataExist" && (in_array("forceDownload", $userPerm))) {
 				echo "
 					<button class='btn-cta-green' type='submit' name='page' value='prices'>Show Prices</button>
 					<button class='btn-cta-white' type='submit' name='page' value='forceDownload'>Overwrite</button>
