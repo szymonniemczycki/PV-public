@@ -6,6 +6,7 @@ session_start();
 //check if session exist
 if (!empty($_SESSION['userName'])) {
 	header("Location: ./");
+	exit();
 }
 
 require_once("src/Utils/debug.php");  
@@ -32,7 +33,7 @@ try {
 		$e->getFile() . " <br />line: " . $e->getLine(),
 		$e->getMessage()
 	);
-  	header('Location: ./404.php');
+	header('Location: ./404.php');
 }
 
 //check data from forms are filled

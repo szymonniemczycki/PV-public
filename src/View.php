@@ -8,7 +8,7 @@ class View
 {
 
     //method to render layout of web-page
-    public function render(string $page, array $viewParams = []): void 
+    public function render(string $page, array $viewParams, array $userPerm): void 
     {
         include_once("templates/layout.php");
     }
@@ -42,6 +42,5 @@ class View
         
         return $clearParams;
     }
-
 
 }
