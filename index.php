@@ -5,7 +5,10 @@ session_start();
 //check if session exist
 if (empty($_SESSION['userName'])) {
 	header("Location: ./login.php");
+	exit();
 } 
+
+//dump("ooo");
 
 include_once("templates/checkActivity.php");
 
